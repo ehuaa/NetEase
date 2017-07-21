@@ -17,4 +17,10 @@ from netStream import NetStream
 from simpleHost import SimpleHost
 from timer import TimerManager
 
+host = SimpleHost()
+host.startup(2000)
+
+while 1:
+    host.process();
+
 
