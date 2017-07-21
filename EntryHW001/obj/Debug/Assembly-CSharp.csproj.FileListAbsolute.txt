@@ -32,3 +32,6 @@ D:\Programs\Unity3D\EntryHW001\Temp\bin\Debug\UnityEngine.VR.xml
 D:\Programs\Unity3D\EntryHW001\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 D:\Programs\Unity3D\EntryHW001\obj\Debug\Assembly-CSharp.dll
 D:\Programs\Unity3D\EntryHW001\obj\Debug\Assembly-CSharp.pdb
+D:\GitHub\NetEase\EntryHW001\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+D:\GitHub\NetEase\EntryHW001\obj\Debug\Assembly-CSharp.dll
+D:\GitHub\NetEase\EntryHW001\obj\Debug\Assembly-CSharp.pdb

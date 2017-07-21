@@ -46,9 +46,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\scripts\LoginScene\LoginManager.cs" />
      <Compile Include="Assets\scripts\Manager\EnemyManager.cs" />
      <Compile Include="Assets\scripts\Manager\GameOverManager.cs" />
      <Compile Include="Assets\scripts\Manager\ScoreManager.cs" />
+     <Compile Include="Assets\scripts\NetworkManager\NetworkMsgSendCenter.cs" />
+     <Compile Include="Assets\scripts\NetworkManager\NetworkSocket.cs" />
      <Compile Include="Assets\scripts\camera\CameraFollower.cs" />
      <Compile Include="Assets\scripts\enemy\EnemyAttack.cs" />
      <Compile Include="Assets\scripts\enemy\EnemyHealth.cs" />

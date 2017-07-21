@@ -1,0 +1,20 @@
+# -*- coding: GBK -*-
+
+import unittest
+import sys
+import cPickle
+import time
+
+sys.path.append('..')
+sys.path.append('../common')
+sys.path.append('../network')
+sys.path.append('../common_server')
+
+import conf
+from events import MsgCSLogin, MsgCSMoveto
+from dispatcher import Service, Dispatcher
+from netStream import NetStream
+from simpleHost import SimpleHost
+from timer import TimerManager
+
+
