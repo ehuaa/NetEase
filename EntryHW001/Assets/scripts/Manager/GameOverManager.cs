@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour {
     public PlayerHealth playerHealth;
@@ -19,11 +20,10 @@ public class GameOverManager : MonoBehaviour {
         if (playerHealth.currentHealth <= 0)
         {
             anim.SetTrigger("GameOver");
-            restartTimer += Time.deltaTime;
-            Debug.Log("eneter");
+            restartTimer += Time.deltaTime;            
             if (restartTimer >= restartDelay)
             {
-                //Application.LoadLevel(Application.loadedLevel);
+                SceneManager.LoadScene("mainscene");
             }
         }
     }

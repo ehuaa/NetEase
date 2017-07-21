@@ -46,6 +46,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\scripts\Manager\EnemyManager.cs" />
+     <Compile Include="Assets\scripts\Manager\GameOverManager.cs" />
      <Compile Include="Assets\scripts\Manager\ScoreManager.cs" />
      <Compile Include="Assets\scripts\camera\CameraFollower.cs" />
      <Compile Include="Assets\scripts\enemy\EnemyAttack.cs" />
@@ -56,7 +58,7 @@
      <Compile Include="Assets\scripts\player\PlayerShooting.cs" />
      <None Include="Assets\Fonts\LuckiestGuy\LICENSE.txt" />
  <Reference Include="Facebook.Unity.Settings">
- <HintPath>D:/Programs/Unity3D/EntryHW001/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+ <HintPath>D:/GitHub/NetEase/EntryHW001/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
