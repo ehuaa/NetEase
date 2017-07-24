@@ -80,12 +80,20 @@ public class NetworkSocket : MonoBehaviour {
         }
     }
 
+    public BinaryWriter GetWriteSocket()
+    {
+        if (!socket_ready)
+        {
+            return null;
+        }
+
+        return this.socket_writer_binary;
+    }
+
     public void writeSocket(string line)
     {
         if (!socket_ready)
             return;
-
-        Debug.Log("Sending Message:" + line);
 
         byte[] data = System.Text.Encoding.Default.GetBytes(line);
 

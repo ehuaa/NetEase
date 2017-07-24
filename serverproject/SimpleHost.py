@@ -6,21 +6,31 @@ import time
 import struct
 
 sys.path.append('./common')
+sys.path.append('./network')
 
 import conf
+from simpleHost import SimpleHost
+from MsgCommon import MsgCSLogin
 
 class SimpleServer(object):
     def __init__(self):
         super(SimpleServer, self).__init__()
+        self.host = SimpleHost()
         return
 
     def commondExtract(self, data):
         try:
-            l,r = struct.unpack('<i6s', data)
-        except:
-            raise
+            cm = data[0:4]
+            cmdcode = struct.unpack('<i', cm)[0]
 
-        return l,r
+            if cmdcode == conf.MSG_CS_LOGIN:
+                msg = MsgCSLogin(data[4:])
+                return msg
+            elif cmdcode == conf.MSG_CS_LOGOUT:
+                return None
+
+        except:
+            return None
 
     def startServer(self):
         

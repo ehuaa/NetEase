@@ -37,13 +37,18 @@ public class LoginManager : MonoBehaviour {
 
     //Login function : The real login action
     void login(string username, string password)
-    {
-        if (userName.text =="" || passWord.text == "")
-        {
-            //Sending message to notify the user that username or password is empty.
+    {      
+        if (username =="" || password == "")
+        {            
             this.networkSocket.writeSocket("Hello!");
             return;
         }
+
+        
+        Debug.Log("Sending Message:" +username+" "+password);
+        MsgCSLogin msg = new MsgCSLogin(username, password);
+
+        msg.WriteSocket(networkSocket);
         
         return;
     }
