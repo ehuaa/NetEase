@@ -11,6 +11,7 @@ MSG_SC_TIMER = 0x1007 # Reset timer for the next wave of enemies
 MSF_SC_ENEMY_DONE = 0x1008 # Enemy arrive the destination
 MSG_SC_ACTOR_UPGRADE = 0x1009
 MSG_SC_MONEY=0x100a # Update money value
+MSG_SC_SCENE_LOAD=0x100b # Load entities
 
 MSG_CS_LOGIN = 0x2001
 MSG_CS_LOGOUT = 0x2002
