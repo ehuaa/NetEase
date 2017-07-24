@@ -8,7 +8,15 @@ public class LoginManager : MonoBehaviour {
 
     public InputField userName;
     public InputField passWord;
+    NetworkSocket networkSocket;
+    GameObject networkManager;
 
+    void Awake()
+    {
+        networkManager = GameObject.FindGameObjectWithTag("NetworkManager");
+        networkSocket = this.networkManager.GetComponent<NetworkSocket>();
+    }
+        
     //Go to the mainscene
     void ChangeScene()
     {
@@ -33,6 +41,7 @@ public class LoginManager : MonoBehaviour {
         if (userName.text =="" || passWord.text == "")
         {
             //Sending message to notify the user that username or password is empty.
+            this.networkSocket.writeSocket("Hello!");
             return;
         }
         

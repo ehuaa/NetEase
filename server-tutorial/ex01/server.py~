@@ -12,6 +12,6 @@ while True:
     clientsocket,addr=serversocket.accept()
 
     print("Got a connection from %s" % str(addr))
-    currentTime = time.ctime(time.time())+"\r\n"
+    currentTime = "This message is from sai"
     clientsocket.send(currentTime.encode('ascii'))
     clientsocket.close();

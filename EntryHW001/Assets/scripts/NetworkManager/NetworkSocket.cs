@@ -9,7 +9,7 @@ using System.Net.Sockets;
 public class NetworkSocket : MonoBehaviour {
 
     public String host = "localhost";
-    public Int32 port = 50000;
+    public Int32 port = 5001;
 
     internal Boolean socket_ready = false;
     internal String input_buffer = "";
@@ -18,6 +18,10 @@ public class NetworkSocket : MonoBehaviour {
 
     StreamWriter socket_writer;
     StreamReader socket_reader;
+
+    BinaryWriter socket_writer_binary;
+    BinaryReader socket_reader_binary;
+    
 
     public static NetworkSocket instance = null;
 
@@ -34,29 +38,14 @@ public class NetworkSocket : MonoBehaviour {
         //Keep the Network Manager alive when change scene.
         DontDestroyOnLoad(transform.gameObject);
 
-        //setupSocket();
+        setupSocket();
     }
     
 
     void Update()
     {
         string received_data = readSocket();
-        string key_stroke = Input.inputString;
-
-        // Collects keystrokes into a buffer
-        if (key_stroke != ""){
-            input_buffer += key_stroke;
-
-            if (key_stroke == "\n"){
-            	// Send the buffer, clean it
-            	Debug.Log("Sending: " + input_buffer);
-            	writeSocket(input_buffer);
-            	input_buffer = "";
-            }
-
-        }
-
-
+        
         if (received_data != "")
         {
         	// Do something with the received data,
@@ -78,8 +67,9 @@ public class NetworkSocket : MonoBehaviour {
             tcp_socket = new TcpClient(host, port);
 
             net_stream = tcp_socket.GetStream();
-            socket_writer = new StreamWriter(net_stream);
-            socket_reader = new StreamReader(net_stream);
+            
+            socket_writer_binary = new BinaryWriter(net_stream);
+            socket_reader_binary = new BinaryReader(net_stream);            
 
             socket_ready = true;
         }
@@ -94,19 +84,35 @@ public class NetworkSocket : MonoBehaviour {
     {
         if (!socket_ready)
             return;
-            
-        line = line + "\r\n";
-        socket_writer.Write(line);
-        socket_writer.Flush();
+
+        Debug.Log("Sending Message:" + line);
+
+        byte[] data = System.Text.Encoding.Default.GetBytes(line);
+
+        int size = data.Length;
+        
+        size += 8;
+
+        socket_writer_binary.Write(size);
+        socket_writer_binary.Write(data.Length);        
+        socket_writer_binary.Write(data);
+        socket_writer_binary.Flush();
     }
 
     public String readSocket()
     {
         if (!socket_ready)
             return "";
-
+        
         if (net_stream.DataAvailable)
-            return socket_reader.ReadLine();
+        {
+            int code = socket_reader_binary.ReadInt32();
+            byte[] buf = socket_reader_binary.ReadBytes(code - 4);
+            string msg = System.Text.Encoding.Default.GetString(buf);
+
+            Debug.Log("server to client:" + msg);
+        }
+           
 
         return "";
     }
@@ -116,8 +122,8 @@ public class NetworkSocket : MonoBehaviour {
         if (!socket_ready)
             return;
 
-        socket_writer.Close();
-        socket_reader.Close();
+        socket_writer_binary.Close();
+        socket_reader_binary.Close();
         tcp_socket.Close();
         socket_ready = false;
     }
