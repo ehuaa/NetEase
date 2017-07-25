@@ -1,3 +1,4 @@
 TrapID:1
-position:{x:0,y:0,z:0}
+position:{x:0,y:0.55,z:0}
+quat:{w:1,x:0,y:0,z:0}
 EntityID:1

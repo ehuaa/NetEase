@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameSceneManager : MonoBehaviour {
 
     EnemySpawn enemyspawn;
+    TrapManager trapmanager;
     PlayerManager playermanager;
 
     public int userID = -1;
@@ -14,6 +15,7 @@ public class GameSceneManager : MonoBehaviour {
     {
         enemyspawn = GetComponent<EnemySpawn>();
         playermanager = GetComponent<PlayerManager>();
+        trapmanager = GetComponent<TrapManager>();
     }
 
 
@@ -26,8 +28,11 @@ public class GameSceneManager : MonoBehaviour {
     {
         if (msg.GetEntityID() != -1)
         {
-            enemyspawn.Spawn(msg.GetID(), msg.GetEntityID(), msg.GetPosition(), msg.GetQuat());
-            
+            if (msg.GetKind() == MsgSCLoadscene.MSG_KIND_ENEMY)
+                enemyspawn.Spawn(msg.GetID(), msg.GetEntityID(), msg.GetPosition(), msg.GetQuat());
+            if (msg.GetKind() == MsgSCLoadscene.MSG_KIND_TRAP)
+                trapmanager.CreateTrap(msg.GetID(), msg.GetEntityID(), msg.GetPosition(), msg.GetQuat());
+
             return;
         }   
 

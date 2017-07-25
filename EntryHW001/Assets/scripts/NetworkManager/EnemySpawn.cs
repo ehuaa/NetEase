@@ -18,9 +18,10 @@ public class EnemySpawn : MonoBehaviour {
         {
             obj = Instantiate(EnemyBunny, pos, quat);
         }
-        
+
         EnemyMovement move = obj.GetComponent<EnemyMovement>();
         move.EnemyID = ID;
         move.EntityID = EntityID;
+
     }
 }

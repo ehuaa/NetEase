@@ -195,7 +195,8 @@ class GameScene(object):
 
     def SendAllObj(self, host, cid, userID):
         self._sendAllPlayers(host, cid, userID)
-        pass
+        self._sendALLEnemies(host, cid)
+        self._sendAllTraps(host, cid)
 
     def _sendAllPlayers(self, host, cid, userID):
 
@@ -213,13 +214,30 @@ class GameScene(object):
             data = msg.getPackedData()
 
             host.sendClient(cid, data)
-            pass
 
-    def _sendALLEnemies(self, sv, cid):
-        pass
+    def _sendALLEnemies(self, host, cid):
+        for k, val in self.enemyData.items():
+            enemyID = int(val['EnemyID'])
+            entityID = int(val['EntityID'])
+            pos = self._getposition(val['position'])
+            q = self._getQuat(val['quat'])
 
-    def _sendAllTraps(self, sv, cid):
-        pass
+            msg = MsgSCLoadscene(MsgSCLoadscene.MSG_KIND_ENEMY, enemyID, pos, q, entityID)
+            data = msg.getPackedData()
+
+            host.sendClient(cid, data)
+
+    def _sendAllTraps(self, host, cid):
+        for k, val in self.trapData.items():
+            trapID = int(val['TrapID'])
+            entityID = int(val['EntityID'])
+            pos = self._getposition(val['position'])
+            q = self._getQuat(val['quat'])
+
+            msg = MsgSCLoadscene(MsgSCLoadscene.MSG_KIND_TRAP, trapID, pos, q, entityID)
+            data = msg.getPackedData()
+
+            host.sendClient(cid, data)
 
     def _getposition(self, d):
         retVal = []
