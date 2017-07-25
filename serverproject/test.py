@@ -9,11 +9,9 @@ sys.path.append('./common_server')
 sys.path.append('./database')
 
 from login import loginServer
+from actorAttributes import ActorAttributes
 
-log = loginServer()
-print log.userPasswordConfirm('Client1','163')
-print log.createAccount('test001','000')
-
+actor = ActorAttributes()
 
 
 

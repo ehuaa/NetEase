@@ -1,9 +1,10 @@
-DBlood:100
-DMoney:100
-DAttack:10
-DShootDistance:20
-DSpeed:5
-DBackpack:{trapID:1,Number:1,trapID:2,Number:1}
+UserID:0
+Blood:100
+Money:100
+Attack:10
+ShootDistance:20
+Speed:5
+Backpack:{trapID:1,Number:1,trapID:2,Number:1}
 
 UserID:1
 Blood:100
