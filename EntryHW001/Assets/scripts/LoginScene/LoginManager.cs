@@ -39,16 +39,16 @@ public class LoginManager : MonoBehaviour {
     void login(string username, string password)
     {      
         if (username =="" || password == "")
-        {            
-            this.networkSocket.writeSocket("Hello!");
+        {
+            Debug.Log("username or password is empty");
             return;
         }
 
-        
-        Debug.Log("Sending Message:" +username+" "+password);
         MsgCSLogin msg = new MsgCSLogin(username, password);
 
-        msg.WriteSocket(networkSocket);
+        byte[] data = msg.GetRawData();
+
+        this.networkSocket.writeSocket(data);
         
         return;
     }

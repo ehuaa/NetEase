@@ -13,32 +13,28 @@ public class MsgCSLogin
         this.password = pw;
     }
 
-    public void WriteSocket(NetworkSocket socket)
+    public byte[] GetRawData()
     {
-        BinaryWriter bw = socket.GetWriteSocket();
-
-        if (bw == null)
-        {
-            Debug.Log("server not right");
-            return;
-        }
+        MemoryStream sm = new MemoryStream();
+        BinaryWriter bw = new BinaryWriter(sm);
         
-        int header = 0;
         int commandcode = command.MSG_CS_LOGIN;
         byte[] name = System.Text.Encoding.Default.GetBytes(userName);
         byte[] pw = System.Text.Encoding.Default.GetBytes(password);
         int nlen = name.Length;
         int plen = pw.Length;
-
-        header = 16 + nlen + plen;
-
-        bw.Write(header);
+        
         bw.Write(commandcode);
         bw.Write(nlen);
         bw.Write(name);
         bw.Write(plen);
         bw.Write(pw);
 
-        bw.Flush();
+        byte[] data = sm.GetBuffer();
+        byte[] buf = new byte[sm.Length];
+
+        Array.Copy(data, 0, buf, 0, sm.Length);
+
+        return buf;        
     }
 }

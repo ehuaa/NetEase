@@ -11,7 +11,9 @@ public class PlayerController : MonoBehaviour {
     Animator anim;        
     Rigidbody playerRigidbody;
     int floorMask;            
-    float camRayLength = 500f;          
+    float camRayLength = 500f;
+
+    public int userID = -1;
 
     void Awake ()
     {

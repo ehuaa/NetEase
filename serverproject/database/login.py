@@ -1,8 +1,8 @@
 # -*- coding: GBK -*-
 
-class loginServer(object):
+class LoginServer(object):
     def __init__(self):
-        super(loginServer, self).__init__()
+        super(LoginServer, self).__init__()
         self.usersData ={}
         self.accoutFilePath = './database/account-info.txt'
         self.MAX_USER_ID = -1
