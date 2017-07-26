@@ -1,68 +1,68 @@
 Initialize engine version: 5.6.2f1 (a2913c821e27)
 GfxDevice: creating device client; threaded=1
 Direct3D:
-    Version:  Direct3D 11.0 [level 11.1]
-    Renderer: NVIDIA GeForce GTX 1050 (ID=0x1c81)
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 850M  (ID=0x1391)
     Vendor:   NVIDIA
-    VRAM:     2006 MB
-    Driver:   22.21.13.8233
+    VRAM:     1995 MB
+    Driver:   10.18.13.5390
 Begin MonoManager ReloadAssembly
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.078 seconds
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.dll (this message is harmless)
-desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading F:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.032 seconds
+Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initialized touch support.
-UnloadTime: 1.042326 ms
+UnloadTime: 1.105311 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: f5d0 -> priority: 1 
-  Thread -> id: ec30 -> priority: 1 
+  Thread -> id: 3fbc -> priority: 1 
+  Thread -> id: 3d38 -> priority: 1 
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 8.363262 ms
+
+Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 900.
+Total: 0.637133 ms (FindLiveObjects: 0.071055 ms CreateObjectMapping: 0.044607 ms MarkObjects: 0.501337 ms  DeleteObjects: 0.018948 ms)
+
 Initialize engine version: 5.6.2f1 (a2913c821e27)
 GfxDevice: creating device client; threaded=1
 Direct3D:
-    Version:  Direct3D 11.0 [level 11.1]
-    Renderer: NVIDIA GeForce GTX 1050 (ID=0x1c81)
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 850M  (ID=0x1391)
     Vendor:   NVIDIA
-    VRAM:     2006 MB
-    Driver:   22.21.13.8233
+    VRAM:     1995 MB
+    Driver:   10.18.13.5390
 Begin MonoManager ReloadAssembly
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.015 seconds
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.dll (this message is harmless)
-desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading F:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.045 seconds
+Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initialized touch support.
-UnloadTime: 0.926946 ms
+UnloadTime: 6.213036 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: f48c -> priority: 1 
-  Thread -> id: f9ec -> priority: 1 
+  Thread -> id: 3c0c -> priority: 1 
+  Thread -> id: 2fbc -> priority: 1 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 5.265718 ms
+UnloadTime: 10.946928 ms
 
 Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 900.
-Total: 0.438083 ms (FindLiveObjects: 0.065502 ms CreateObjectMapping: 0.026140 ms MarkObjects: 0.329914 ms  DeleteObjects: 0.015323 ms)
-
-Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 4.749512 ms
-
-Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 900.
-Total: 0.500881 ms (FindLiveObjects: 0.043267 ms CreateObjectMapping: 0.030347 ms MarkObjects: 0.399924 ms  DeleteObjects: 0.026741 ms)
+Total: 0.838457 ms (FindLiveObjects: 0.227773 ms CreateObjectMapping: 0.066713 ms MarkObjects: 0.522259 ms  DeleteObjects: 0.018553 ms)
 

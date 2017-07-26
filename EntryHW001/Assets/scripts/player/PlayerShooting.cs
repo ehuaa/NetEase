@@ -17,6 +17,11 @@ public class PlayerShooting : MonoBehaviour {
     LineRenderer gunLine;
     AudioSource gunAudio;
     Light gunLight;
+
+    ParticleSystem magicParticles;
+    LineRenderer magicLine;
+    Light magicLight;
+
     float effectsDisplayTime = 0.2f;
     
     void Awake()
@@ -71,7 +76,7 @@ public class PlayerShooting : MonoBehaviour {
         shootRay.direction = transform.forward;
 
         if (Physics.Raycast(shootRay, out shootHit, range, shootableMask))
-        {            
+        {           
             EnemyHealth enemyHealth = shootHit.collider.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {                
