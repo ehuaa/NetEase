@@ -8,19 +8,50 @@ public class PlayerManager : MonoBehaviour {
     public GameObject player;
     public GameObject otherplayer;
     
-	public void CreatePlayer(int userID, Vector3 pos,Quaternion quat, bool actor)
+    public void MovePlayer(MsgSCMoveTo msg)
     {
+        GameObject obj = GameObject.FindGameObjectWithTag("Player");
+        PlayerController pc = obj.GetComponent<PlayerController>();
+        pc.MoveTo(msg.GetMovement());
+    }
+    
+    public void MoveOPlayer(MsgSCMoveTo msg)
+    {
+        GameObject[] obj = GameObject.FindGameObjectsWithTag("otherPlayer");
+
+        for (int k = 0; k < obj.Length; k++)
+        {
+            OtherPlayerController opc = obj[k].GetComponent<OtherPlayerController>();
+
+            if (msg.GetUserID() == opc.userID)
+            {
+                opc.MoveTo(msg.GetMovement());
+            }
+        }
+    }
+    
+	public GameObject CreatePlayer(int userID, int entityID, Vector3 pos,Quaternion quat, bool actor)
+    {
+        GameObject obj = null;
         //Other players
         if (actor != true)
         {
-            return;
+            obj = Instantiate(otherplayer, pos, quat);
+            OtherPlayerController opc = obj.GetComponent<OtherPlayerController>();
+
+            opc.userID = userID;
+            opc.entityID = entityID;
+            
+            return obj;
         }
 
         // Current player
-        GameObject obj = Instantiate(player, pos, quat);
+        obj = Instantiate(player, pos, quat);
        
         PlayerController pc = obj.GetComponent<PlayerController>();
         pc.userID = userID;
+        pc.entityID = entityID;
+
         CameraFollower cam = Camera.main.GetComponent<CameraFollower>();
         
         if (cam != null)
@@ -30,6 +61,6 @@ public class PlayerManager : MonoBehaviour {
         }
 
 
-        return;
+        return obj;
     }
 }

@@ -13,6 +13,9 @@ public class command
     public const int MSG_SC_ACTOR_UPGRADE = 0x1009;
     public const int MSG_SC_MONEY = 0x100a; // Update money value
     public const int MSG_SC_SCENE_LOAD = 0x100b; // Load entities
+    public const int MSG_SC_BACKPACK = 0x100c; //Update backpack value
+    public const int MSG_SC_SPEED = 0x100d; //Update player's speed
+    public const int MSG_SC_DISNTANCE = 0X100e; //Update player's shoot distance
 
     public const int MSG_CS_LOGIN = 0x2001;
     public const int MSG_CS_LOGOUT = 0x2002;

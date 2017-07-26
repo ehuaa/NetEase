@@ -1,3 +1,14 @@
 UserID:1
 position:{x:0,y:1,z:0}
 quat:{w:1,x:0,y:0,z:0}
+EntityID:1
+
+UserID:2
+position:{x:3,y:1,z:0}
+quat:{w:1,x:0,y:0,z:0}
+EntityID:2
+
+UserID:3
+position:{x:-3,y:1,z:0}
+quat:{w:1,x:0,y:0,z:0}
+EntityID:3

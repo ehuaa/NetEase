@@ -7,7 +7,7 @@ public class TrapManager : MonoBehaviour {
 	public GameObject trapPin;
     public GameObject trapSpeed;
 
-    public void CreateTrap(int ID, int EntityID, Vector3 pos, Quaternion quat)
+    public GameObject CreateTrap(int ID, int EntityID, Vector3 pos, Quaternion quat)
     {
         GameObject obj = null;
         if (ID == 1)
@@ -22,5 +22,7 @@ public class TrapManager : MonoBehaviour {
         TrapController tc = obj.GetComponent<TrapController>();
         tc.TrapID = ID;
         tc.EntityID = EntityID;
+
+        return obj;
     }
 }

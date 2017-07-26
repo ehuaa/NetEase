@@ -11,6 +11,7 @@ public class OtherPlayerController : MonoBehaviour {
     Rigidbody playerRigidbody;
     
     public int userID = -1;
+    public int entityID = -1;
 
     void Awake ()
     {
@@ -18,20 +19,15 @@ public class OtherPlayerController : MonoBehaviour {
                         
         playerRigidbody = GetComponent <Rigidbody> ();
     }
-    
-    void Move (float h, float v)
-    {
-        movement.Set (h, 0f, v);
-        
-        movement = movement.normalized * speed * Time.deltaTime;
 
-        playerRigidbody.MovePosition (transform.position + movement);
-    }
-        
-    void Animating (float h, float v)
+    void LateUpdate()
     {
-        bool walking = h != 0f || v != 0f;
-        
-        anim.SetBool ("IsWalking", walking);
+        anim.SetBool ("IsWalking", false);
     }
+    
+    public void MoveTo (Vector3 movement)
+    {        
+        playerRigidbody.MovePosition (transform.position + movement);
+        anim.SetBool("IsWalking", true);
+    }        
 }

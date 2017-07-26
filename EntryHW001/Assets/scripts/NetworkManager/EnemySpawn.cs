@@ -7,7 +7,7 @@ public class EnemySpawn : MonoBehaviour {
     public GameObject EnemyBear;
     public GameObject EnemyBunny;
 
-    public void Spawn(int ID, int EntityID, Vector3 pos, Quaternion quat)
+    public GameObject Spawn(int ID, int EntityID, Vector3 pos, Quaternion quat)
     {
         GameObject obj = null;
         if (ID == 1)
@@ -23,5 +23,6 @@ public class EnemySpawn : MonoBehaviour {
         move.EnemyID = ID;
         move.EntityID = EntityID;
 
+        return obj;
     }
 }

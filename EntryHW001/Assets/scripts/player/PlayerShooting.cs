@@ -38,6 +38,11 @@ public class PlayerShooting : MonoBehaviour {
             Shoot();
         }
 
+        if (Input.GetButton("Fire2") && timer>= timeBetweenBullets)
+        {
+            Debug.Log("Left Button Down");
+        }
+
         if(timer>=timeBetweenBullets * effectsDisplayTime)
         {
             DisableEffects();

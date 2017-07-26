@@ -2,9 +2,14 @@
 import sys
 
 sys.path.append('../common')
+sys.path.append('../gameservice')
 
 from actorAttributes import ActorAttributes
+from enemyAttr import EnemyAttributes
+from trapAttr import TrapAttributes
 from MsgCommon import MsgSCLoadscene
+from router import RouteManager
+from combat import CombatManager
 
 class GameScene(object):
     def __init__(self):
@@ -21,12 +26,26 @@ class GameScene(object):
         self._loadTrap(self.trappath)
 
         self.actor_attr = ActorAttributes()
+        self.enemy_attr = EnemyAttributes()
+        self.trap_attr = TrapAttributes()
 
         self.gamestage = 0
 
-        self._savePlayers("")
+        self.EntityIDS={}
+        self._initEntityData()
+
+        self._savePlayers("")#Test
+        self.routerManager = RouteManager(self)
+        self.combarManager = CombatManager(self)
 
         return
+    def _initEntityData(self):
+        for k,val in self.playerData.items():
+            self.EntityIDS[val['EntityID']] = val
+        for k, val in self.enemyData.items():
+            self.EntityIDS[val['EntityID']] = val
+        for k, val in self.trapData.items():
+            self.EntityIDS[val['EntityID']] = val
 
     def _savePlayers(self, path):
         f = open("playerTest.txt", 'w')
@@ -54,7 +73,6 @@ class GameScene(object):
             line+=sub
         return line[0:-1]
 
-
     def _loadPlayer(self, path):
         f = open(path, 'r')
 
@@ -68,7 +86,7 @@ class GameScene(object):
 
                 if key == 'UserID':
                     if len(data) != 0:
-                        self.playerData[data['UserID']] = data
+                        self.playerData[data['EntityID']] = data
                         data = {}
                         data[key] = value
                     else:
@@ -98,7 +116,7 @@ class GameScene(object):
 
                 if key == 'EnemyID':
                     if len(data) != 0:
-                        self.enemyData[data['EnemyID']] = data
+                        self.enemyData[data['EntityID']] = data
                         data = {}
                         data[key] = value
                     else:
@@ -127,7 +145,7 @@ class GameScene(object):
 
                 if key == 'TrapID':
                     if len(data) != 0:
-                        self.trapData[data['TrapID']] = data
+                        self.trapData[data['Entity']] = data
                         data = {}
                         data[key] = value
                     else:
@@ -194,28 +212,31 @@ class GameScene(object):
             return None
 
     def SendAllObj(self, host, cid, userID):
-        self._sendAllPlayers(host, cid, userID)
-        self._sendALLEnemies(host, cid)
-        self._sendAllTraps(host, cid)
+        self.sendAllTraps(host, cid)
 
-    def _sendAllPlayers(self, host, cid, userID):
+    #Init blood and money and backpack
+    def initPlayerAttr(self, host, cid, userID):
+        pass
+
+    def sendAllPlayers(self, host, cid, userID):
 
         if self.playerData.has_key(repr(userID)) == False:
-            data ={'UserID':userID, 'position':{'x':0, 'y':0, 'z':0}, 'quat':{'w':1,'x':0, 'y':0, 'z':0}}
-            self.playerData[userID] = data
-            self._savePlayers(self.playerpath)
+            entityID = self.GenerateEntityID()
+            data ={'UserID':userID, 'position':{'x':0, 'y':0, 'z':0}, 'quat':{'w':1,'x':0, 'y':0, 'z':0}, 'EntityID':entityID}
+            self.AddPlayer(entityID, data)
 
         for k,val in self.playerData.items():
             userID = int(val['UserID'])
             pos = self._getposition(val['position'])
             q = self._getQuat(val['quat'])
+            entityID = int(val['EntityID'])
 
-            msg = MsgSCLoadscene(MsgSCLoadscene.MSG_KIND_PLAYER, userID, pos, q)
+            msg = MsgSCLoadscene(MsgSCLoadscene.MSG_KIND_PLAYER, userID, pos, q, entityID)
             data = msg.getPackedData()
 
             host.sendClient(cid, data)
 
-    def _sendALLEnemies(self, host, cid):
+    def sendALLEnemies(self, host, cid):
         for k, val in self.enemyData.items():
             enemyID = int(val['EnemyID'])
             entityID = int(val['EntityID'])
@@ -227,7 +248,7 @@ class GameScene(object):
 
             host.sendClient(cid, data)
 
-    def _sendAllTraps(self, host, cid):
+    def sendAllTraps(self, host, cid):
         for k, val in self.trapData.items():
             trapID = int(val['TrapID'])
             entityID = int(val['EntityID'])
@@ -254,3 +275,43 @@ class GameScene(object):
         retVal.append(float(d['z']))
         return retVal
 
+    def GenerateEntityID(self):
+        for id in xrange(1, len(self.EntityIDS)+2):
+            if self.EntityIDS.has_key(repr(id)) == False:
+                return id
+
+    def AddEnemy(self, entityID, data):
+        self.enemyData[repr(entityID)] = data
+        self.EntityIDS[repr(entityID)] = data
+
+    def AddPlayer(self, entityID, data):
+        self.playerData[repr(entityID)] = data
+        self.EntityIDS[repr(entityID)] = data
+
+    def AddTrap(self, entityID, data):
+        self.trapData[repr(entityID)] = data
+        self.EntityIDS[repr(entityID)] = data
+
+    def CreateEnemy(self, enemyid, pos = [0, 0, 95], quat = [1, 0, 0, 0]):
+        entityid = self.GenerateEntityID()
+        data = {}
+        data["EnemyID"] = repr(enemyid)
+        data['EntityID'] = repr(entityid)
+        data['blood'] = repr(100)
+        data['quat'] = {'w':quat[0], 'x':quat[1], 'y':quat[2], 'z':quat[3]}
+        data['position'] = {'x':pos[0], 'y':pos[1], 'z':pos[2]}
+
+        self.AddEnemy(entityid, data)
+
+        return data
+
+    def SendEnemy(self, host, cid, val):
+        enemyID = int(val['EnemyID'])
+        entityID = int(val['EntityID'])
+        pos = self._getposition(val['position'])
+        q = self._getQuat(val['quat'])
+
+        msg = MsgSCLoadscene(MsgSCLoadscene.MSG_KIND_ENEMY, enemyID, pos, q, entityID)
+        data = msg.getPackedData()
+
+        host.sendClient(cid, data)

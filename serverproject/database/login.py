@@ -1,5 +1,8 @@
 # -*- coding: GBK -*-
 
+import sys
+sys.path.append('./database')
+
 class LoginServer(object):
     def __init__(self):
         super(LoginServer, self).__init__()
@@ -8,7 +11,6 @@ class LoginServer(object):
         self.MAX_USER_ID = -1
 
         self._loaddata(self.accoutFilePath)
-
         return
 
     def _loaddata(self, path):

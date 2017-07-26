@@ -1,0 +1,17 @@
+EnemyID:1
+position:{x:0,y:0,z:0}
+quat:{w:1,x:0,y:0,z:0}
+EntityID:2
+blood:90
+
+EnemyID:2
+position:{x:0,y:0,z:0}
+quat:{w:1,x:0,y:0,z:0}
+EntityID:3
+blood:90
+
+EnemyID:1
+position:{x:0,y:2,z:0}
+quat:{w:1,x:0,y:0,z:0}
+EntityID:5
+blood:90

@@ -13,8 +13,9 @@ from actorAttributes import ActorAttributes
 from enemyAttr import EnemyAttributes
 from trapAttr import TrapAttributes
 from gameScene import GameScene
+from MsgCommon import MsgCSMoveTo
 
-gs = GameScene()
+msg = MsgCSMoveTo(None)
 
 
 

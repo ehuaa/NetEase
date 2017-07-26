@@ -1,6 +1,5 @@
 # -*- coding: GBK -*-
 
-
 MSG_SC_CONFIRM = 0x1001
 MSG_SC_MOVETO = 0x1002
 MSG_SC_ENEMY_BORN = 0x1003
@@ -12,6 +11,9 @@ MSF_SC_ENEMY_DONE = 0x1008 # Enemy arrive the destination
 MSG_SC_ACTOR_UPGRADE = 0x1009
 MSG_SC_MONEY=0x100a # Update money value
 MSG_SC_SCENE_LOAD=0x100b # Load entities
+MSG_SC_BACKPACK=0x100c #Update backpack value
+MSG_SC_SPEED = 0x100d #Update player's speed
+MSG_SC_DISTANCE = 0x100e #Update player's shoot distance
 
 MSG_CS_LOGIN = 0x2001
 MSG_CS_LOGOUT = 0x2002
@@ -21,7 +23,6 @@ MSG_CS_ENEMY_ATTACK = 0x2005
 MSG_CS_WEAPON_UPGRADE = 0x2006
 MSG_CS_MONEY = 0x2007 #Buy weapon
 MSG_CS_WEAPON_ATTACK = 0x2008
-
 
 NET_STATE_STOP = 0			# state: init value
 NET_STATE_CONNECTING = 1		# state: connecting

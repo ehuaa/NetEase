@@ -40,6 +40,9 @@ public class NetworkMsgSendCenter : MonoBehaviour {
             case command.MSG_SC_SCENE_LOAD:
                 this.MsgSCLoadsceneProcedure(br);
                 break;
+            case command.MSG_SC_MOVETO:
+                this.MsgSCMoveToProcedure(br);
+                break;
             default:
                 Debug.Log("defualt sc message !!");
                 break;
@@ -70,5 +73,17 @@ public class NetworkMsgSendCenter : MonoBehaviour {
     {
         MsgSCLoadscene msg = new MsgSCLoadscene(br);
         gamescenemanager.CreateEntity(msg);
+    }
+
+    void MsgSCMoveToProcedure(BinaryReader br)
+    {
+        MsgSCMoveTo msg = new MsgSCMoveTo(br);
+        gamescenemanager.MoveToMessage(msg);
+    }
+
+    public void SendMessage(MsgCSBase msg)
+    {
+        byte[] data = msg.GetMessageData();
+        socket.writeSocket(data);
     }
 }

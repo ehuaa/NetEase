@@ -7,19 +7,58 @@ import struct
 sys.path.append('./common')
 sys.path.append('./network')
 sys.path.append('./database')
+sys.path.append('./gameservice')
 
 import conf
 from simpleHost import SimpleHost
-from MsgCommon import MsgCSLogin,MsgSCConfirm
+from MsgCommon import MsgCSLogin,MsgSCConfirm,MsgCSMoveTo
 from login import LoginServer
 from gameScene import GameScene
+from dispatcher import Dispatcher
+from enemymanager import EnemyManager
+from playermanager import PlayerManager
 
 class SimpleServer(object):
     def __init__(self):
         super(SimpleServer, self).__init__()
         self.host = SimpleHost()
-        self.loginServer = LoginServer()
         self.gameScene = GameScene()
+        self.loginServer = LoginServer()
+        self.dispatch = Dispatcher()
+        self.entities = {}
+        self.messageHandler = {}
+        self._initmessagehandler()
+
+        self.enemyManager = EnemyManager(self.gameScene)
+        self.playerManager = PlayerManager(self.gameScene)
+
+        self.RegisterMessageHandler(conf.MSG_CS_MOVETO, self.playerManager.MsgHandler)
+
+        return
+    def RegisterMessageHandler(self, msgCommond, func):
+        self.messageHandler[msgCommond].append(func)
+
+    def UnRegisterMessageHandler(self, msgCommond, func):
+        self.messageHandler[msgCommond].remove(func)
+
+    def _initmessagehandler(self):
+        self.messageHandler[conf.MSG_CS_LOGIN]=[]
+        self.messageHandler[conf.MSG_CS_LOGOUT]=[]
+        self.messageHandler[conf.MSG_CS_MOVETO]=[]
+        self.messageHandler[conf.MSG_CS_ACTOR_ATTACK]=[]
+        self.messageHandler[conf.MSG_CS_ENEMY_ATTACK]=[]
+        self.messageHandler[conf.MSG_CS_WEAPON_UPGRADE]=[]
+        self.messageHandler[conf.MSG_CS_MONEY]=[]
+        self.messageHandler[conf.MSG_CS_WEAPON_ATTACK]=[]
+
+    def generateEntityID(self):
+        raise NotImplementedError
+
+    def registerEntity(self, entity):
+        eid = self.generateEntityID
+        entity.id = eid
+
+        self.entities[eid] = entity
 
         return
 
@@ -31,19 +70,27 @@ class SimpleServer(object):
             if cmdcode == conf.MSG_CS_LOGIN:
                 msg = MsgCSLogin(data[4:])
                 return msg
-            elif cmdcode == conf.MSG_CS_LOGOUT:
-                return None
+            elif cmdcode == conf.MSG_CS_MOVETO:
+                msg = MsgCSMoveTo(data[4:])
+                return msg
 
         except:
             return None
+
+    def msgProcess(self, handlers, cid, msg):
+        for hd in handlers:
+            hd(self.host, cid, msg)
+
 
     def startServer(self):
         
         self.host.startup('127.0.0.1', 5001)
 
         while 1:
-            time.sleep(0.1)
+            #time.sleep(0.1)
             self.host.process()
+            self.enemyManager.Process(self.host)
+            self.playerManager.Process(self.host)
 
             event, wparam, data = self.host.read()
 
@@ -52,10 +99,15 @@ class SimpleServer(object):
 
             if event == conf.NET_CONNECTION_DATA:
                 msg = self.commondExtract(data);
+                msg.cid = wparam
 
                 if type(msg) is MsgCSLogin:
-                    self.LoginProcedure(msg, wparam)
-
+                    retval,userID = self.LoginProcedure(self.host, msg, wparam)
+                    if retval == True:
+                        self.playerManager.RegisterLiveClient(self.host, wparam, userID)
+                        self.enemyManager.RegisterLiveClient(self.host, wparam, userID)
+                else:
+                    self.msgProcess(self.messageHandler[msg.GetMsgCommand()], wparam, msg)
 
                 #self.host.closeClient(wparam)
                 #self.host.shutdown()
@@ -63,11 +115,12 @@ class SimpleServer(object):
             elif event == conf.NET_CONNECTION_LEAVE:
                 pass
                 #Save Data into the database
+
             elif event == conf.NET_CONNECTION_NEW:
                 pass
                 #Idle
 
-    def LoginProcedure(self, msg, cid):
+    def LoginProcedure(self, host, msg, cid):
         retMsg = MsgSCConfirm()
         if msg.getStat() == msg.MSG_STAT_OK:
             stat, userID = self.loginServer.userPasswordConfirm(msg.getUsername(), msg.getPassword())
@@ -80,19 +133,13 @@ class SimpleServer(object):
             retMsg.msgData = retMsg.MSG_ERR_PROG
 
         data = retMsg.getPackedData()
-        self.host.sendClient(cid, data)
+        host.sendClient(cid, data)
 
-        self.SendingMainSceneData(cid,retMsg)
-
-    #Sending scene data to the client
-    def SendingMainSceneData(self, cid, retMsg):
         if retMsg.msgData == retMsg.MSG_OK:
-            self.gameScene.SendAllObj(self.host, cid, retMsg.userID)
-            return
+            self.gameScene.SendAllObj(host, cid, retMsg.userID)
+            return True,retMsg.userID
 
-
-
-
+        return False,retMsg.userID
 
 if __name__=="__main__":
     testserver = SimpleServer()

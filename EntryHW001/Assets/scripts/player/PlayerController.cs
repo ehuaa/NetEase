@@ -13,7 +13,12 @@ public class PlayerController : MonoBehaviour {
     int floorMask;            
     float camRayLength = 500f;
 
+    NetworkMsgSendCenter msgcenter;
+
     public int userID = -1;
+    public int entityID = -1;
+
+    Vector3 netmoveconfirm;
 
     void Awake ()
     {
@@ -22,6 +27,8 @@ public class PlayerController : MonoBehaviour {
         anim = GetComponent <Animator> ();
                         
         playerRigidbody = GetComponent <Rigidbody> ();
+
+        msgcenter = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkMsgSendCenter>();
     }
 
     void FixedUpdate ()
@@ -30,9 +37,10 @@ public class PlayerController : MonoBehaviour {
         float v = Input.GetAxisRaw ("Vertical");
 
         Move (h, v);
-        Animating (h, v);
+                
+        Animating(h, v);
 
-        Turning ();        
+        //Turning ();        
     }
 
     void Move (float h, float v)
@@ -40,8 +48,18 @@ public class PlayerController : MonoBehaviour {
         movement.Set (h, 0f, v);
         
         movement = movement.normalized * speed * Time.deltaTime;
+        
+        
+        if (h !=0 || v!= 0)
+        {
+            MsgCSMove msg = new MsgCSMove(movement, userID);
+            msgcenter.SendMessage(msg);            
+        }            
+    }
 
-        playerRigidbody.MovePosition (transform.position + movement);
+    public void MoveTo(Vector3 move)
+    {
+        playerRigidbody.MovePosition (transform.position + move);
     }
 
     void Turning ()
