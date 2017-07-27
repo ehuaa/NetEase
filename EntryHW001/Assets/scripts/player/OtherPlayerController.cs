@@ -10,9 +10,6 @@ public class OtherPlayerController : MonoBehaviour {
     Animator anim;        
     Rigidbody playerRigidbody;
     
-    public int userID = -1;
-    public int entityID = -1;
-
     void Awake ()
     {
         anim = GetComponent <Animator> ();
@@ -27,7 +24,8 @@ public class OtherPlayerController : MonoBehaviour {
     
     public void MoveTo (Vector3 movement)
     {        
-        playerRigidbody.MovePosition (transform.position + movement);
+        //playerRigidbody.MovePosition (transform.position + movement);
+        playerRigidbody.position = movement;
         anim.SetBool("IsWalking", true);
     }        
 }

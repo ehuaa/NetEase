@@ -5,9 +5,9 @@ sys.path.append('./common_server')
 sys.path.append('./database')
 
 class RouteManager(object):
-    def __init__(self, gameScene):
+    def __init__(self, sv):
         super(RouteManager, self).__init__()
-        self.gamescene = gameScene
+        self.sv = sv
 
     def MovePermission(self, entityID, move):
         return True

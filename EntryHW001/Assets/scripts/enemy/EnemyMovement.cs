@@ -8,9 +8,6 @@ public class EnemyMovement : MonoBehaviour {
     PlayerHealth playerHealth;
     EnemyHealth enemyHealth;
     NavMeshAgent nav;
-    
-    public int EnemyID;
-    public int EntityID;
 
     void Awake()
     {

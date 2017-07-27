@@ -4,10 +4,24 @@ import conf
 class MsgBase(object):
     def __init__(self):
         super(MsgBase, self).__init__()
-        self.cid = -1
+        self.command = -1
 
     def GetMsgCommand(self):
         return self.command
+    def GetIntValue(self,data):
+        retVal = struct.unpack('<i', data[0:4])[0]
+        data = data[4:]
+        return retVal, data
+    def GetFloatValue(self,data):
+        retVal = struct.unpack('<f', data[0:4])[0]
+        data = data[4:]
+        return retVal, data
+    def GetVector3Value(self,data):
+        x,data = self.GetFloatValue(data)
+        y,data = self.GetFloatValue(data)
+        z,data = self.GetFloatValue(data)
+
+        return [x,y,z],data
 
 class MsgCSLogin(MsgBase):
 
@@ -43,7 +57,6 @@ class MsgCSLogin(MsgBase):
     def getStat(self):
         return self.stat
 
-
 class MsgSCConfirm(MsgBase):
 
     MSG_ERR_PROG = 1 # The client program err
@@ -59,6 +72,26 @@ class MsgSCConfirm(MsgBase):
 
     def getPackedData(self):
         return struct.pack('<iii',conf.MSG_SC_CONFIRM, self.userID, self.msgData)
+
+class MsgCSAttack(MsgBase):
+
+    WEAPON_ATTACK = 0
+    MAGIC_ATTACK = 1
+    ENEMY_NEAR = 2
+    ENEMY_FAR = 3
+    TRAP_BOOLD = 4
+    TRAP_SPEED = 5
+
+    def __init__(self, data):
+        super(MsgCSAttack, self).__init__()
+        self.command = conf.MSG_CS_ATTACK
+        self.userID, data = self.GetIntValue(data)
+        self.entityID1, data = self.GetIntValue(data)
+        self.entityID2, data = self.GetIntValue(data)
+
+        self.pos1,data = self.GetVector3Value(data)
+        self.pos2,data = self.GetVector3Value(data)
+        self.kind,data = self.GetIntValue(data)
 
 class MsgSCLoadscene(MsgBase):
     MSG_KIND_PLAYER = 0
@@ -118,4 +151,33 @@ class MsgSCMoveTo(MsgBase):
 
     def getPackedData(self):
         data = struct.pack('<iiifff', self.command, self.userID, self.entityID, self.movement[0], self.movement[1], self.movement[2])
+        return data
+
+class MsgSCEnemyDie(MsgBase):
+    def __init__(self, entityID):
+        super(MsgSCEnemyDie, self).__init__()
+        self.command = conf.MSG_SC_ENEMY_DIE
+        self.entityID = entityID
+
+    def getPackedData(self):
+        data = struct.pack('<ii', self.command, self.entityID)
+        return data
+
+class MsgSCPlayerAttack(MsgBase):
+
+    WEAPON_ATTACK = 0
+    MAGIC_ATTACK = 1
+    ENEMY_NEAR = 2
+    ENEMY_FAR = 3
+    TRAP_BOOLD = 4
+    TRAP_SPEED = 5
+
+    def __init__(self, UserID, EntityID, Kind):
+        self.command = conf.MSG_SC_PLAYER_ATTACK
+        self.userID = UserID
+        self.entityID = EntityID
+        self.kind = Kind
+
+    def getPackedData(self):
+        data = struct.pack('<iiii', self.command, self.userID, self.entityID, self.kind)
         return data

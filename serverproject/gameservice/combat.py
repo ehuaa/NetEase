@@ -5,15 +5,31 @@ sys.path.append('./common_server')
 sys.path.append('./database')
 
 class CombatManager(object):
-    def __init__(self, gameScene):
+    def __init__(self, sv):
         super(CombatManager, self).__init__()
-        self.gamescene = gameScene
+        self.sv = sv
         self.liveclients = {}
 
-    def PlayerFireLight(self, userID, direct):
-        pass
+    def PlayerFireLight(self,msg):
+        # Not Implemented (Is it a legal attack?)
 
-    def PlayerFireArea(self, userID, direct):
+        data = self.sv.gamescene.getEnemyData(msg.entityID2)
+
+        if data == None:
+            return
+
+        blood = int(data['blood'])
+        blood = blood - 10
+
+        if blood <= 0:
+            blood = 0
+            data['blood']= repr(blood)
+            self.sv.enemyManager.DestroyEnemy(msg.entityID2)
+        else:
+            data['blood']= repr(blood)
+
+
+    def PlayerFireArea(self,msg):
         pass
 
     def _EnemyFireAttack(self, EntityID):

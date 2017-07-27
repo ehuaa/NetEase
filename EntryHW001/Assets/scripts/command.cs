@@ -15,12 +15,15 @@ public class command
     public const int MSG_SC_SCENE_LOAD = 0x100b; // Load entities
     public const int MSG_SC_BACKPACK = 0x100c; //Update backpack value
     public const int MSG_SC_SPEED = 0x100d; //Update player's speed
-    public const int MSG_SC_DISNTANCE = 0X100e; //Update player's shoot distance
+    public const int MSG_SC_DISNTANCE = 0x100e; //Update player's shoot distance
+    public const int MSG_SC_TRAP_DIE = 0x100f;
+    public const int MSG_SC_PLAYER_DIE = 0x1010;
+    public const int MSG_SC_PLAYER_ATTACK = 0x1011;
 
     public const int MSG_CS_LOGIN = 0x2001;
     public const int MSG_CS_LOGOUT = 0x2002;
     public const int MSG_CS_MOVETO = 0x2003;
-    public const int MSG_CS_ACTOR_ATTACK = 0x2004;
+    public const int MSG_CS_ATTACK = 0x2004;
     public const int MSG_CS_ENEMY_ATTACK = 0x2005;
     public const int MSG_CS_WEAPON_UPGRADE = 0x2006;
     public const int MSG_CS_MONEY = 0x2007; //Buy weapon

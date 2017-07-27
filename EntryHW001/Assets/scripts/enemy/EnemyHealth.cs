@@ -34,6 +34,30 @@ public class EnemyHealth : MonoBehaviour {
             transform.Translate(-Vector3.up * sinkSpeed * Time.deltaTime);
         }
     }
+    
+    public void TakeMagicDamage(int amount)
+    {
+        if (isDead)
+            return;
+
+        enemyAudio.Play();
+
+        //currentHealth -= amount;
+               
+        hitParticles.transform.localPosition = new Vector3(0f, 2.0f, 0f);
+
+        var render = hitParticles.GetComponent<Renderer>();
+        Material mat = render.material;
+        mat.color = new Color(0.0f, 0.2f, 0.8f);
+        render.material = mat;
+        
+        hitParticles.Play();
+
+        if (currentHealth <= 0)
+        {
+            Death();
+        }
+    }
 
     public void TakeDamage(int amount, Vector3 hitPoint)
     {
@@ -42,8 +66,13 @@ public class EnemyHealth : MonoBehaviour {
 
         enemyAudio.Play();
 
-        currentHealth -= amount;
+        //currentHealth -= amount;
         hitParticles.transform.position = hitPoint;
+
+        var render = hitParticles.GetComponent<Renderer>();
+        Material mat = render.material;
+        mat.color = new Color(0.8f, 0.2f, 0.0f);
+        render.material = mat;
 
         hitParticles.Play();
 
@@ -53,9 +82,11 @@ public class EnemyHealth : MonoBehaviour {
         }
     }
 
-    void Death()
+    public void Death()
     {
         isDead = true;
+
+        currentHealth = 0;
 
         capsuleCollider.isTrigger = true;
 

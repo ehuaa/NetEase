@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour {
     public int damagePerShot = 20;
+    public int magicPerShot = 5;
     public float timeBetweenBullets = 0.15f;
     public float range = 500f;
+    public Material[] materials;
 
     float timer;
 
@@ -18,11 +20,7 @@ public class PlayerShooting : MonoBehaviour {
     AudioSource gunAudio;
     Light gunLight;
 
-    ParticleSystem magicParticles;
-    LineRenderer magicLine;
-    Light magicLight;
-
-    float effectsDisplayTime = 0.2f;
+    float effectsDisplayTime = 0.1f;
     
     void Awake()
     {
@@ -40,12 +38,12 @@ public class PlayerShooting : MonoBehaviour {
 
         if (Input.GetButton("Fire1") && timer >= timeBetweenBullets)
         {
-            Shoot();
+            ShootArrow();
         }
 
         if (Input.GetButton("Fire2") && timer>= timeBetweenBullets)
         {
-            Debug.Log("Left Button Down");
+            ShootMagic();
         }
 
         if(timer>=timeBetweenBullets * effectsDisplayTime)
@@ -60,17 +58,22 @@ public class PlayerShooting : MonoBehaviour {
         gunLight.enabled = false;
     }
 
-    void Shoot()
+    void ShootArrow()
     {
         timer = 0f;
         gunAudio.Play();
+       
+        gunLight.color = new Color(0.9f, 0.9f, 0.0f);
         gunLight.enabled = true;
 
         gunParticles.Stop();
         gunParticles.Play();
 
+        gunLine.material = this.materials[0];
+
         gunLine.enabled = true;
         gunLine.SetPosition(0, transform.position);
+
 
         shootRay.origin = transform.position;
         shootRay.direction = transform.forward;
@@ -81,6 +84,78 @@ public class PlayerShooting : MonoBehaviour {
             if (enemyHealth != null)
             {                
                 enemyHealth.TakeDamage(damagePerShot, shootHit.point);
+
+                MsgCSAttack msg = new MsgCSAttack(this.GetComponentInParent<EntityAttributes>().EntityID, shootHit.collider.GetComponent<EntityAttributes>().EntityID, shootRay.origin, shootHit.point, MsgCSAttack.WEAPON_ATTACK);
+                
+                NetworkMsgSendCenter msgcenter = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkMsgSendCenter>();
+                msgcenter.SendMessage(msg);
+            }
+            else
+            {
+                MsgCSAttack msg = new MsgCSAttack(this.GetComponentInParent<EntityAttributes>().EntityID, -1, new Vector3(0,0,0), new Vector3(0,0,0), MsgCSAttack.WEAPON_ATTACK);
+                
+                NetworkMsgSendCenter msgcenter = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkMsgSendCenter>();
+                msgcenter.SendMessage(msg);
+            }
+
+            gunLine.SetPosition(1, shootHit.point);
+        }
+        else
+        {                        
+            gunLine.SetPosition(1, shootRay.origin + shootRay.direction * range);
+
+            MsgCSAttack msg = new MsgCSAttack(this.GetComponentInParent<EntityAttributes>().EntityID, -1, new Vector3(0,0,0), new Vector3(0,0,0), MsgCSAttack.WEAPON_ATTACK);
+
+            NetworkMsgSendCenter msgcenter = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkMsgSendCenter>();
+            msgcenter.SendMessage(msg);
+        }
+    }
+    
+    void ShootMagic()
+    {
+        timer = 0f;
+        gunAudio.Play();
+        gunLight.enabled = true;
+        gunLight.color = new Color(0.1f, 0.3f, 1.0f);
+
+        gunParticles.Stop();
+        gunParticles.Play();
+
+        gunLine.material = this.materials[1];
+                        
+        gunLine.enabled = true;
+        gunLine.SetPosition(0, transform.position);
+
+        shootRay.origin = transform.position;
+        shootRay.direction = transform.forward;
+
+        if (Physics.Raycast(shootRay, out shootHit, range, shootableMask))
+        {
+            float radius = 3.0f;
+            Collider[] colliders = Physics.OverlapSphere(shootHit.point, radius);
+
+            foreach(Collider cld in colliders)
+            {
+                EnemyHealth enemyHealth = cld.GetComponent<EnemyHealth>();
+                if (enemyHealth != null)
+                {
+                    enemyHealth.TakeMagicDamage(this.magicPerShot);                   
+                }                
+            }
+
+            if (colliders.Length > 0)
+            {
+                MsgCSAttack msg = new MsgCSAttack(this.GetComponentInParent<EntityAttributes>().EntityID, shootHit.collider.GetComponent<EntityAttributes>().EntityID, shootRay.origin, shootHit.point, MsgCSAttack.MAGIC_ATTACK);
+
+                NetworkMsgSendCenter msgcenter = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkMsgSendCenter>();
+                msgcenter.SendMessage(msg);
+            }
+            else
+            {
+                MsgCSAttack msg = new MsgCSAttack(this.GetComponentInParent<EntityAttributes>().EntityID, -1, new Vector3(0, 0, 0), new Vector3(0, 0, 0), MsgCSAttack.MAGIC_ATTACK);
+
+                NetworkMsgSendCenter msgcenter = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkMsgSendCenter>();
+                msgcenter.SendMessage(msg);
             }
 
             gunLine.SetPosition(1, shootHit.point);
@@ -88,6 +163,11 @@ public class PlayerShooting : MonoBehaviour {
         else
         {            
             gunLine.SetPosition(1, shootRay.origin + shootRay.direction * range);
+
+            MsgCSAttack msg = new MsgCSAttack(this.GetComponentInParent<EntityAttributes>().EntityID, -1, new Vector3(0,0,0), new Vector3(0,0,0), MsgCSAttack.MAGIC_ATTACK);
+
+            NetworkMsgSendCenter msgcenter = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkMsgSendCenter>();
+            msgcenter.SendMessage(msg);
         }
     }
 }

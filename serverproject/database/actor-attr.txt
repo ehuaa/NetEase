@@ -4,6 +4,8 @@ Money:100
 Attack:10
 ShootDistance:20
 Speed:5
+Experience:0
+Score:0
 Backpack:{trapID:1,Number:1,trapID:2,Number:1}
 
 UserID:1
@@ -12,6 +14,8 @@ Money:100
 Attack:10
 ShootDistance:20
 Speed:5
+Experience:0
+Score:0
 Backpack:{trapID:1,Number:1,trapID:2,Number:1}
 
 UserID:2
@@ -20,6 +24,8 @@ Money:100
 Attack:10
 ShootDistance:20
 Speed:5
+Experience:0
+Score:0
 Backpack:{trapID:1,Number:1,trapID:2,Number:1}
 
 UserID:3
@@ -28,6 +34,7 @@ Money:100
 Attack:10
 ShootDistance:20
 Speed:5
+Experience:0
 Backpack:{trapID:1,Number:1,trapID:2,Number:1}
 
 UserID:4
@@ -36,4 +43,6 @@ Money:100
 Attack:10
 ShootDistance:20
 Speed:5
+Experience:0
+Score:0
 Backpack:{trapID:1,Number:1,trapID:2,Number:1}

@@ -6,16 +6,24 @@ sys.path.append('./common_server')
 sys.path.append('./database')
 
 from timer import TimerManager
+from MsgCommon import MsgSCEnemyDie
 
 class EnemyManager(object):
-    def __init__(self, gameScene):
+    def __init__(self, sv):
         super(EnemyManager, self).__init__()
-        self.gamescene = gameScene
+        self.sv=sv
         self.liveclients = {}
         self.timerDelay = None
         self.timer = None
         self.count = 0
         self.spawn = False
+
+    def DestroyEnemy(self, entityID):
+        self.sv.gamescene.DestroyEnemy(entityID)
+        msg = MsgSCEnemyDie(entityID)
+        for cid, uid in self.liveclients.items():
+            self.sv.host.sendClient(cid, msg.getPackedData())
+
 
     def _spawEnemy(self, number, host):
         enemyID = random.randint(1, 2)
@@ -23,12 +31,12 @@ class EnemyManager(object):
         if random.randint(1,2) == 1:
             posx = -posx
 
-        data = self.gamescene.CreateEnemy(enemyID, [posx,0,95])
+        data = self.sv.gamescene.CreateEnemy(enemyID, [posx,0,95])
         for k,v in self.liveclients.items():
-            self.gamescene.SendEnemy(host, k, data)
+            self.sv.gamescene.SendEnemy(host, k, data)
 
         self.count += 1
-        if self.count > number:
+        if self.count >= number:
             self.timer.cancel()
             TimerManager.removeCancelledTasks()
             self.spawn = False
@@ -51,8 +59,8 @@ class EnemyManager(object):
         TimerManager.scheduler()
 
         #spawn enemies and broadcast to all live clients
-        if len(self.gamescene.enemyData) == 0 and self.spawn == False:
-            self.timerDelay = TimerManager.addTimer(10, self.SpawnEnemy, 3, 20, host)
+        if len(self.sv.gamescene.enemyData) == 0 and self.spawn == False:
+            self.timerDelay = TimerManager.addTimer(2, self.SpawnEnemy, 3, 2, host)
             self.count = 0
             self.spawn = True
         else: #Moving and attacking the Players
@@ -60,7 +68,7 @@ class EnemyManager(object):
 
     def RegisterLiveClient(self, host, cid, uid):
         self.liveclients[cid] = uid
-        self.gamescene.sendALLEnemies(host, cid)
+        self.sv.gamescene.sendALLEnemies(host, cid)
 
     def UnregisterClient(self, cid):
          self.liveclients.pop(cid)

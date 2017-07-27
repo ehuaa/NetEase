@@ -14,10 +14,7 @@ public class PlayerController : MonoBehaviour {
     float camRayLength = 500f;
 
     NetworkMsgSendCenter msgcenter;
-
-    public int userID = -1;
-    public int entityID = -1;
-
+        
     Vector3 netmoveconfirm;
 
     void Awake ()
@@ -52,14 +49,15 @@ public class PlayerController : MonoBehaviour {
         
         if (h !=0 || v!= 0)
         {
-            MsgCSMove msg = new MsgCSMove(movement, userID);
+            MsgCSMove msg = new MsgCSMove(movement, this.GetComponent<EntityAttributes>().ID);
             msgcenter.SendMessage(msg);            
         }            
     }
 
     public void MoveTo(Vector3 move)
     {
-        playerRigidbody.MovePosition (transform.position + move);
+        //playerRigidbody.MovePosition (transform.position + move);
+        playerRigidbody.position = move;
     }
 
     void Turning ()

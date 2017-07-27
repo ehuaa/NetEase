@@ -43,6 +43,12 @@ public class NetworkMsgSendCenter : MonoBehaviour {
             case command.MSG_SC_MOVETO:
                 this.MsgSCMoveToProcedure(br);
                 break;
+            case command.MSG_SC_ENEMY_DIE:
+                this.MsgSCEnemyDieProcedure(br);
+                break;
+            case command.MSG_SC_PLAYER_ATTACK:
+                this.MsgSCPlayerAttackProcedure(br);
+                break;
             default:
                 Debug.Log("defualt sc message !!");
                 break;
@@ -53,6 +59,12 @@ public class NetworkMsgSendCenter : MonoBehaviour {
     {
         MemoryStream sm = new MemoryStream(data);
         return new BinaryReader(sm);
+    }
+
+    void MsgSCPlayerAttackProcedure(BinaryReader br)
+    {
+        MsgSCPlayerAttack msg = new MsgSCPlayerAttack(br);
+        gamescenemanager.OtherPlayerAttack(msg);
     }
 
     void MsgSCConfirmProcedure(BinaryReader br)
@@ -73,6 +85,12 @@ public class NetworkMsgSendCenter : MonoBehaviour {
     {
         MsgSCLoadscene msg = new MsgSCLoadscene(br);
         gamescenemanager.CreateEntity(msg);
+    }
+    
+    void MsgSCEnemyDieProcedure(BinaryReader br)
+    {
+        MsgSCEnemyDie msg = new MsgSCEnemyDie(br);
+        gamescenemanager.DestoryEnemy(msg);
     }
 
     void MsgSCMoveToProcedure(BinaryReader br)

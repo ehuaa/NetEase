@@ -19,9 +19,9 @@ public class TrapManager : MonoBehaviour {
             obj = Instantiate(trapSpeed, pos, quat);
         }
       
-        TrapController tc = obj.GetComponent<TrapController>();
-        tc.TrapID = ID;
-        tc.EntityID = EntityID;
+        EntityAttributes ea = obj.GetComponent<EntityAttributes>();
+        ea.ID = ID;
+        ea.EntityID = EntityID;
 
         return obj;
     }

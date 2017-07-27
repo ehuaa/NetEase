@@ -4,16 +4,4 @@ using UnityEngine;
 
 public class TrapController : MonoBehaviour {
     
-    public int TrapID;
-    public int EntityID;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

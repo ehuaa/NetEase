@@ -11,41 +11,52 @@ sys.path.append('./gameservice')
 
 import conf
 from simpleHost import SimpleHost
-from MsgCommon import MsgCSLogin,MsgSCConfirm,MsgCSMoveTo
+from MsgCommon import MsgCSLogin,MsgSCConfirm,MsgCSMoveTo,MsgCSAttack
 from login import LoginServer
 from gameScene import GameScene
 from dispatcher import Dispatcher
 from enemymanager import EnemyManager
 from playermanager import PlayerManager
+from trapmanager import TrapManager
+from router import RouteManager
+from combat import CombatManager
 
 class SimpleServer(object):
     def __init__(self):
         super(SimpleServer, self).__init__()
         self.host = SimpleHost()
-        self.gameScene = GameScene()
+        self.gamescene = GameScene()
         self.loginServer = LoginServer()
         self.dispatch = Dispatcher()
         self.entities = {}
         self.messageHandler = {}
         self._initmessagehandler()
 
-        self.enemyManager = EnemyManager(self.gameScene)
-        self.playerManager = PlayerManager(self.gameScene)
+        self.enemyManager = EnemyManager(self)
+        self.playerManager = PlayerManager(self)
+        self.trapManager = TrapManager(self)
+        self.routerManager = RouteManager(self)
+        self.combatManager = CombatManager(self)
 
         self.RegisterMessageHandler(conf.MSG_CS_MOVETO, self.playerManager.MsgHandler)
+        self.RegisterMessageHandler(conf.MSG_CS_ATTACK, self.playerManager.MsgHandler)
+        self.RegisterMessageHandler(conf.MSG_CS_ATTACK, self.enemyManager.MsgHandler)
+        self.RegisterMessageHandler(conf.MSG_CS_ATTACK, self.trapManager.MsgHandler)
 
         return
     def RegisterMessageHandler(self, msgCommond, func):
-        self.messageHandler[msgCommond].append(func)
+        if func not in self.messageHandler[msgCommond]:
+            self.messageHandler[msgCommond].append(func)
 
     def UnRegisterMessageHandler(self, msgCommond, func):
-        self.messageHandler[msgCommond].remove(func)
+        if func in self.messageHandler[msgCommond]:
+            self.messageHandler[msgCommond].remove(func)
 
     def _initmessagehandler(self):
         self.messageHandler[conf.MSG_CS_LOGIN]=[]
         self.messageHandler[conf.MSG_CS_LOGOUT]=[]
         self.messageHandler[conf.MSG_CS_MOVETO]=[]
-        self.messageHandler[conf.MSG_CS_ACTOR_ATTACK]=[]
+        self.messageHandler[conf.MSG_CS_ATTACK]=[]
         self.messageHandler[conf.MSG_CS_ENEMY_ATTACK]=[]
         self.messageHandler[conf.MSG_CS_WEAPON_UPGRADE]=[]
         self.messageHandler[conf.MSG_CS_MONEY]=[]
@@ -72,6 +83,9 @@ class SimpleServer(object):
                 return msg
             elif cmdcode == conf.MSG_CS_MOVETO:
                 msg = MsgCSMoveTo(data[4:])
+                return msg;
+            elif cmdcode == conf.MSG_CS_ATTACK:
+                msg = MsgCSAttack(data[4:])
                 return msg
 
         except:
@@ -106,6 +120,7 @@ class SimpleServer(object):
                     if retval == True:
                         self.playerManager.RegisterLiveClient(self.host, wparam, userID)
                         self.enemyManager.RegisterLiveClient(self.host, wparam, userID)
+                        self.trapManager.RegisterLiveClient(self.host, wparam, userID)
                 else:
                     self.msgProcess(self.messageHandler[msg.GetMsgCommand()], wparam, msg)
 
@@ -113,7 +128,9 @@ class SimpleServer(object):
                 #self.host.shutdown()
 
             elif event == conf.NET_CONNECTION_LEAVE:
-                pass
+                self.playerManager.UnregisterClient(wparam)
+                self.enemyManager.UnregisterClient(wparam)
+                self.trapManager.UnregisterClient(wparam)
                 #Save Data into the database
 
             elif event == conf.NET_CONNECTION_NEW:
@@ -136,7 +153,7 @@ class SimpleServer(object):
         host.sendClient(cid, data)
 
         if retMsg.msgData == retMsg.MSG_OK:
-            self.gameScene.SendAllObj(host, cid, retMsg.userID)
+            self.gamescene.SendAllObj(host, cid, retMsg.userID)
             return True,retMsg.userID
 
         return False,retMsg.userID

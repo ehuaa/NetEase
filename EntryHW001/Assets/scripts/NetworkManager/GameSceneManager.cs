@@ -5,19 +5,33 @@ using UnityEngine.SceneManagement;
 
 public class GameSceneManager : MonoBehaviour {
 
-    EnemySpawn enemyspawn;
+    EnemyManager enemymanager;
     TrapManager trapmanager;
     PlayerManager playermanager;
 
     public int userID = -12;
 
+    public int GetUserID()
+    {
+        return userID;
+    }
+
     void Awake()
     {
-        enemyspawn = GetComponent<EnemySpawn>();
+        enemymanager = GetComponent<EnemyManager>();
         playermanager = GetComponent<PlayerManager>();
         trapmanager = GetComponent<TrapManager>();
     }
 
+    public void OtherPlayerAttack(MsgSCPlayerAttack msg)
+    {
+        playermanager.OtherPlayerAttack(msg);
+    }
+
+    public void DestoryEnemy(MsgSCEnemyDie msg)
+    {
+        enemymanager.DestroyEnemy(msg.entityID);
+    }
 
     public void ChangeScene()
     {
@@ -39,27 +53,24 @@ public class GameSceneManager : MonoBehaviour {
         }
         else
         {
-            //EnemyMove
+            //EnemyMovement
         }
     }
 
     public void CreateEntity(MsgSCLoadscene msg)
-    {
-        GameObject obj = null;
-
-        
+    {        
         if (msg.GetKind() == MsgSCLoadscene.MSG_KIND_ENEMY)
-            obj = enemyspawn.Spawn(msg.GetID(), msg.GetEntityID(), msg.GetPosition(), msg.GetQuat());
+            enemymanager.Spawn(msg.GetID(), msg.GetEntityID(), msg.GetPosition(), msg.GetQuat());
 
         if (msg.GetKind() == MsgSCLoadscene.MSG_KIND_TRAP)
-            obj = trapmanager.CreateTrap(msg.GetID(), msg.GetEntityID(), msg.GetPosition(), msg.GetQuat());
+            trapmanager.CreateTrap(msg.GetID(), msg.GetEntityID(), msg.GetPosition(), msg.GetQuat());
 
         if (msg.GetKind() == MsgSCLoadscene.MSG_KIND_PLAYER)
         {
             if (msg.GetID() == this.userID)
-                obj = playermanager.CreatePlayer(msg.GetID(), msg.GetEntityID(),msg.GetPosition(), msg.GetQuat(), true);
+                playermanager.CreatePlayer(msg.GetID(), msg.GetEntityID(),msg.GetPosition(), msg.GetQuat(), true);
             else
-                obj = playermanager.CreatePlayer(msg.GetID(), msg.GetEntityID() ,msg.GetPosition(), msg.GetQuat(), false);
+                playermanager.CreatePlayer(msg.GetID(), msg.GetEntityID() ,msg.GetPosition(), msg.GetQuat(), false);
         }        
     }
 }
