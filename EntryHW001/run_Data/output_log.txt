@@ -15,14 +15,17 @@ Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.
 Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.029 seconds
+- Completed reload, in  0.084 seconds
 Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initialized touch support.
-UnloadTime: 1.023399 ms
+UnloadTime: 0.992150 ms
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: ddd8 -> priority: 1 
+  Thread -> id: ddd4 -> priority: 1 
 Initialize engine version: 5.6.2f1 (a2913c821e27)
 GfxDevice: creating device client; threaded=1
 Direct3D:
@@ -47,22 +50,305 @@ Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.dll (thi
 <RI> Input initialized.
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initialized touch support.
+UnloadTime: 0.926047 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 84b8 -> priority: 1 
-  Thread -> id: 85a8 -> priority: 1 
-UnloadTime: 0.974423 ms
+  Thread -> id: de34 -> priority: 1 
+  Thread -> id: de40 -> priority: 1 
+Initialize engine version: 5.6.2f1 (a2913c821e27)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1050 (ID=0x1c81)
+    Vendor:   NVIDIA
+    VRAM:     2006 MB
+    Driver:   22.21.13.8233
+Begin MonoManager ReloadAssembly
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.015 seconds
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.dll (this message is harmless)
+<RI> Initializing input.
+<RI> Input initialized.
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initialized touch support.
+UnloadTime: 1.265578 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 7f04 -> priority: 1 
-  Thread -> id: 86c8 -> priority: 1 
+  Thread -> id: dfcc -> priority: 1 
+  Thread -> id: dfd0 -> priority: 1 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 4.336979 ms
+UnloadTime: 5.044885 ms
 
-Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 875.
-Total: 0.386403 ms (FindLiveObjects: 0.056488 ms CreateObjectMapping: 0.036056 ms MarkObjects: 0.281239 ms  DeleteObjects: 0.012319 ms)
+Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 947.
+Total: 0.358760 ms (FindLiveObjects: 0.040863 ms CreateObjectMapping: 0.024938 ms MarkObjects: 0.279136 ms  DeleteObjects: 0.013521 ms)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 4.323457 ms
+UnloadTime: 4.872716 ms
 
-Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 875.
-Total: 0.426065 ms (FindLiveObjects: 0.058591 ms CreateObjectMapping: 0.028544 ms MarkObjects: 0.325408 ms  DeleteObjects: 0.013220 ms)
+Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 947.
+Total: 0.362065 ms (FindLiveObjects: 0.043868 ms CreateObjectMapping: 0.025239 ms MarkObjects: 0.278234 ms  DeleteObjects: 0.014122 ms)
+
+SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf, Int32 offset, Int32 size, SocketFlags flags) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Write (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+Rethrow as IOException: Write failure
+  at System.Net.Sockets.NetworkStream.Write (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at System.IO.BinaryWriter.Write (Int32 value) [0x00000] in <filename unknown>:0 
+  at NetworkSocket.writeSocket (System.Byte[] data) [0x00000] in <filename unknown>:0 
+  at LoginManager.login (System.String username, System.String password) [0x00000] in <filename unknown>:0 
+  at LoginManager.TestLogin (System.String username) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.InvokableCall`1[System.String].Invoke (System.Object[] args) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.CachedInvokableCall`1[System.String].Invoke (System.Object[] args) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.InvokableCallList.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.UnityEventBase.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.UnityEvent.Invoke () [0x00000] in <filename unknown>:0 
+  at UnityEngine.UI.Button.Press () [0x00000] in <filename unknown>:0 
+  at UnityEngine.UI.Button.OnPointerClick (UnityEngine.EventSystems.PointerEventData eventData) [0x00000] in <filename unknown>:0 
+  at UnityEngine.EventSystems.ExecuteEvents.Execute (IPointerClickHandler handler, UnityEngine.EventSystems.BaseEventData eventData) [0x00000] in <filename unknown>:0 
+  at UnityEngine.EventSystems.ExecuteEvents.Execute[IPointerClickHandler] (UnityEngine.GameObject target, UnityEngine.EventSystems.BaseEventData eventData, UnityEngine.EventSystems.EventFunction`1 functor) [0x00000] in <filename unknown>:0 
+UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+UnityEngine.DebugLogHandler:LogException(Exception, Object)
+UnityEngine.Logger:LogException(Exception, Object)
+UnityEngine.Debug:LogException(Exception)
+UnityEngine.EventSystems.ExecuteEvents:Execute(GameObject, BaseEventData, EventFunction`1)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMousePress(MouseButtonEventData)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent(Int32)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent()
+UnityEngine.EventSystems.StandaloneInputModule:Process()
+UnityEngine.EventSystems.EventSystem:Update()
+ 
+(Filename:  Line: -1)
+
+SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf, Int32 offset, Int32 size, SocketFlags flags) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Write (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+Rethrow as IOException: Write failure
+  at System.Net.Sockets.NetworkStream.Write (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at System.IO.BinaryWriter.Write (Int32 value) [0x00000] in <filename unknown>:0 
+  at NetworkSocket.writeSocket (System.Byte[] data) [0x00000] in <filename unknown>:0 
+  at LoginManager.login (System.String username, System.String password) [0x00000] in <filename unknown>:0 
+  at LoginManager.TestLogin (System.String username) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.InvokableCall`1[System.String].Invoke (System.Object[] args) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.CachedInvokableCall`1[System.String].Invoke (System.Object[] args) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.InvokableCallList.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.UnityEventBase.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.UnityEvent.Invoke () [0x00000] in <filename unknown>:0 
+  at UnityEngine.UI.Button.Press () [0x00000] in <filename unknown>:0 
+  at UnityEngine.UI.Button.OnPointerClick (UnityEngine.EventSystems.PointerEventData eventData) [0x00000] in <filename unknown>:0 
+  at UnityEngine.EventSystems.ExecuteEvents.Execute (IPointerClickHandler handler, UnityEngine.EventSystems.BaseEventData eventData) [0x00000] in <filename unknown>:0 
+  at UnityEngine.EventSystems.ExecuteEvents.Execute[IPointerClickHandler] (UnityEngine.GameObject target, UnityEngine.EventSystems.BaseEventData eventData, UnityEngine.EventSystems.EventFunction`1 functor) [0x00000] in <filename unknown>:0 
+UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+UnityEngine.DebugLogHandler:LogException(Exception, Object)
+UnityEngine.Logger:LogException(Exception, Object)
+UnityEngine.Debug:LogException(Exception)
+UnityEngine.EventSystems.ExecuteEvents:Execute(GameObject, BaseEventData, EventFunction`1)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMousePress(MouseButtonEventData)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent(Int32)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent()
+UnityEngine.EventSystems.StandaloneInputModule:Process()
+UnityEngine.EventSystems.EventSystem:Update()
+ 
+(Filename:  Line: -1)
+
+SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf, Int32 offset, Int32 size, SocketFlags flags) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Write (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+Rethrow as IOException: Write failure
+  at System.Net.Sockets.NetworkStream.Write (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at System.IO.BinaryWriter.Write (Int32 value) [0x00000] in <filename unknown>:0 
+  at NetworkSocket.writeSocket (System.Byte[] data) [0x00000] in <filename unknown>:0 
+  at LoginManager.login (System.String username, System.String password) [0x00000] in <filename unknown>:0 
+  at LoginManager.TestLogin (System.String username) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.InvokableCall`1[System.String].Invoke (System.Object[] args) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.CachedInvokableCall`1[System.String].Invoke (System.Object[] args) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.InvokableCallList.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.UnityEventBase.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.UnityEvent.Invoke () [0x00000] in <filename unknown>:0 
+  at UnityEngine.UI.Button.Press () [0x00000] in <filename unknown>:0 
+  at UnityEngine.UI.Button.OnPointerClick (UnityEngine.EventSystems.PointerEventData eventData) [0x00000] in <filename unknown>:0 
+  at UnityEngine.EventSystems.ExecuteEvents.Execute (IPointerClickHandler handler, UnityEngine.EventSystems.BaseEventData eventData) [0x00000] in <filename unknown>:0 
+  at UnityEngine.EventSystems.ExecuteEvents.Execute[IPointerClickHandler] (UnityEngine.GameObject target, UnityEngine.EventSystems.BaseEventData eventData, UnityEngine.EventSystems.EventFunction`1 functor) [0x00000] in <filename unknown>:0 
+UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+UnityEngine.DebugLogHandler:LogException(Exception, Object)
+UnityEngine.Logger:LogException(Exception, Object)
+UnityEngine.Debug:LogException(Exception)
+UnityEngine.EventSystems.ExecuteEvents:Execute(GameObject, BaseEventData, EventFunction`1)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMousePress(MouseButtonEventData)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent(Int32)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent()
+UnityEngine.EventSystems.StandaloneInputModule:Process()
+UnityEngine.EventSystems.EventSystem:Update()
+ 
+(Filename:  Line: -1)
+
+SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf, Int32 offset, Int32 size, SocketFlags flags) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Write (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+Rethrow as IOException: Write failure
+  at System.Net.Sockets.NetworkStream.Write (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at System.IO.BinaryWriter.Write (Int32 value) [0x00000] in <filename unknown>:0 
+  at NetworkSocket.writeSocket (System.Byte[] data) [0x00000] in <filename unknown>:0 
+  at LoginManager.login (System.String username, System.String password) [0x00000] in <filename unknown>:0 
+  at LoginManager.TestLogin (System.String username) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.InvokableCall`1[System.String].Invoke (System.Object[] args) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.CachedInvokableCall`1[System.String].Invoke (System.Object[] args) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.InvokableCallList.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.UnityEventBase.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.UnityEvent.Invoke () [0x00000] in <filename unknown>:0 
+  at UnityEngine.UI.Button.Press () [0x00000] in <filename unknown>:0 
+  at UnityEngine.UI.Button.OnPointerClick (UnityEngine.EventSystems.PointerEventData eventData) [0x00000] in <filename unknown>:0 
+  at UnityEngine.EventSystems.ExecuteEvents.Execute (IPointerClickHandler handler, UnityEngine.EventSystems.BaseEventData eventData) [0x00000] in <filename unknown>:0 
+  at UnityEngine.EventSystems.ExecuteEvents.Execute[IPointerClickHandler] (UnityEngine.GameObject target, UnityEngine.EventSystems.BaseEventData eventData, UnityEngine.EventSystems.EventFunction`1 functor) [0x00000] in <filename unknown>:0 
+UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+UnityEngine.DebugLogHandler:LogException(Exception, Object)
+UnityEngine.Logger:LogException(Exception, Object)
+UnityEngine.Debug:LogException(Exception)
+UnityEngine.EventSystems.ExecuteEvents:Execute(GameObject, BaseEventData, EventFunction`1)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMousePress(MouseButtonEventData)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent(Int32)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent()
+UnityEngine.EventSystems.StandaloneInputModule:Process()
+UnityEngine.EventSystems.EventSystem:Update()
+ 
+(Filename:  Line: -1)
+
+SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf, Int32 offset, Int32 size, SocketFlags flags) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Write (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+Rethrow as IOException: Write failure
+  at System.Net.Sockets.NetworkStream.Write (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at System.IO.BinaryWriter.Write (Int32 value) [0x00000] in <filename unknown>:0 
+  at NetworkSocket.writeSocket (System.Byte[] data) [0x00000] in <filename unknown>:0 
+  at LoginManager.login (System.String username, System.String password) [0x00000] in <filename unknown>:0 
+  at LoginManager.TestLogin (System.String username) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.InvokableCall`1[System.String].Invoke (System.Object[] args) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.CachedInvokableCall`1[System.String].Invoke (System.Object[] args) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.InvokableCallList.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.UnityEventBase.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.UnityEvent.Invoke () [0x00000] in <filename unknown>:0 
+  at UnityEngine.UI.Button.Press () [0x00000] in <filename unknown>:0 
+  at UnityEngine.UI.Button.OnPointerClick (UnityEngine.EventSystems.PointerEventData eventData) [0x00000] in <filename unknown>:0 
+  at UnityEngine.EventSystems.ExecuteEvents.Execute (IPointerClickHandler handler, UnityEngine.EventSystems.BaseEventData eventData) [0x00000] in <filename unknown>:0 
+  at UnityEngine.EventSystems.ExecuteEvents.Execute[IPointerClickHandler] (UnityEngine.GameObject target, UnityEngine.EventSystems.BaseEventData eventData, UnityEngine.EventSystems.EventFunction`1 functor) [0x00000] in <filename unknown>:0 
+UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+UnityEngine.DebugLogHandler:LogException(Exception, Object)
+UnityEngine.Logger:LogException(Exception, Object)
+UnityEngine.Debug:LogException(Exception)
+UnityEngine.EventSystems.ExecuteEvents:Execute(GameObject, BaseEventData, EventFunction`1)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMousePress(MouseButtonEventData)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent(Int32)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent()
+UnityEngine.EventSystems.StandaloneInputModule:Process()
+UnityEngine.EventSystems.EventSystem:Update()
+ 
+(Filename:  Line: -1)
+
+SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf, Int32 offset, Int32 size, SocketFlags flags) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Write (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+Rethrow as IOException: Write failure
+  at System.Net.Sockets.NetworkStream.Write (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at System.IO.BinaryWriter.Write (Int32 value) [0x00000] in <filename unknown>:0 
+  at NetworkSocket.writeSocket (System.Byte[] data) [0x00000] in <filename unknown>:0 
+  at LoginManager.login (System.String username, System.String password) [0x00000] in <filename unknown>:0 
+  at LoginManager.TestLogin (System.String username) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.InvokableCall`1[System.String].Invoke (System.Object[] args) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.CachedInvokableCall`1[System.String].Invoke (System.Object[] args) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.InvokableCallList.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.UnityEventBase.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.UnityEvent.Invoke () [0x00000] in <filename unknown>:0 
+  at UnityEngine.UI.Button.Press () [0x00000] in <filename unknown>:0 
+  at UnityEngine.UI.Button.OnPointerClick (UnityEngine.EventSystems.PointerEventData eventData) [0x00000] in <filename unknown>:0 
+  at UnityEngine.EventSystems.ExecuteEvents.Execute (IPointerClickHandler handler, UnityEngine.EventSystems.BaseEventData eventData) [0x00000] in <filename unknown>:0 
+  at UnityEngine.EventSystems.ExecuteEvents.Execute[IPointerClickHandler] (UnityEngine.GameObject target, UnityEngine.EventSystems.BaseEventData eventData, UnityEngine.EventSystems.EventFunction`1 functor) [0x00000] in <filename unknown>:0 
+UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+UnityEngine.DebugLogHandler:LogException(Exception, Object)
+UnityEngine.Logger:LogException(Exception, Object)
+UnityEngine.Debug:LogException(Exception)
+UnityEngine.EventSystems.ExecuteEvents:Execute(GameObject, BaseEventData, EventFunction`1)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMousePress(MouseButtonEventData)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent(Int32)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent()
+UnityEngine.EventSystems.StandaloneInputModule:Process()
+UnityEngine.EventSystems.EventSystem:Update()
+ 
+(Filename:  Line: -1)
+
+SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf, Int32 offset, Int32 size, SocketFlags flags) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Write (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+Rethrow as IOException: Write failure
+  at System.Net.Sockets.NetworkStream.Write (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at System.IO.BinaryWriter.Write (Int32 value) [0x00000] in <filename unknown>:0 
+  at NetworkSocket.writeSocket (System.Byte[] data) [0x00000] in <filename unknown>:0 
+  at LoginManager.login (System.String username, System.String password) [0x00000] in <filename unknown>:0 
+  at LoginManager.TestLogin (System.String username) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.InvokableCall`1[System.String].Invoke (System.Object[] args) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.CachedInvokableCall`1[System.String].Invoke (System.Object[] args) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.InvokableCallList.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.UnityEventBase.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.UnityEvent.Invoke () [0x00000] in <filename unknown>:0 
+  at UnityEngine.UI.Button.Press () [0x00000] in <filename unknown>:0 
+  at UnityEngine.UI.Button.OnPointerClick (UnityEngine.EventSystems.PointerEventData eventData) [0x00000] in <filename unknown>:0 
+  at UnityEngine.EventSystems.ExecuteEvents.Execute (IPointerClickHandler handler, UnityEngine.EventSystems.BaseEventData eventData) [0x00000] in <filename unknown>:0 
+  at UnityEngine.EventSystems.ExecuteEvents.Execute[IPointerClickHandler] (UnityEngine.GameObject target, UnityEngine.EventSystems.BaseEventData eventData, UnityEngine.EventSystems.EventFunction`1 functor) [0x00000] in <filename unknown>:0 
+UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+UnityEngine.DebugLogHandler:LogException(Exception, Object)
+UnityEngine.Logger:LogException(Exception, Object)
+UnityEngine.Debug:LogException(Exception)
+UnityEngine.EventSystems.ExecuteEvents:Execute(GameObject, BaseEventData, EventFunction`1)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMousePress(MouseButtonEventData)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent(Int32)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent()
+UnityEngine.EventSystems.StandaloneInputModule:Process()
+UnityEngine.EventSystems.EventSystem:Update()
+ 
+(Filename:  Line: -1)
+
+Initialize engine version: 5.6.2f1 (a2913c821e27)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1050 (ID=0x1c81)
+    Vendor:   NVIDIA
+    VRAM:     2006 MB
+    Driver:   22.21.13.8233
+Begin MonoManager ReloadAssembly
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.016 seconds
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.dll (this message is harmless)
+<RI> Initializing input.
+<RI> Input initialized.
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initialized touch support.
+UnloadTime: 1.051042 ms
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: dfb0 -> priority: 1 
+  Thread -> id: dfb4 -> priority: 1 
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.837261 ms
+
+Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 947.
+Total: 0.341333 ms (FindLiveObjects: 0.048676 ms CreateObjectMapping: 0.024037 ms MarkObjects: 0.255399 ms  DeleteObjects: 0.012619 ms)
 

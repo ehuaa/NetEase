@@ -105,6 +105,7 @@ class SimpleServer(object):
             self.host.process()
             self.enemyManager.Process(self.host)
             self.playerManager.Process(self.host)
+            self.trapManager.Process(self.host)
 
             event, wparam, data = self.host.read()
 
@@ -153,7 +154,6 @@ class SimpleServer(object):
         host.sendClient(cid, data)
 
         if retMsg.msgData == retMsg.MSG_OK:
-            self.gamescene.SendAllObj(host, cid, retMsg.userID)
             return True,retMsg.userID
 
         return False,retMsg.userID

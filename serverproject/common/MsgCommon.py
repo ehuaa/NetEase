@@ -5,6 +5,7 @@ class MsgBase(object):
     def __init__(self):
         super(MsgBase, self).__init__()
         self.command = -1
+        self.params = []
 
     def GetMsgCommand(self):
         return self.command
@@ -142,15 +143,16 @@ class MsgCSMoveTo(MsgBase):
         return [self.x, self.y, self.z]
 
 class MsgSCMoveTo(MsgBase):
-    def __init__(self, entityid, userID, movement):
+    def __init__(self, entityid, userID, movement, speed = 300):
         super(MsgSCMoveTo, self).__init__()
         self.command = conf.MSG_SC_MOVETO
         self.entityID = entityid
         self.movement = movement
         self.userID = userID
+        self.speed = speed
 
     def getPackedData(self):
-        data = struct.pack('<iiifff', self.command, self.userID, self.entityID, self.movement[0], self.movement[1], self.movement[2])
+        data = struct.pack('<iiiffff', self.command, self.userID, self.entityID, self.movement[0], self.movement[1], self.movement[2], self.speed)
         return data
 
 class MsgSCEnemyDie(MsgBase):
@@ -180,4 +182,14 @@ class MsgSCPlayerAttack(MsgBase):
 
     def getPackedData(self):
         data = struct.pack('<iiii', self.command, self.userID, self.entityID, self.kind)
+        return data
+
+class MsgSCPlayerLogout(MsgBase):
+    def __init__(self, UserID, EntityID):
+        self.command = conf.MSG_SC_PLAYER_LOGOUT
+        self.userID = UserID
+        self.entityID = EntityID
+
+    def getPackedData(self):
+        data = struct.pack('<iii', self.command, self.userID, self.entityID)
         return data

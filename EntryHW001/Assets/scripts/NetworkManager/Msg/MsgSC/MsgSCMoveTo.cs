@@ -9,6 +9,7 @@ public class MsgSCMoveTo{
     int userID;
     int entityID;
     Vector3 movement;
+    public float speed;
     
     public MsgSCMoveTo(BinaryReader br)
     {
@@ -19,6 +20,7 @@ public class MsgSCMoveTo{
             this.movement.x = br.ReadSingle();
             this.movement.y = br.ReadSingle();
             this.movement.z = br.ReadSingle();
+            this.speed = br.ReadSingle();
         }
         catch
         {

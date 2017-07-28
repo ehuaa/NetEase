@@ -9,6 +9,14 @@ public class PlayerManager : MonoBehaviour {
     public GameObject otherplayer;
 
     public Dictionary<int, GameObject> playerArray = new Dictionary<int, GameObject>();
+
+    public void DeleteOtherPlayer(MsgSCPlayerLogout msg)
+    {
+        GameObject obj = playerArray[msg.userID];
+        playerArray.Remove(msg.userID);
+
+        Destroy(obj);
+    }
     
     public void MovePlayer(MsgSCMoveTo msg)
     {
@@ -63,6 +71,7 @@ public class PlayerManager : MonoBehaviour {
         
         if (cam != null)
         {
+            cam.SetCameraPosition(obj.transform.position);
             cam.target = obj.transform;
             cam.SetOffset();
         }

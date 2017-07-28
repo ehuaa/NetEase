@@ -16,6 +16,11 @@ public class CameraFollower : MonoBehaviour {
         offset = transform.position - target.position;
     }
 
+    public void SetCameraPosition(Vector3 pos)
+    {
+        this.gameObject.transform.position += pos;
+    }
+
     public void SetOffset()
     {
         offset = transform.position - target.position;

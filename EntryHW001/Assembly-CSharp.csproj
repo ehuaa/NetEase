@@ -62,6 +62,7 @@
      <Compile Include="Assets\scripts\NetworkManager\Msg\MsgSC\MsgSCLoadscene.cs" />
      <Compile Include="Assets\scripts\NetworkManager\Msg\MsgSC\MsgSCMoveTo.cs" />
      <Compile Include="Assets\scripts\NetworkManager\Msg\MsgSC\MsgSCPlayerAttack.cs" />
+     <Compile Include="Assets\scripts\NetworkManager\Msg\MsgSC\MsgSCPlayerLogout.cs" />
      <Compile Include="Assets\scripts\NetworkManager\NetworkMsgSendCenter.cs" />
      <Compile Include="Assets\scripts\NetworkManager\NetworkSocket.cs" />
      <Compile Include="Assets\scripts\NetworkManager\PlayerManager.cs" />

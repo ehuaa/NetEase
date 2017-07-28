@@ -33,6 +33,11 @@ public class GameSceneManager : MonoBehaviour {
         enemymanager.DestroyEnemy(msg.entityID);
     }
 
+    public void DestroyOtherPlayer(MsgSCPlayerLogout msg)
+    {
+        playermanager.DeleteOtherPlayer(msg);
+    }
+
     public void ChangeScene()
     {
         SceneManager.LoadScene("mainscene");
@@ -53,7 +58,7 @@ public class GameSceneManager : MonoBehaviour {
         }
         else
         {
-            //EnemyMovement
+            enemymanager.MoveEnemyToPosition(msg);
         }
     }
 

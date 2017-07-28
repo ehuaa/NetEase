@@ -24,4 +24,6 @@ class TrapManager(object):
         self.sv.gamescene.sendAllTraps(host, cid)
 
     def UnregisterClient(self, cid):
+        if self.liveclients.has_key(cid) == False:
+            return
         self.liveclients.pop(cid)

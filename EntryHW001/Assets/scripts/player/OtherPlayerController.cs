@@ -9,6 +9,8 @@ public class OtherPlayerController : MonoBehaviour {
     Vector3 movement;     
     Animator anim;        
     Rigidbody playerRigidbody;
+    Vector3 localmove;
+    bool bmove = false;
     
     void Awake ()
     {
@@ -17,15 +19,23 @@ public class OtherPlayerController : MonoBehaviour {
         playerRigidbody = GetComponent <Rigidbody> ();
     }
 
+    void Update()
+    {
+        if (bmove == true && gameObject.transform.position != localmove)
+        {
+            anim.SetBool("IsWalking", true);
+            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, localmove, 0.2f);
+        }
+    }
+
     void LateUpdate()
     {
         anim.SetBool ("IsWalking", false);
     }
     
     public void MoveTo (Vector3 movement)
-    {        
-        //playerRigidbody.MovePosition (transform.position + movement);
-        playerRigidbody.position = movement;
-        anim.SetBool("IsWalking", true);
+    {
+        bmove = true;
+        localmove = movement;        
     }        
 }

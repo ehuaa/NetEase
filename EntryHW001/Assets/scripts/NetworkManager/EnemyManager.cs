@@ -9,6 +9,12 @@ public class EnemyManager : MonoBehaviour {
 
     public Dictionary<int, GameObject> enemyArray = new Dictionary<int, GameObject>();
 
+    public void MoveEnemyToPosition(MsgSCMoveTo msg)
+    {
+        EnemyMovement em = enemyArray[msg.EntityID()].GetComponent<EnemyMovement>();
+        em.MoveTo(msg.GetMovement(), msg.speed);
+    }
+
     public GameObject Spawn(int ID, int EntityID, Vector3 pos, Quaternion quat)
     {
         GameObject obj = null;

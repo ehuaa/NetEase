@@ -19,6 +19,8 @@ public class command
     public const int MSG_SC_TRAP_DIE = 0x100f;
     public const int MSG_SC_PLAYER_DIE = 0x1010;
     public const int MSG_SC_PLAYER_ATTACK = 0x1011;
+    public const int MSG_SC_PLAYER_LOGOUT = 0x1012;
+    public const int MSG_SC_GAME_WIN = 0x1013;
 
     public const int MSG_CS_LOGIN = 0x2001;
     public const int MSG_CS_LOGOUT = 0x2002;

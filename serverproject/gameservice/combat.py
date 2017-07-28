@@ -13,20 +13,20 @@ class CombatManager(object):
     def PlayerFireLight(self,msg):
         # Not Implemented (Is it a legal attack?)
 
-        data = self.sv.gamescene.getEnemyData(msg.entityID2)
+        data = self.sv.gamescene.GetEnemyData(msg.entityID2)
 
         if data == None:
             return
 
-        blood = int(data['blood'])
+        blood = data.blood
         blood = blood - 10
 
         if blood <= 0:
             blood = 0
-            data['blood']= repr(blood)
+            data.blood = blood
             self.sv.enemyManager.DestroyEnemy(msg.entityID2)
         else:
-            data['blood']= repr(blood)
+            data.blood = blood
 
 
     def PlayerFireArea(self,msg):

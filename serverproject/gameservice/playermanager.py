@@ -3,7 +3,7 @@ import sys
 sys.path.append('./common')
 sys.path.append('./common_server')
 sys.path.append('./database')
-from MsgCommon import MsgSCMoveTo, MsgCSAttack, MsgSCPlayerAttack
+from MsgCommon import MsgSCMoveTo, MsgCSAttack, MsgSCPlayerAttack,MsgSCLoadscene, MsgSCPlayerLogout
 import conf
 from math3d import MathAuxiliary
 
@@ -37,7 +37,7 @@ class PlayerManager(object):
             handler(host, cid, msg)
 
     def PlayerAttack(self, host, cid, msg):
-        if self.sv.gamescene.getPlayerData(msg.userID) != self.sv.gamescene.getEntityData(msg.entityID1):
+        if self.sv.gamescene.GetPlayerData(msg.userID) != self.sv.gamescene.GetEntityData(msg.entityID1):
             return
 
         if msg.kind == MsgCSAttack.MAGIC_ATTACK and msg.entityID2 != -1:
@@ -55,7 +55,7 @@ class PlayerManager(object):
         userData = self.sv.gamescene.playerData[msg.GetUserID()]
 
         if self.sv.routerManager.MovePermission(userData.entityID, msg.GetMovement()) == True:
-            userData.position = MathAuxiliary.addVector3(userData.position, msg.GetMovement())
+            userData.position = MathAuxiliary.AddVector3(userData.position, msg.GetMovement())
             self.PlayerMovementNotify(host, msg.GetUserID(),int(userData.entityID), userData.position)
 
     def PlayerMovementNotify(self,host, userID, entityID, newposition):
@@ -70,7 +70,43 @@ class PlayerManager(object):
 
     def RegisterLiveClient(self, host, cid, uid):
         self.liveclients[cid] = uid
-        self.sv.gamescene.sendAllPlayers(host, cid, uid)
+        self._newUserLogin(uid, cid)
+
 
     def UnregisterClient(self, cid):
+        if self.liveclients.has_key(cid) == False:
+            return
+        userID = self.liveclients[cid]
         self.liveclients.pop(cid)
+        self._sendUserLogout(cid, userID)
+
+    def _sendUsersData(self, cid, val):
+        userID = val.userID
+        pos = val.position
+        q = val.quat
+        entityID = val.entityID
+
+        msg = MsgSCLoadscene(MsgSCLoadscene.MSG_KIND_PLAYER, userID, pos, q, entityID)
+        data = msg.getPackedData()
+
+        self.sv.host.sendClient(cid, data)
+
+    def _sendUserLogout(self,cid, uid):
+        data = self.sv.gamescene.GetPlayerData(uid)
+        msg = MsgSCPlayerLogout(uid, data.entityID)
+        data = msg.getPackedData()
+
+        for c,u in self.liveclients.items():
+            if c != cid :
+                self.sv.host.sendClient(c, data)
+
+    def _newUserLogin(self, uid, cid):
+        newUserData = self.sv.gamescene.GetPlayerData(uid)
+        if newUserData == None:
+            newUserData = self.sv.gamescene.CreateUserData(uid)
+
+        for k,v in self.liveclients.items():
+            self._sendUsersData(k, newUserData)
+            if k != cid:
+                liveUserData = self.sv.gamescene.GetPlayerData(v)
+                self._sendUsersData(cid, liveUserData)

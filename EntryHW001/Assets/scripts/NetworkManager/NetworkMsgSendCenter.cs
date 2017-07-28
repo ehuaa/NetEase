@@ -49,6 +49,9 @@ public class NetworkMsgSendCenter : MonoBehaviour {
             case command.MSG_SC_PLAYER_ATTACK:
                 this.MsgSCPlayerAttackProcedure(br);
                 break;
+            case command.MSG_SC_PLAYER_LOGOUT:
+                this.MsgSCPlayerLogout(br);
+                break;
             default:
                 Debug.Log("defualt sc message !!");
                 break;
@@ -59,6 +62,12 @@ public class NetworkMsgSendCenter : MonoBehaviour {
     {
         MemoryStream sm = new MemoryStream(data);
         return new BinaryReader(sm);
+    }
+    
+    void MsgSCPlayerLogout(BinaryReader br)
+    {
+        MsgSCPlayerLogout msg = new MsgSCPlayerLogout(br);
+        gamescenemanager.DestroyOtherPlayer(msg);
     }
 
     void MsgSCPlayerAttackProcedure(BinaryReader br)
