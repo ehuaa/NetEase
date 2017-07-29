@@ -1,238 +1,37 @@
 Initialize engine version: 5.6.2f1 (a2913c821e27)
 GfxDevice: creating device client; threaded=1
 Direct3D:
-    Version:  Direct3D 11.0 [level 11.1]
-    Renderer: NVIDIA GeForce GTX 1050 (ID=0x1c81)
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 850M  (ID=0x1391)
     Vendor:   NVIDIA
-    VRAM:     2006 MB
-    Driver:   22.21.13.8233
+    VRAM:     1995 MB
+    Driver:   10.18.13.5390
 Begin MonoManager ReloadAssembly
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.016 seconds
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.dll (this message is harmless)
+Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading F:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.030 seconds
+Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initialized touch support.
-UnloadTime: 0.935963 ms
-Initialize engine version: 5.6.2f1 (a2913c821e27)
-GfxDevice: creating device client; threaded=1
-Direct3D:
-    Version:  Direct3D 11.0 [level 11.1]
-    Renderer: NVIDIA GeForce GTX 1050 (ID=0x1c81)
-    Vendor:   NVIDIA
-    VRAM:     2006 MB
-    Driver:   22.21.13.8233
-Begin MonoManager ReloadAssembly
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.015 seconds
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.dll (this message is harmless)
-<RI> Initializing input.
-<RI> Input initialized.
-desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
-<RI> Initialized touch support.
+UnloadTime: 1.229250 ms
+Socket error: System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。
+
+  at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP, Boolean requireSocketPolicy) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.TcpClient.Connect (System.Net.IPEndPoint remote_end_point) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.TcpClient.Connect (System.Net.IPAddress[] ipAddresses, Int32 port) [0x00000] in <filename unknown>:0 
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 11c68 -> priority: 1 
-  Thread -> id: 12524 -> priority: 1 
-UnloadTime: 0.958798 ms
-Setting up 2 worker threads for Enlighten.
-  Thread -> id: 12590 -> priority: 1 
-  Thread -> id: 12438 -> priority: 1 
-Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 4.867007 ms
-
-Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 1122.
-Total: 0.402629 ms (FindLiveObjects: 0.065502 ms CreateObjectMapping: 0.037258 ms MarkObjects: 0.287248 ms  DeleteObjects: 0.012319 ms)
-
-Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 4.435833 ms
-
-Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 1122.
-Total: 0.395418 ms (FindLiveObjects: 0.060093 ms CreateObjectMapping: 0.024338 ms MarkObjects: 0.296263 ms  DeleteObjects: 0.014122 ms)
-
-Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 14.339913 ms
-
-Unloading 10 unused Assets to reduce memory usage. Loaded Objects now: 1126.
-Total: 0.411643 ms (FindLiveObjects: 0.064300 ms CreateObjectMapping: 0.029145 ms MarkObjects: 0.295361 ms  DeleteObjects: 0.021934 ms)
-
-Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
-ArgumentException: An element with the same key already exists in the dictionary.
-  at System.Collections.Generic.Dictionary`2[System.Int32,UnityEngine.GameObject].Add (Int32 key, UnityEngine.GameObject value) [0x00000] in <filename unknown>:0 
-  at PlayerManager.CreatePlayer (Int32 userID, Int32 entityID, Vector3 pos, Quaternion quat, Boolean actor) [0x00000] in <filename unknown>:0 
-  at GameSceneManager.CreateEntity (.MsgSCLoadscene msg) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgSCLoadsceneProcedure (System.IO.BinaryReader br) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgDispatch () [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-UnloadTime: 12.511857 ms
-
-Unloading 10 unused Assets to reduce memory usage. Loaded Objects now: 1126.
-Total: 0.429070 ms (FindLiveObjects: 0.088638 ms CreateObjectMapping: 0.024638 ms MarkObjects: 0.293558 ms  DeleteObjects: 0.021633 ms)
-
-Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 13.714335 ms
-
-Unloading 10 unused Assets to reduce memory usage. Loaded Objects now: 1126.
-Total: 0.405333 ms (FindLiveObjects: 0.048976 ms CreateObjectMapping: 0.024938 ms MarkObjects: 0.307680 ms  DeleteObjects: 0.023136 ms)
-
-Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
-ArgumentException: An element with the same key already exists in the dictionary.
-  at System.Collections.Generic.Dictionary`2[System.Int32,UnityEngine.GameObject].Add (Int32 key, UnityEngine.GameObject value) [0x00000] in <filename unknown>:0 
-  at PlayerManager.CreatePlayer (Int32 userID, Int32 entityID, Vector3 pos, Quaternion quat, Boolean actor) [0x00000] in <filename unknown>:0 
-  at GameSceneManager.CreateEntity (.MsgSCLoadscene msg) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgSCLoadsceneProcedure (System.IO.BinaryReader br) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgDispatch () [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-UnloadTime: 31.764452 ms
-
-Unloading 10 unused Assets to reduce memory usage. Loaded Objects now: 1126.
-Total: 0.409840 ms (FindLiveObjects: 0.055586 ms CreateObjectMapping: 0.024638 ms MarkObjects: 0.306779 ms  DeleteObjects: 0.022535 ms)
-
-Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 14.766882 ms
-
-Unloading 10 unused Assets to reduce memory usage. Loaded Objects now: 1126.
-Total: 0.448601 ms (FindLiveObjects: 0.082629 ms CreateObjectMapping: 0.023737 ms MarkObjects: 0.301671 ms  DeleteObjects: 0.039962 ms)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at EnemyRangeAttack.Awake () [0x00000] in <filename unknown>:0 
-UnityEngine.Object:INTERNAL_CALL_Internal_InstantiateSingle(Object, Vector3&, Quaternion&)
-UnityEngine.Object:Internal_InstantiateSingle(Object, Vector3, Quaternion)
-UnityEngine.Object:Instantiate(Object, Vector3, Quaternion)
-UnityEngine.Object:Instantiate(GameObject, Vector3, Quaternion)
-EnemyManager:Spawn(Int32, Int32, Vector3, Quaternion)
-GameSceneManager:CreateEntity(MsgSCLoadscene)
-NetworkMsgSendCenter:MsgSCLoadsceneProcedure(BinaryReader)
-NetworkMsgSendCenter:MsgDispatch()
-NetworkMsgSendCenter:Update()
- 
-(Filename:  Line: -1)
-
-ArgumentException: An element with the same key already exists in the dictionary.
-  at System.Collections.Generic.Dictionary`2[System.Int32,UnityEngine.GameObject].Add (Int32 key, UnityEngine.GameObject value) [0x00000] in <filename unknown>:0 
-  at PlayerManager.CreatePlayer (Int32 userID, Int32 entityID, Vector3 pos, Quaternion quat, Boolean actor) [0x00000] in <filename unknown>:0 
-  at GameSceneManager.CreateEntity (.MsgSCLoadscene msg) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgSCLoadsceneProcedure (System.IO.BinaryReader br) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgDispatch () [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 14.893379 ms
-
-Unloading 10 unused Assets to reduce memory usage. Loaded Objects now: 1126.
-Total: 0.427868 ms (FindLiveObjects: 0.055887 ms CreateObjectMapping: 0.037558 ms MarkObjects: 0.297464 ms  DeleteObjects: 0.036657 ms)
-
-KeyNotFoundException: The given key was not present in the dictionary.
-  at System.Collections.Generic.Dictionary`2[System.Int32,UnityEngine.GameObject].get_Item (Int32 key) [0x00000] in <filename unknown>:0 
-  at EnemyManager.MoveEnemyToPosition (.MsgSCMoveTo msg) [0x00000] in <filename unknown>:0 
-  at GameSceneManager.MoveToMessage (.MsgSCMoveTo msg) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgSCMoveToProcedure (System.IO.BinaryReader br) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgDispatch () [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-KeyNotFoundException: The given key was not present in the dictionary.
-  at System.Collections.Generic.Dictionary`2[System.Int32,UnityEngine.GameObject].get_Item (Int32 key) [0x00000] in <filename unknown>:0 
-  at EnemyManager.MoveEnemyToPosition (.MsgSCMoveTo msg) [0x00000] in <filename unknown>:0 
-  at GameSceneManager.MoveToMessage (.MsgSCMoveTo msg) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgSCMoveToProcedure (System.IO.BinaryReader br) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgDispatch () [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-KeyNotFoundException: The given key was not present in the dictionary.
-  at System.Collections.Generic.Dictionary`2[System.Int32,UnityEngine.GameObject].get_Item (Int32 key) [0x00000] in <filename unknown>:0 
-  at EnemyManager.MoveEnemyToPosition (.MsgSCMoveTo msg) [0x00000] in <filename unknown>:0 
-  at GameSceneManager.MoveToMessage (.MsgSCMoveTo msg) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgSCMoveToProcedure (System.IO.BinaryReader br) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgDispatch () [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-KeyNotFoundException: The given key was not present in the dictionary.
-  at System.Collections.Generic.Dictionary`2[System.Int32,UnityEngine.GameObject].get_Item (Int32 key) [0x00000] in <filename unknown>:0 
-  at EnemyManager.MoveEnemyToPosition (.MsgSCMoveTo msg) [0x00000] in <filename unknown>:0 
-  at GameSceneManager.MoveToMessage (.MsgSCMoveTo msg) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgSCMoveToProcedure (System.IO.BinaryReader br) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgDispatch () [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-KeyNotFoundException: The given key was not present in the dictionary.
-  at System.Collections.Generic.Dictionary`2[System.Int32,UnityEngine.GameObject].get_Item (Int32 key) [0x00000] in <filename unknown>:0 
-  at EnemyManager.MoveEnemyToPosition (.MsgSCMoveTo msg) [0x00000] in <filename unknown>:0 
-  at GameSceneManager.MoveToMessage (.MsgSCMoveTo msg) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgSCMoveToProcedure (System.IO.BinaryReader br) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgDispatch () [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-KeyNotFoundException: The given key was not present in the dictionary.
-  at System.Collections.Generic.Dictionary`2[System.Int32,UnityEngine.GameObject].get_Item (Int32 key) [0x00000] in <filename unknown>:0 
-  at EnemyManager.MoveEnemyToPosition (.MsgSCMoveTo msg) [0x00000] in <filename unknown>:0 
-  at GameSceneManager.MoveToMessage (.MsgSCMoveTo msg) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgSCMoveToProcedure (System.IO.BinaryReader br) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgDispatch () [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-KeyNotFoundException: The given key was not present in the dictionary.
-  at System.Collections.Generic.Dictionary`2[System.Int32,UnityEngine.GameObject].get_Item (Int32 key) [0x00000] in <filename unknown>:0 
-  at EnemyManager.MoveEnemyToPosition (.MsgSCMoveTo msg) [0x00000] in <filename unknown>:0 
-  at GameSceneManager.MoveToMessage (.MsgSCMoveTo msg) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgSCMoveToProcedure (System.IO.BinaryReader br) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgDispatch () [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-KeyNotFoundException: The given key was not present in the dictionary.
-  at System.Collections.Generic.Dictionary`2[System.Int32,UnityEngine.GameObject].get_Item (Int32 key) [0x00000] in <filename unknown>:0 
-  at EnemyManager.MoveEnemyToPosition (.MsgSCMoveTo msg) [0x00000] in <filename unknown>:0 
-  at GameSceneManager.MoveToMessage (.MsgSCMoveTo msg) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgSCMoveToProcedure (System.IO.BinaryReader br) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgDispatch () [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-KeyNotFoundException: The given key was not present in the dictionary.
-  at System.Collections.Generic.Dictionary`2[System.Int32,UnityEngine.GameObject].get_Item (Int32 key) [0x00000] in <filename unknown>:0 
-  at EnemyManager.MoveEnemyToPosition (.MsgSCMoveTo msg) [0x00000] in <filename unknown>:0 
-  at GameSceneManager.MoveToMessage (.MsgSCMoveTo msg) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgSCMoveToProcedure (System.IO.BinaryReader br) [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.MsgDispatch () [0x00000] in <filename unknown>:0 
-  at NetworkMsgSendCenter.Update () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
+  Thread -> id: 32a4 -> priority: 1 
+  Thread -> id: 3900 -> priority: 1 

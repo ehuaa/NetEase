@@ -5,11 +5,16 @@ using UnityEngine;
 public class PlayerShooting : MonoBehaviour {
     public int damagePerShot = 20;
     public int magicPerShot = 5;
-    public float timeBetweenBullets = 0.15f;
+
+    public float timeBetweenBullets = 0.2f;
+    public float timeBetweenMagic = 5.0f;
     public float range = 500f;
     public Material[] materials;
 
-    float timer;
+    float timerBullets;
+    float timerMagic;
+
+    float effecttime;
 
     Ray shootRay=new Ray();
     RaycastHit shootHit;
@@ -20,7 +25,7 @@ public class PlayerShooting : MonoBehaviour {
     AudioSource gunAudio;
     Light gunLight;
 
-    float effectsDisplayTime = 0.1f;
+    float effectsDisplayTime = 0.2f;
     
     void Awake()
     {
@@ -34,19 +39,21 @@ public class PlayerShooting : MonoBehaviour {
 
     void Update()
     {
-        timer += Time.deltaTime;
+        timerBullets += Time.deltaTime;
+        timerMagic += Time.deltaTime;
+        effecttime += Time.deltaTime;
 
-        if (Input.GetButton("Fire1") && timer >= timeBetweenBullets)
+        if (Input.GetButton("Fire1") && timerBullets >= timeBetweenBullets)
         {
             ShootArrow();
         }
 
-        if (Input.GetButton("Fire2") && timer>= timeBetweenBullets)
+        if (Input.GetButton("Fire2") && timerMagic>= this.timeBetweenMagic)
         {
             ShootMagic();
         }
 
-        if(timer>=timeBetweenBullets * effectsDisplayTime)
+        if(effecttime >= timeBetweenBullets * effectsDisplayTime)
         {
             DisableEffects();
         }
@@ -60,7 +67,9 @@ public class PlayerShooting : MonoBehaviour {
 
     void ShootArrow()
     {
-        timer = 0f;
+        timerBullets = 0f;
+        effecttime = 0f;
+
         gunAudio.Play();
        
         gunLight.color = new Color(0.9f, 0.9f, 0.0f);
@@ -113,7 +122,9 @@ public class PlayerShooting : MonoBehaviour {
     
     void ShootMagic()
     {
-        timer = 0f;
+        timerMagic = 0f;
+        effecttime = 0f;
+
         gunAudio.Play();
         gunLight.enabled = true;
         gunLight.color = new Color(0.1f, 0.3f, 1.0f);

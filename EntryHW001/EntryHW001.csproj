@@ -91,17 +91,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\scripts\LoginScene\LoginManager.cs" />
-    <Compile Include="Assets\scripts\Manager\EnemyManager.cs" />
     <Compile Include="Assets\scripts\Manager\GameOverManager.cs" />
-    <Compile Include="Assets\scripts\Manager\ScoreManager.cs" />
-    <Compile Include="Assets\scripts\NetworkManager\EnemySpawn.cs" />
+    <Compile Include="Assets\scripts\Manager\GameWinManager.cs" />
+    <Compile Include="Assets\scripts\Manager\GoldManager.cs" />
+    <Compile Include="Assets\scripts\NetworkManager\BackpackInfo.cs" />
+    <Compile Include="Assets\scripts\NetworkManager\EnemyManager.cs" />
+    <Compile Include="Assets\scripts\NetworkManager\EntityAttributes.cs" />
     <Compile Include="Assets\scripts\NetworkManager\GameSceneManager.cs" />
+    <Compile Include="Assets\scripts\NetworkManager\Msg\MsgCS\MsgCSAttack.cs" />
     <Compile Include="Assets\scripts\NetworkManager\Msg\MsgCS\MsgCSBase.cs" />
     <Compile Include="Assets\scripts\NetworkManager\Msg\MsgCS\MsgCSLogin.cs" />
     <Compile Include="Assets\scripts\NetworkManager\Msg\MsgCS\MsgCSMove.cs" />
+    <Compile Include="Assets\scripts\NetworkManager\Msg\MsgCS\MsgCSReplay.cs" />
     <Compile Include="Assets\scripts\NetworkManager\Msg\MsgSC\MsgSCConfirm.cs" />
+    <Compile Include="Assets\scripts\NetworkManager\Msg\MsgSC\MsgSCEnemyDie.cs" />
+    <Compile Include="Assets\scripts\NetworkManager\Msg\MsgSC\MsgSCGameOver.cs" />
+    <Compile Include="Assets\scripts\NetworkManager\Msg\MsgSC\MsgSCGameWin.cs" />
     <Compile Include="Assets\scripts\NetworkManager\Msg\MsgSC\MsgSCLoadscene.cs" />
+    <Compile Include="Assets\scripts\NetworkManager\Msg\MsgSC\MsgSCMoney.cs" />
     <Compile Include="Assets\scripts\NetworkManager\Msg\MsgSC\MsgSCMoveTo.cs" />
+    <Compile Include="Assets\scripts\NetworkManager\Msg\MsgSC\MsgSCPlayerAttack.cs" />
+    <Compile Include="Assets\scripts\NetworkManager\Msg\MsgSC\MsgSCPlayerLogout.cs" />
     <Compile Include="Assets\scripts\NetworkManager\NetworkMsgSendCenter.cs" />
     <Compile Include="Assets\scripts\NetworkManager\NetworkSocket.cs" />
     <Compile Include="Assets\scripts\NetworkManager\PlayerManager.cs" />
@@ -111,11 +121,14 @@
     <Compile Include="Assets\scripts\enemy\EnemyAttack.cs" />
     <Compile Include="Assets\scripts\enemy\EnemyHealth.cs" />
     <Compile Include="Assets\scripts\enemy\EnemyMovement.cs" />
+    <Compile Include="Assets\scripts\enemy\EnemyRangeAttack.cs" />
     <Compile Include="Assets\scripts\player\OtherPlayerController.cs" />
+    <Compile Include="Assets\scripts\player\OtherPlayerShooting.cs" />
     <Compile Include="Assets\scripts\player\PlayerController.cs" />
     <Compile Include="Assets\scripts\player\PlayerHealth.cs" />
     <Compile Include="Assets\scripts\player\PlayerShooting.cs" />
     <Compile Include="Assets\scripts\trap\TrapController.cs" />
+    <Compile Include="Assets\scripts\trap\TrapTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\LuckiestGuy\LICENSE.txt" />

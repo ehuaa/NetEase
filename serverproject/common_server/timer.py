@@ -1,5 +1,3 @@
-# -*- coding: GBK -*-
-
 import heapq
 import time
 

@@ -7,6 +7,7 @@ sys.path.append('./database')
 from managerbase import ManagerBase
 from MsgCommon import MsgSCGameOver,MsgSSGameOver,MsgSCGameWin
 import conf
+from math3d import MathAuxiliary
 
 class CombatManager(ManagerBase):
     def __init__(self, sv):
@@ -28,12 +29,14 @@ class CombatManager(ManagerBase):
         if self.stageNum > 2:
             msg = MsgSCGameWin()
             self._msgToAllClient(msg)
-            #Send Message to other service
             return False
         return True
 
     def PlayerFireLight(self,msg):
-        # Not Implemented (Is it a legal attack?)
+        val = MathAuxiliary.LineHitSphere(self.sv.gamescene.GetEntityData(msg.entityID1).position, [0,1,0], self.sv.gamescene.GetEntityData(msg.entityID1).position, 2)
+
+        if val == False:
+            return
 
         data = self.sv.gamescene.GetEnemyData(msg.entityID2)
 
@@ -61,7 +64,25 @@ class CombatManager(ManagerBase):
                 self.sv.host.sendClient(cid, msg.getPackedData())
 
     def PlayerFireArea(self,msg):
-        pass
+        val = MathAuxiliary.LineHitSphere(self.sv.gamescene.GetEntityData(msg.entityID1).position, [0, 1, 0],self.sv.gamescene.GetEntityData(msg.entityID1).position, 2)
+
+        if val == False:
+            return
+
+        retData = self.sv.enemyManager.FindEnemiesInCircle(self.sv.gamescene.GetEntityData(msg.entityID1).position, 5)
+
+        for val in retData:
+            blood = val.blood
+            blood = blood - 2
+
+            if blood <= 0:
+                blood = 0
+                data.blood = blood
+                self.sv.enemyManager.DestroyEnemy(msg.entityID2)
+                self.sv.economySys.AddMoney(self.sv.gamescene.GetEntityData(msg.entityID1).userID, 10)
+            else:
+                data.blood = blood
+
 
     def _EnemyFireAttack(self, EntityID):
         pass

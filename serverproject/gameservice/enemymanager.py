@@ -1,15 +1,14 @@
 import sys
 import random
 
-sys.path.append('./common')
-sys.path.append('./common_server')
-sys.path.append('./database')
+sys.path.append('../common')
+sys.path.append('../common_server')
+sys.path.append('../database')
 
-from datetime import datetime
 from managerbase import ManagerBase
-
-from timer import TimerManager
 from MsgCommon import MsgSCEnemyDie,MsgSCMoveTo,MsgSSGameOver
+from timer import TimerManager
+from datetime import datetime
 import conf
 
 class EnemyManager(ManagerBase):
@@ -150,3 +149,11 @@ class EnemyManager(ManagerBase):
             return
 
         self.liveclients.pop(cid)
+
+    def FindEnemiesInCircle(self, pos, radius):
+        retData = []
+        for entityID,data in self.sv.gamescene.enemyData.items:
+            if MathAuxiliary.Distance(pos, data.position) < radius:
+                retData.append(data)
+
+        return retData

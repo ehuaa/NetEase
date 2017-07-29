@@ -143,6 +143,21 @@ class SimpleServer(object):
                         self.trapManager.RegisterLiveClient(self.host, wparam, userID)
                         self.economySys.RegisterLiveClient(wparam, userID)
                         self.combatManager.RegisterLiveClient(wparam, userID)
+                elif type(msg) is MsgCSGameReplay:
+                    if self.enemyManager.gameover == False:
+                        self.playerManager.UnregisterClient(wparam)
+                        self.enemyManager.UnregisterClient(wparam)
+                        self.trapManager.UnregisterClient(wparam)
+                        self.economySys.UnregisterClient(wparam)
+                        self.combatManager.UnregisterClient(wparam)
+
+                        self.playerManager.RegisterLiveClient(self.host, wparam, userID)
+                        self.enemyManager.RegisterLiveClient(self.host, wparam, userID)
+                        self.trapManager.RegisterLiveClient(self.host, wparam, userID)
+                        self.economySys.RegisterLiveClient(wparam, userID)
+                        self.combatManager.RegisterLiveClient(wparam, userID)
+                    else:
+                        self.msgProcess(self.messageHandler[msg.GetMsgCommand()], wparam, msg)
                 else:
                     self.msgProcess(self.messageHandler[msg.GetMsgCommand()], wparam, msg)
 
