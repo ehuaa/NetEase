@@ -15,23 +15,20 @@ Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.
 Loading F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.030 seconds
+- Completed reload, in  0.029 seconds
 Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initialized touch support.
-UnloadTime: 1.229250 ms
-Socket error: System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。
-
-  at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP, Boolean requireSocketPolicy) [0x00000] in <filename unknown>:0 
-  at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP) [0x00000] in <filename unknown>:0 
-  at System.Net.Sockets.TcpClient.Connect (System.Net.IPEndPoint remote_end_point) [0x00000] in <filename unknown>:0 
-  at System.Net.Sockets.TcpClient.Connect (System.Net.IPAddress[] ipAddresses, Int32 port) [0x00000] in <filename unknown>:0 
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
+UnloadTime: 4.594096 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 32a4 -> priority: 1 
-  Thread -> id: 3900 -> priority: 1 
+  Thread -> id: 3e7c -> priority: 1 
+  Thread -> id: 3154 -> priority: 1 
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 8.163424 ms
+
+Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 1122.
+Total: 0.567650 ms (FindLiveObjects: 0.088423 ms CreateObjectMapping: 0.043817 ms MarkObjects: 0.414092 ms  DeleteObjects: 0.020526 ms)
+
