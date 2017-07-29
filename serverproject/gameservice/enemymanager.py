@@ -1,9 +1,9 @@
 import sys
 import random
 
-sys.path.append('../common')
-sys.path.append('../common_server')
-sys.path.append('../database')
+sys.path.append('./common')
+sys.path.append('./common_server')
+sys.path.append('./database')
 
 from managerbase import ManagerBase
 from MsgCommon import MsgSCEnemyDie,MsgSCMoveTo,MsgSSGameOver
