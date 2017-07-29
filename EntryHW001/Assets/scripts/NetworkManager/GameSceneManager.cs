@@ -8,6 +8,7 @@ public class GameSceneManager : MonoBehaviour {
     EnemyManager enemymanager;
     TrapManager trapmanager;
     PlayerManager playermanager;
+    NetworkMsgSendCenter msgcenter;
 
     public int userID = -12;
 
@@ -21,6 +22,30 @@ public class GameSceneManager : MonoBehaviour {
         enemymanager = GetComponent<EnemyManager>();
         playermanager = GetComponent<PlayerManager>();
         trapmanager = GetComponent<TrapManager>();
+        msgcenter = GetComponent<NetworkMsgSendCenter>();
+    }
+
+    public void GameWin(MsgSCGameWin msg)
+    {
+        playermanager.InitPlayerManager();
+        enemymanager.InitEnemyManager();
+        GameWinManager gwm = GameObject.FindGameObjectWithTag("Canvas").GetComponent<GameWinManager>();
+        gwm.GameWin();
+    }
+
+    public void ReplayGame()
+    {
+        MsgCSReplay msg = new MsgCSReplay(this.userID);
+        msgcenter.SendMessage(msg);
+        playermanager.InitPlayerManager();
+        enemymanager.InitEnemyManager();
+    }
+    
+    public void GameOver(MsgSCGameOver msg)
+    {
+        GameOverManager govm = GameObject.FindGameObjectWithTag("Canvas").GetComponent<GameOverManager>();
+        playermanager.DisablePlayer();
+        govm.GameOver();
     }
 
     public void OtherPlayerAttack(MsgSCPlayerAttack msg)

@@ -8,15 +8,12 @@ public class OtherPlayerController : MonoBehaviour {
 
     Vector3 movement;     
     Animator anim;        
-    Rigidbody playerRigidbody;
     Vector3 localmove;
     bool bmove = false;
     
     void Awake ()
     {
-        anim = GetComponent <Animator> ();
-                        
-        playerRigidbody = GetComponent <Rigidbody> ();
+        anim = GetComponent <Animator> ();                        
     }
 
     void Update()

@@ -11,7 +11,7 @@ sys.path.append('./gameservice')
 
 import conf
 from simpleHost import SimpleHost
-from MsgCommon import MsgCSLogin,MsgSCConfirm,MsgCSMoveTo,MsgCSAttack
+from MsgCommon import MsgCSLogin,MsgSCConfirm,MsgCSMoveTo,MsgCSAttack,MsgCSGameReplay
 from login import LoginServer
 from gameScene import GameScene
 from dispatcher import Dispatcher
@@ -20,6 +20,7 @@ from playermanager import PlayerManager
 from trapmanager import TrapManager
 from router import RouteManager
 from combat import CombatManager
+from economy import EconomySys
 
 class SimpleServer(object):
     def __init__(self):
@@ -37,13 +38,26 @@ class SimpleServer(object):
         self.trapManager = TrapManager(self)
         self.routerManager = RouteManager(self)
         self.combatManager = CombatManager(self)
+        self.economySys = EconomySys(self)
 
         self.RegisterMessageHandler(conf.MSG_CS_MOVETO, self.playerManager.MsgHandler)
         self.RegisterMessageHandler(conf.MSG_CS_ATTACK, self.playerManager.MsgHandler)
-        self.RegisterMessageHandler(conf.MSG_CS_ATTACK, self.enemyManager.MsgHandler)
-        self.RegisterMessageHandler(conf.MSG_CS_ATTACK, self.trapManager.MsgHandler)
+        #self.RegisterMessageHandler(conf.MSG_CS_ATTACK, self.trapManager.MsgHandler)
+
+        self.RegisterMessageHandler(conf.MSG_CS_GAME_REPLAY, self.playerManager.MsgHandler)
+        self.RegisterMessageHandler(conf.MSG_CS_GAME_REPLAY, self.enemyManager.MsgHandler)
+        #self.RegisterMessageHandler(conf.MSG_CS_GAME_REPLAY, self.trapManager.MsgHandler)
+        self.RegisterMessageHandler(conf.MSG_CS_GAME_REPLAY, self.combatManager.MsgHandler)
+
+        self.RegisterMessageHandler(conf.MSG_SS_GAME_OVER, self.enemyManager.MsgHandler)
+        #self.RegisterMessageHandler(conf.MSG_SS_GAME_OVER, self.trapManager.MsgHandler)
 
         return
+
+    def SendMessageSS(self, msg):
+        for hd in self.messageHandler[msg.command]:
+            hd(self.host, -1, msg)
+
     def RegisterMessageHandler(self, msgCommond, func):
         if func not in self.messageHandler[msgCommond]:
             self.messageHandler[msgCommond].append(func)
@@ -61,6 +75,8 @@ class SimpleServer(object):
         self.messageHandler[conf.MSG_CS_WEAPON_UPGRADE]=[]
         self.messageHandler[conf.MSG_CS_MONEY]=[]
         self.messageHandler[conf.MSG_CS_WEAPON_ATTACK]=[]
+        self.messageHandler[conf.MSG_CS_GAME_REPLAY] = []
+        self.messageHandler[conf.MSG_SS_GAME_OVER] = []
 
     def generateEntityID(self):
         raise NotImplementedError
@@ -86,6 +102,9 @@ class SimpleServer(object):
                 return msg;
             elif cmdcode == conf.MSG_CS_ATTACK:
                 msg = MsgCSAttack(data[4:])
+                return msg
+            elif cmdcode == conf.MSG_CS_GAME_REPLAY:
+                msg = MsgCSGameReplay(data[4:])
                 return msg
 
         except:
@@ -122,6 +141,8 @@ class SimpleServer(object):
                         self.playerManager.RegisterLiveClient(self.host, wparam, userID)
                         self.enemyManager.RegisterLiveClient(self.host, wparam, userID)
                         self.trapManager.RegisterLiveClient(self.host, wparam, userID)
+                        self.economySys.RegisterLiveClient(wparam, userID)
+                        self.combatManager.RegisterLiveClient(wparam, userID)
                 else:
                     self.msgProcess(self.messageHandler[msg.GetMsgCommand()], wparam, msg)
 
@@ -132,6 +153,8 @@ class SimpleServer(object):
                 self.playerManager.UnregisterClient(wparam)
                 self.enemyManager.UnregisterClient(wparam)
                 self.trapManager.UnregisterClient(wparam)
+                self.economySys.UnregisterClient(wparam)
+                self.combatManager.UnregisterClient(wparam)
                 #Save Data into the database
 
             elif event == conf.NET_CONNECTION_NEW:

@@ -21,6 +21,7 @@ public class command
     public const int MSG_SC_PLAYER_ATTACK = 0x1011;
     public const int MSG_SC_PLAYER_LOGOUT = 0x1012;
     public const int MSG_SC_GAME_WIN = 0x1013;
+    public const int MSG_SC_GAME_OVER = 0x1014;
 
     public const int MSG_CS_LOGIN = 0x2001;
     public const int MSG_CS_LOGOUT = 0x2002;
@@ -30,6 +31,7 @@ public class command
     public const int MSG_CS_WEAPON_UPGRADE = 0x2006;
     public const int MSG_CS_MONEY = 0x2007; //Buy weapon
     public const int MSG_CS_WEAPON_ATTACK = 0x2008;
+    public const int MSG_CS_GAME_REPLAY = 0x2009;
 
 
     public const int NET_STATE_STOP = 0;           // state: init value

@@ -1,9 +1,20 @@
 # -*- coding: GBK -*-
+class ActorData(object):
+    def __init__(self, data):
+        self.userID = int(data['UserID'])
+        self.bood = int(data['Blood'])
+        self.money = int(data['Money'])
+        self.attack = int(data['Attack'])
+        self.shootdistance = int(data['ShootDistance'])
+        self.speed = int(data['Speed'])
+        self.experience = int(data['Experience'])
+
+
 class ActorAttributes(object):
     def __init__(self):
         super(ActorAttributes, self).__init__()
         self.actorFilePath = './database/actor-attr.txt'
-        self.actorAtrr = {}
+        self.actorAttr = {}
 
         self._loadFileData(self.actorFilePath)
 
@@ -23,7 +34,8 @@ class ActorAttributes(object):
 
                 if key == 'UserID':
                     if len(data) != 0:
-                        self.actorAtrr[data['UserID']] = data
+                        cell = ActorData(data)
+                        self.actorAttr[cell.userID] = cell
                         data = {}
                         data[key] = value
                     else:
@@ -31,7 +43,8 @@ class ActorAttributes(object):
                 else:
                     data[key] = value
             if len(data) != 0:
-                self.actorAtrr[data['UserID']] = data
+                cell = ActorData(data)
+                self.actorAttr[cell.userID] = cell
 
             f.close()
 

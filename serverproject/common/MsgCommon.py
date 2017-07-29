@@ -94,6 +94,11 @@ class MsgCSAttack(MsgBase):
         self.pos2,data = self.GetVector3Value(data)
         self.kind,data = self.GetIntValue(data)
 
+class MsgCSGameReplay(MsgBase):
+    def __init__(self, data):
+        self.command = conf.MSG_CS_GAME_REPLAY
+        self.userID,data = self.GetIntValue(data)
+
 class MsgSCLoadscene(MsgBase):
     MSG_KIND_PLAYER = 0
     MSG_KIND_ENEMY = 1
@@ -192,4 +197,34 @@ class MsgSCPlayerLogout(MsgBase):
 
     def getPackedData(self):
         data = struct.pack('<iii', self.command, self.userID, self.entityID)
+        return data
+
+class MsgSCMoney(MsgBase):
+    def __init__(self, UserID, Money):
+        self.command = conf.MSG_SC_MONEY
+        self.userID = UserID
+        self.money = Money
+
+    def getPackedData(self):
+        data = struct.pack('<iii', self.command, self.userID, self.money)
+        return data
+
+class MsgSCGameOver(MsgBase):
+    def __init__(self):
+        self.command = conf.MSG_SC_GAME_OVER
+
+    def getPackedData(self):
+        data = struct.pack('<i', self.command)
+        return data
+
+class MsgSSGameOver(MsgBase):
+    def __init__(self):
+        self.command = conf.MSG_SS_GAME_OVER
+
+class MsgSCGameWin(MsgBase):
+    def __init__(self):
+        self.command = conf.MSG_SC_GAME_WIN
+
+    def getPackedData(self):
+        data = struct.pack('<i', self.command)
         return data

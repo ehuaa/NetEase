@@ -44,4 +44,14 @@ public class EnemyManager : MonoBehaviour {
         EnemyHealth health = obj.GetComponent<EnemyHealth>();
         health.Death();
     }
+
+    public void InitEnemyManager()
+    {
+        foreach(KeyValuePair<int, GameObject> cell in this.enemyArray)
+        {
+            cell.Value.SetActive(false);
+            Destroy(cell.Value);
+        }
+        enemyArray.Clear();
+    }
 }

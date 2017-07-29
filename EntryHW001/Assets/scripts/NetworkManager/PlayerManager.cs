@@ -10,6 +10,15 @@ public class PlayerManager : MonoBehaviour {
 
     public Dictionary<int, GameObject> playerArray = new Dictionary<int, GameObject>();
 
+    public void DisablePlayer()
+    {
+        GameSceneManager gsm = GetComponent<GameSceneManager>();
+        GameObject obj = playerArray[gsm.userID];
+        obj.SetActive(false);
+        Destroy(obj);
+        playerArray.Remove(gsm.userID);
+    }
+
     public void DeleteOtherPlayer(MsgSCPlayerLogout msg)
     {
         GameObject obj = playerArray[msg.userID];
@@ -93,5 +102,15 @@ public class PlayerManager : MonoBehaviour {
         {
             ops.ShootMagic();
         }
+    }
+    
+    public void InitPlayerManager()
+    {
+        foreach(KeyValuePair<int, GameObject> cell in this.playerArray)
+        {
+            cell.Value.SetActive(false);
+            Destroy(cell.Value);
+        }
+        playerArray.Clear();
     }
 }

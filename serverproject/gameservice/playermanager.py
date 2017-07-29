@@ -3,38 +3,24 @@ import sys
 sys.path.append('./common')
 sys.path.append('./common_server')
 sys.path.append('./database')
-from MsgCommon import MsgSCMoveTo, MsgCSAttack, MsgSCPlayerAttack,MsgSCLoadscene, MsgSCPlayerLogout
+from MsgCommon import MsgSCMoveTo, MsgCSAttack, MsgSCPlayerAttack,MsgSCLoadscene, MsgSCPlayerLogout,MsgCSGameReplay
 import conf
 from math3d import MathAuxiliary
+from managerbase import ManagerBase
 
-class PlayerManager(object):
+class PlayerManager(ManagerBase):
     def __init__(self, sv):
         super(PlayerManager, self).__init__()
         self.sv = sv
-        self.liveclients = {}
-        self.msgHandlers={}
-
-        self._initMsgHandlers()
 
     def _initMsgHandlers(self):
         self.msgHandlers[conf.MSG_CS_ATTACK]=[]
         self.msgHandlers[conf.MSG_CS_MOVETO]=[]
+        self.msgHandlers[conf.MSG_CS_GAME_REPLAY] = []
 
         self._registerMsgHandler(conf.MSG_CS_MOVETO, self.PlayerMove)
         self._registerMsgHandler(conf.MSG_CS_ATTACK, self.PlayerAttack)
-
-
-    def _registerMsgHandler(self,msg, func):
-        if func not in self.msgHandlers[msg]:
-            self.msgHandlers[msg].append(func)
-
-    def _unregisterMsgHandler(self,msg, func):
-        if func in self.msgHandlers[msg]:
-            self.msgHandlers[msg].remove(func)
-
-    def MsgHandler(self, host, cid, msg):
-        for handler in self.msgHandlers[msg.command]:
-            handler(host, cid, msg)
+        self._registerMsgHandler(conf.MSG_CS_GAME_REPLAY, self.ReplayGame)
 
     def PlayerAttack(self, host, cid, msg):
         if self.sv.gamescene.GetPlayerData(msg.userID) != self.sv.gamescene.GetEntityData(msg.entityID1):
@@ -110,3 +96,10 @@ class PlayerManager(object):
             if k != cid:
                 liveUserData = self.sv.gamescene.GetPlayerData(v)
                 self._sendUsersData(cid, liveUserData)
+
+    def ReplayGame(self, host, cid, msg):
+        self._newUserLogin(msg.userID, cid)
+        self.sv.economySys.SendInitPlayerMoney(msg.userID)
+
+
+

@@ -4,23 +4,13 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour {
-    Transform target;
-    PlayerHealth playerHealth;
-    EnemyHealth enemyHealth;
-    NavMeshAgent nav;
-
+        
     bool bmove = false;
     Vector3 localmove;
     float speed;
 
     void Awake()
     {
-        target = GameObject.FindGameObjectWithTag("target").transform;
-
-        enemyHealth = GetComponent<EnemyHealth>();
-
-        nav = GetComponent<NavMeshAgent>();
-
         speed = 300;
     }
 

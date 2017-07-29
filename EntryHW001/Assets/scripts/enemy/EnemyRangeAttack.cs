@@ -47,6 +47,10 @@ public class EnemyRangeAttack : MonoBehaviour {
 
     void Attack()
     {
+
+        if (player == null)
+            return;
+
         if (timer < timeBwteenAttacks || playerHealth.currentHealth < 0 || enemyHealth.currentHealth < 0)
             return;
 

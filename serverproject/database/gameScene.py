@@ -335,6 +335,10 @@ class GameScene(object):
         self.enemyData.pop(entityID)
         self.EntityIDS.pop(entityID)
 
+    def DestroyAllEnemy(self):
+        for key, val in self.enemyData.items():
+            self.DestroyEnemy(val.entityID)
+
     def SendEnemy(self, host, cid, val):
         enemyID = val.enemyID
         entityID = val.entityID

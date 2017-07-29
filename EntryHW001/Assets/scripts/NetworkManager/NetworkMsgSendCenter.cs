@@ -52,6 +52,16 @@ public class NetworkMsgSendCenter : MonoBehaviour {
             case command.MSG_SC_PLAYER_LOGOUT:
                 this.MsgSCPlayerLogout(br);
                 break;
+
+            case command.MSG_SC_MONEY:
+                MsgSCMoneyProcedure(br);
+                break;
+            case command.MSG_SC_GAME_OVER:
+                this.MsgSCGameOverProcedure(br);
+                break;
+            case command.MSG_SC_GAME_WIN:
+                this.MsgSCGameWinProcedure(br);
+                break;
             default:
                 Debug.Log("defualt sc message !!");
                 break;
@@ -64,6 +74,24 @@ public class NetworkMsgSendCenter : MonoBehaviour {
         return new BinaryReader(sm);
     }
     
+    void MsgSCGameWinProcedure(BinaryReader br)
+    {
+        MsgSCGameWin msg = new MsgSCGameWin();
+        gamescenemanager.GameWin(msg);
+    }
+
+    void MsgSCGameOverProcedure(BinaryReader br)
+    {
+        MsgSCGameOver msg = new MsgSCGameOver();
+        gamescenemanager.GameOver(msg);
+    }
+
+    void MsgSCMoneyProcedure(BinaryReader br)
+    {
+        MsgSCMoney msg = new MsgSCMoney(br);
+        GoldManager.gold = msg.money;
+    }
+
     void MsgSCPlayerLogout(BinaryReader br)
     {
         MsgSCPlayerLogout msg = new MsgSCPlayerLogout(br);

@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour {
         {
             gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, localMove, 0.2f);            
         }
+
+        //Turning();
     }
 
     void Move (float h, float v)
@@ -64,7 +66,7 @@ public class PlayerController : MonoBehaviour {
                 MsgCSMove msg = new MsgCSMove(moveSum, this.GetComponent<EntityAttributes>().ID);
                 msgcenter.SendMessage(msg);
                 moveSum = new Vector3(0, 0, 0);
-            }
+            }            
         }            
     }
 
@@ -82,13 +84,13 @@ public class PlayerController : MonoBehaviour {
         
         if(Physics.Raycast (camRay, out floorHit, camRayLength, floorMask))
         {
-            Vector3 playerToMouse = floorHit.point - transform.position;
-
+            Vector3 playerToMouse = floorHit.point - transform.position;            
             playerToMouse.y = 0f;
             
             Quaternion newRotation = Quaternion.LookRotation (playerToMouse);
 
-            playerRigidbody.MoveRotation (newRotation);
+
+            playerRigidbody.MoveRotation (newRotation);            
         }        
     }
 

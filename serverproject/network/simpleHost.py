@@ -124,6 +124,8 @@ class SimpleHost(object):
 
     # send data to a certain client
     def sendClient(self, hid, data):
+        #code, client = self.getClient(hid)
+        self.clientNodelay(hid)
         code, client = self.getClient(hid)
         if code < 0:
             return code

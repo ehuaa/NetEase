@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreManager : MonoBehaviour {
-    public static int score;
+public class GoldManager : MonoBehaviour {
+    
+    public static int gold;
 
     Text text;
 
     void Awake()
     {
         text = GetComponent<Text>();
-        score = 0;
+        gold = 0;
     }
 
     void Update()
     {
-        text.text = "Score: " + score;
+        text.text = "Gold: " + gold;
     }
 }

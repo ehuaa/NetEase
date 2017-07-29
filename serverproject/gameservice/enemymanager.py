@@ -6,28 +6,61 @@ sys.path.append('./common_server')
 sys.path.append('./database')
 
 from datetime import datetime
+from managerbase import ManagerBase
 
 from timer import TimerManager
-from MsgCommon import MsgSCEnemyDie,MsgSCMoveTo
+from MsgCommon import MsgSCEnemyDie,MsgSCMoveTo,MsgSSGameOver
+import conf
 
-class EnemyManager(object):
+class EnemyManager(ManagerBase):
     def __init__(self, sv):
         super(EnemyManager, self).__init__()
         self.sv=sv
-        self.liveclients = {}
         self.timerDelay = None
         self.timer = None
         self.count = 0
         self.spawn = False
+        self.gameover = False
         self.destination = [0,0,-70]
         self.enemyMoveInterval = datetime.now()
+
+
+    def _initMsgHandlers(self):
+        self.msgHandlers[conf.MSG_SS_GAME_OVER] = []
+        self.msgHandlers[conf.MSG_CS_GAME_REPLAY] = []
+        self._registerMsgHandler(conf.MSG_SS_GAME_OVER, self.GameOver)
+        self._registerMsgHandler(conf.MSG_CS_GAME_REPLAY, self.GameReplay)
+
+    def GameReplay(self, host,cid ,msg):
+        if self.timerDelay != None:
+            self.timerDelay.cancel()
+
+        if self.timer != None:
+            self.timer.cancel()
+
+        self.timerDelay = None
+        self.timer = None
+        self.count = 0
+        self.spawn = False
+        self.destination = [0, 0, -70]
+        self.enemyMoveInterval = datetime.now()
+        self.gameover = False
+
+    def GameOver(self, host, cid, msg):
+        self.sv.gamescene.DestroyAllEnemy()
+
+        if self.timerDelay:
+            self.timerDelay.cancel()
+        if self.timer:
+            self.timer.cancel()
+
+        self.gameover = True
 
     def DestroyEnemy(self, entityID):
         self.sv.gamescene.DestroyEnemy(entityID)
         msg = MsgSCEnemyDie(entityID)
         for cid, uid in self.liveclients.items():
             self.sv.host.sendClient(cid, msg.getPackedData())
-
 
     def _spawEnemy(self, number, host):
         enemyID = random.randint(1, 2)
@@ -53,27 +86,24 @@ class EnemyManager(object):
         TimerManager.removeCancelledTasks()
         self.timer = TimerManager.addRepeatTimer(interval, self._spawEnemy, number, host)
 
-
-    #Handle the MSG_CS_ACTOR_ATTACK message
-    def MsgHandler(self, host, cid, msg):
-        pass
-
     # Update the enemies' state
     def Process(self, host):
-        if len(self.liveclients) == 0:
+        if len(self.liveclients) == 0 or self.gameover == True:
             return
-
-        self.EnemysMove()
 
         TimerManager.scheduler()
 
         #spawn enemies and broadcast to all live clients
         if len(self.sv.gamescene.enemyData) == 0 and self.spawn == False:
-            self.timerDelay = TimerManager.addTimer(2, self.SpawnEnemy, 3, 10, host)
-            self.count = 0
-            self.spawn = True
+            if self.sv.combatManager.IncrementStageNum() == False:
+                self.gameover = True
+            else:
+                self.timerDelay = TimerManager.addTimer(1, self.SpawnEnemy, 2, 1, host)
+                self.count = 0
+                self.spawn = True
+
         else: #Moving and attacking the Players
-            pass
+            self.EnemysMove()
 
     def EnemysMove(self):
         if (datetime.now()-self.enemyMoveInterval).microseconds/1000 > 900:
@@ -94,9 +124,16 @@ class EnemyManager(object):
                         msg = MsgSCMoveTo(data.entityID, -1, pos, 900)
                         self.sv.host.sendClient(cid, msg.getPackedData())
 
+                    self.IsEnemyArrivalDesination(data)
+
             self.enemyMoveInterval = datetime.now()
         else:
             return
+
+    def IsEnemyArrivalDesination(self, enemyData):
+        if enemyData.position[2]<self.destination[2]:
+            self.DestroyEnemy(enemyData.entityID)
+            self.sv.combatManager.EnemyArrival()
 
     def EnemyPathRedirection(self, enemyData):
         pass
