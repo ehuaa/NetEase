@@ -5,6 +5,9 @@ class ManagerBase(object):
         self.sv = None
         self._initMsgHandlers()
 
+    def Process(self, host):
+        pass
+
     def _initMsgHandlers(self):
         pass
 

@@ -1,15 +1,9 @@
 TrapID:1
 Attack:0
+Price:20
 Speed:1
 
 TrapID:2
 Attack:10
-Speed:0
-
-TrapID:3
-Attack:0
-Speed:2
-
-TrapID:4
-Attack:15
+Price:20
 Speed:0

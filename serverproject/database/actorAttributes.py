@@ -1,14 +1,21 @@
 # -*- coding: GBK -*-
+class Backpack(object):
+    def __init__(self,data):
+        super(Backpack, self).__init__()
+        self.traps = {}
+        for k,v in data.items():
+            self.traps[int(k)]=int(v)
+
 class ActorData(object):
     def __init__(self, data):
         self.userID = int(data['UserID'])
-        self.bood = int(data['Blood'])
+        self.blood = int(data['Blood'])
         self.money = int(data['Money'])
         self.attack = int(data['Attack'])
-        self.shootdistance = int(data['ShootDistance'])
+        self.shootDistance = int(data['ShootDistance'])
         self.speed = int(data['Speed'])
         self.experience = int(data['Experience'])
-
+        self.backpack = Backpack(data['Backpack'])
 
 class ActorAttributes(object):
     def __init__(self):
@@ -76,21 +83,17 @@ class ActorAttributes(object):
                 str = str[index+1:]
                 index = str.find(',')
 
-                if key == 'trapID':
-                    if len(data) != 0:
-                        retVal[data['trapID']] = data
-                        data = {}
-                        data[key] = value
-                    else:
-                        data[key] = value
-                else:
-                    data[key] = value
+                retVal[key] = value
 
             key,value = self._getKeyValue(str)
-            data[key] = value
-
-            retVal[data['trapID']] = data
+            retVal[key] = value
 
             return retVal
         except:
             raise
+
+    def GetActorAttributes(self, userID):
+        try:
+            return self.actorAttr[userID]
+        except:
+            return None

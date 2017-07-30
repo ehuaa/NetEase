@@ -62,18 +62,46 @@ public class NetworkMsgSendCenter : MonoBehaviour {
             case command.MSG_SC_GAME_WIN:
                 this.MsgSCGameWinProcedure(br);
                 break;
+            case command.MSG_SC_PLYAR_BLOOD:
+                this.MsgSCBloodProcedure(br);
+                break;
+            case command.MSG_SC_PLAYER_DIE:
+                this.MsgSCPlayerDieProcedure(br);
+                break;
+            case command.MSG_SC_BACKPACK:
+                this.MsgSCBackpackProcedure(br);
+                break;
             default:
                 Debug.Log("defualt sc message !!");
                 break;
         }
     }
 
+
     BinaryReader GetBinaryReader(byte[] data)
     {
         MemoryStream sm = new MemoryStream(data);
         return new BinaryReader(sm);
     }
-    
+
+    void MsgSCBackpackProcedure(BinaryReader br)
+    {
+        MsgSCBackpack msg = new MsgSCBackpack(br);
+        gamescenemanager.SetBackpack(msg);
+    }
+
+    void MsgSCPlayerDieProcedure(BinaryReader br)
+    {
+        MsgSCPlayerDie msg = new MsgSCPlayerDie(br);
+        gamescenemanager.PlayerDie(msg);
+    }
+
+    void MsgSCBloodProcedure(BinaryReader br)
+    {
+        MsgSCBlood msg = new MsgSCBlood(br);
+        gamescenemanager.SetPlayerBoold(msg);
+    }
+
     void MsgSCGameWinProcedure(BinaryReader br)
     {
         MsgSCGameWin msg = new MsgSCGameWin();

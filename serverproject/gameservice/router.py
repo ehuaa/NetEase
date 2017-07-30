@@ -29,4 +29,7 @@ class RouteManager(ManagerBase):
         start = self.sv.gamescene.GetEntityData(entityID).position
         return self.sv.gamescene.mapData.FindPathToPostion(start, pos)
 
+    #Enemy path solving
+    def Process(self, host):
+        pass
 

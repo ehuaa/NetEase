@@ -10,6 +10,7 @@ from MsgCommon import MsgSCEnemyDie,MsgSCMoveTo,MsgSSGameOver
 from timer import TimerManager
 from datetime import datetime
 import conf
+from math3d import MathAuxiliary
 
 class EnemyManager(ManagerBase):
     def __init__(self, sv):
@@ -25,12 +26,15 @@ class EnemyManager(ManagerBase):
 
 
     def _initMsgHandlers(self):
-        self.msgHandlers[conf.MSG_SS_GAME_OVER] = []
-        self.msgHandlers[conf.MSG_CS_GAME_REPLAY] = []
         self._registerMsgHandler(conf.MSG_SS_GAME_OVER, self.GameOver)
         self._registerMsgHandler(conf.MSG_CS_GAME_REPLAY, self.GameReplay)
+        self._registerMsgHandler(conf.MSG_CS_ENEMY_ATTACK, self.EnemyAttack)
 
     def GameReplay(self, host,cid ,msg):
+        if self.gameover == False:
+            self.sv.gamescene.sendALLEnemies(host, cid)
+            return
+
         if self.timerDelay != None:
             self.timerDelay.cancel()
 
@@ -152,8 +156,11 @@ class EnemyManager(ManagerBase):
 
     def FindEnemiesInCircle(self, pos, radius):
         retData = []
-        for entityID,data in self.sv.gamescene.enemyData.items:
+        for entityID,data in self.sv.gamescene.enemyData.items():
             if MathAuxiliary.Distance(pos, data.position) < radius:
                 retData.append(data)
 
         return retData
+
+    def EnemyAttack(self, host ,cid, msg):
+        self.sv.combatManager.EnemyAttack(msg.entityID1, msg.entityID2)

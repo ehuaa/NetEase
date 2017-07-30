@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OtherPlayerController : MonoBehaviour {
-    
-    public float speed = 3f;            
+public class OtherPlayerController : MonoBehaviour {    
+    public AudioClip deathClip;
 
     Vector3 movement;     
+    AudioSource playerAudio;
     Animator anim;        
     Vector3 localmove;
     bool bmove = false;
     
+    
     void Awake ()
     {
         anim = GetComponent <Animator> ();                        
+        playerAudio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -34,5 +36,13 @@ public class OtherPlayerController : MonoBehaviour {
     {
         bmove = true;
         localmove = movement;        
-    }        
+    }   
+
+    public void Death()
+    {
+        anim.SetTrigger("Die");
+        playerAudio.clip = deathClip;
+        playerAudio.Play();
+        Debug.Log("Die");
+    }
 }

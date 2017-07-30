@@ -11,6 +11,9 @@ public class EnemyManager : MonoBehaviour {
 
     public void MoveEnemyToPosition(MsgSCMoveTo msg)
     {
+        if (enemyArray.ContainsKey(msg.EntityID()) == false)
+            return;
+
         EnemyMovement em = enemyArray[msg.EntityID()].GetComponent<EnemyMovement>();
         em.MoveTo(msg.GetMovement(), msg.speed);
     }
@@ -30,6 +33,13 @@ public class EnemyManager : MonoBehaviour {
         EntityAttributes ea = obj.GetComponent<EntityAttributes>();
         ea.ID = ID;
         ea.EntityID = EntityID;
+
+        if (enemyArray.ContainsKey(ea.EntityID) == true)
+        {
+            enemyArray[ea.EntityID].SetActive(false);
+            Destroy(enemyArray[ea.EntityID]);
+            enemyArray.Remove(ea.EntityID);
+        }
 
         this.enemyArray.Add(EntityID, obj);
 

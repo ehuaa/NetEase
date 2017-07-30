@@ -35,6 +35,8 @@ public class PlayerShooting : MonoBehaviour {
         gunLine = GetComponent<LineRenderer>();
         gunAudio = GetComponent<AudioSource>();
         gunLight = GetComponent<Light>();
+
+        timerMagic = 5.0f;
     }
 
     void Update()

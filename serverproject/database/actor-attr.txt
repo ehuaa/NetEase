@@ -6,7 +6,7 @@ ShootDistance:20
 Speed:5
 Experience:0
 Score:0
-Backpack:{trapID:1,Number:1,trapID:2,Number:1}
+Backpack:{1:2,2:2}
 
 UserID:1
 Blood:100
@@ -16,7 +16,7 @@ ShootDistance:20
 Speed:5
 Experience:0
 Score:0
-Backpack:{trapID:1,Number:1,trapID:2,Number:1}
+Backpack:{1:2,2:2}
 
 UserID:2
 Blood:100
@@ -26,7 +26,7 @@ ShootDistance:20
 Speed:5
 Experience:0
 Score:0
-Backpack:{trapID:1,Number:1,trapID:2,Number:1}
+Backpack:{1:2,2:2}
 
 UserID:3
 Blood:100
@@ -35,7 +35,7 @@ Attack:10
 ShootDistance:20
 Speed:5
 Experience:0
-Backpack:{trapID:1,Number:1,trapID:2,Number:1}
+Backpack:{1:2,2:2}
 
 UserID:4
 Blood:100
@@ -45,4 +45,4 @@ ShootDistance:20
 Speed:5
 Experience:0
 Score:0
-Backpack:{trapID:1,Number:1,trapID:2,Number:1}
+Backpack:{1:2,2:2}

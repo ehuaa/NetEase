@@ -6,6 +6,7 @@ public class TrapController : MonoBehaviour {
     float camRayLength;    
     int floorMask;
     public bool onAir;
+    public int trapID = -1;
 
     void Awake()
     {
@@ -14,10 +15,17 @@ public class TrapController : MonoBehaviour {
         onAir = false;
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("One Hit");
+    }
+
     void Update()
     {
         if (onAir == true)
         {
+            GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<PlayerManager>().DisablePlayerShooting();
+            
             Vector3 pos;
             if (this.GetFloorPosition(out pos)== true)
             {
@@ -27,9 +35,23 @@ public class TrapController : MonoBehaviour {
             if (Input.GetMouseButtonDown(0) == true)
             {
                 this.onAir = false;
-                pos = this.transform.position;
-                pos.y = 0.55f;
-                this.transform.position = pos;
+                
+                //Send Message To Server
+                gameObject.SetActive(false);
+                Destroy(gameObject);               
+                GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<PlayerManager>().EnablePlayerShooting();
+
+                MsgCSTrapIn msg = new MsgCSTrapIn(this.transform.position, this.trapID);
+                NetworkMsgSendCenter center = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkMsgSendCenter>();
+                center.SendMessage(msg);
+                                
+            }
+            else if (Input.GetMouseButtonDown(1) == true)
+            {
+                gameObject.SetActive(false);
+                Destroy(gameObject);
+
+                GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<PlayerManager>().EnablePlayerShooting();
             }
         }
     }

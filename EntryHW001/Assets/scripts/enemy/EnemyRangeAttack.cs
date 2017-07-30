@@ -34,8 +34,8 @@ public class EnemyRangeAttack : MonoBehaviour {
         enemyHealth = GetComponent<EnemyHealth>();
     }
        
-    void FixedUpdate()
-    {
+    void Update()
+    {        
         timer += Time.deltaTime;
         Attack();
 
@@ -80,6 +80,11 @@ public class EnemyRangeAttack : MonoBehaviour {
                     gunLine.enabled = true;
                     gunLine.SetPosition(0, shootRay.origin);
                     gunLine.SetPosition(1, posPlayer);
+
+                     GameObject player = GameObject.FindGameObjectWithTag("Player");
+                    MsgCSEnemyAttack msg = new MsgCSEnemyAttack(this.GetComponentInParent<EntityAttributes>().EntityID, player.GetComponent<EntityAttributes>().EntityID);
+                    NetworkMsgSendCenter msgcenter = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkMsgSendCenter>();
+                    msgcenter.SendMessage(msg);
                 }                
             }
         }

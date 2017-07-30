@@ -11,7 +11,7 @@ sys.path.append('./gameservice')
 
 import conf
 from simpleHost import SimpleHost
-from MsgCommon import MsgCSLogin,MsgSCConfirm,MsgCSMoveTo,MsgCSAttack,MsgCSGameReplay
+from MsgCommon import MsgCSLogin,MsgSCConfirm,MsgCSMoveTo,MsgCSAttack,MsgCSGameReplay,MsgCSEnemyAttack,MsgCSTrapIn,MsgCSBuy
 from login import LoginServer
 from gameScene import GameScene
 from dispatcher import Dispatcher
@@ -31,7 +31,6 @@ class SimpleServer(object):
         self.dispatch = Dispatcher()
         self.entities = {}
         self.messageHandler = {}
-        self._initmessagehandler()
 
         self.enemyManager = EnemyManager(self)
         self.playerManager = PlayerManager(self)
@@ -48,9 +47,14 @@ class SimpleServer(object):
         self.RegisterMessageHandler(conf.MSG_CS_GAME_REPLAY, self.enemyManager.MsgHandler)
         #self.RegisterMessageHandler(conf.MSG_CS_GAME_REPLAY, self.trapManager.MsgHandler)
         self.RegisterMessageHandler(conf.MSG_CS_GAME_REPLAY, self.combatManager.MsgHandler)
+        self.RegisterMessageHandler(conf.MSG_CS_GAME_REPLAY, self.trapManager.MsgHandler)
 
         self.RegisterMessageHandler(conf.MSG_SS_GAME_OVER, self.enemyManager.MsgHandler)
         #self.RegisterMessageHandler(conf.MSG_SS_GAME_OVER, self.trapManager.MsgHandler)
+
+        self.RegisterMessageHandler(conf.MSG_CS_ENEMY_ATTACK, self.enemyManager.MsgHandler)
+        self.RegisterMessageHandler(conf.MSG_CS_TRAP_IN, self.trapManager.MsgHandler)
+        self.RegisterMessageHandler(conf.MSG_CS_BUY, self.economySys.MsgHandler)
 
         return
 
@@ -59,24 +63,15 @@ class SimpleServer(object):
             hd(self.host, -1, msg)
 
     def RegisterMessageHandler(self, msgCommond, func):
+        if self.messageHandler.has_key(msgCommond) == False:
+            self.messageHandler[msgCommond]=[]
+
         if func not in self.messageHandler[msgCommond]:
             self.messageHandler[msgCommond].append(func)
 
     def UnRegisterMessageHandler(self, msgCommond, func):
         if func in self.messageHandler[msgCommond]:
             self.messageHandler[msgCommond].remove(func)
-
-    def _initmessagehandler(self):
-        self.messageHandler[conf.MSG_CS_LOGIN]=[]
-        self.messageHandler[conf.MSG_CS_LOGOUT]=[]
-        self.messageHandler[conf.MSG_CS_MOVETO]=[]
-        self.messageHandler[conf.MSG_CS_ATTACK]=[]
-        self.messageHandler[conf.MSG_CS_ENEMY_ATTACK]=[]
-        self.messageHandler[conf.MSG_CS_WEAPON_UPGRADE]=[]
-        self.messageHandler[conf.MSG_CS_MONEY]=[]
-        self.messageHandler[conf.MSG_CS_WEAPON_ATTACK]=[]
-        self.messageHandler[conf.MSG_CS_GAME_REPLAY] = []
-        self.messageHandler[conf.MSG_SS_GAME_OVER] = []
 
     def generateEntityID(self):
         raise NotImplementedError
@@ -106,7 +101,15 @@ class SimpleServer(object):
             elif cmdcode == conf.MSG_CS_GAME_REPLAY:
                 msg = MsgCSGameReplay(data[4:])
                 return msg
-
+            elif cmdcode == conf.MSG_CS_ENEMY_ATTACK:
+                msg = MsgCSEnemyAttack(data[4:])
+                return msg
+            elif cmdcode == conf.MSG_CS_TRAP_IN:
+                msg = MsgCSTrapIn(data[4:])
+                return msg
+            elif cmdcode == conf.MSG_CS_BUY:
+                msg = MsgCSBuy(data[4:])
+                return msg
         except:
             return None
 
@@ -125,6 +128,8 @@ class SimpleServer(object):
             self.enemyManager.Process(self.host)
             self.playerManager.Process(self.host)
             self.trapManager.Process(self.host)
+            self.combatManager.Process(self.host)
+            self.routerManager.Process(self.host)
 
             event, wparam, data = self.host.read()
 
@@ -138,26 +143,18 @@ class SimpleServer(object):
                 if type(msg) is MsgCSLogin:
                     retval,userID = self.LoginProcedure(self.host, msg, wparam)
                     if retval == True:
-                        self.playerManager.RegisterLiveClient(self.host, wparam, userID)
-                        self.enemyManager.RegisterLiveClient(self.host, wparam, userID)
-                        self.trapManager.RegisterLiveClient(self.host, wparam, userID)
-                        self.economySys.RegisterLiveClient(wparam, userID)
-                        self.combatManager.RegisterLiveClient(wparam, userID)
-                elif type(msg) is MsgCSGameReplay:
-                    if self.enemyManager.gameover == False:
-                        self.playerManager.UnregisterClient(wparam)
-                        self.enemyManager.UnregisterClient(wparam)
-                        self.trapManager.UnregisterClient(wparam)
-                        self.economySys.UnregisterClient(wparam)
-                        self.combatManager.UnregisterClient(wparam)
+                        if self.enemyManager.gameover == True:
+                            self.enemyManager.gameover = False
 
                         self.playerManager.RegisterLiveClient(self.host, wparam, userID)
                         self.enemyManager.RegisterLiveClient(self.host, wparam, userID)
                         self.trapManager.RegisterLiveClient(self.host, wparam, userID)
                         self.economySys.RegisterLiveClient(wparam, userID)
                         self.combatManager.RegisterLiveClient(wparam, userID)
-                    else:
-                        self.msgProcess(self.messageHandler[msg.GetMsgCommand()], wparam, msg)
+
+
+                elif type(msg) is MsgCSGameReplay:
+                    self.msgProcess(self.messageHandler[msg.GetMsgCommand()], wparam, msg)
                 else:
                     self.msgProcess(self.messageHandler[msg.GetMsgCommand()], wparam, msg)
 

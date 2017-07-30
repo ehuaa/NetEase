@@ -25,6 +25,19 @@ public class GameSceneManager : MonoBehaviour {
         msgcenter = GetComponent<NetworkMsgSendCenter>();
     }
 
+    public void PlayerDie(MsgSCPlayerDie msg)
+    {
+        if (msg.userID == this.userID)
+            playermanager.PlayerDie(msg);
+        else
+            playermanager.OtherPlayerDie(msg);
+    }
+
+    public void SetPlayerBoold(MsgSCBlood msg)
+    {
+        playermanager.SetPlayerBlood(msg);
+    }
+
     public void GameWin(MsgSCGameWin msg)
     {
         playermanager.InitPlayerManager();
@@ -44,7 +57,7 @@ public class GameSceneManager : MonoBehaviour {
     public void GameOver(MsgSCGameOver msg)
     {
         GameOverManager govm = GameObject.FindGameObjectWithTag("Canvas").GetComponent<GameOverManager>();
-        playermanager.DisablePlayer();
+        playermanager.DestroyPlayer();
         govm.GameOver();
     }
 
@@ -101,6 +114,16 @@ public class GameSceneManager : MonoBehaviour {
                 playermanager.CreatePlayer(msg.GetID(), msg.GetEntityID(),msg.GetPosition(), msg.GetQuat(), true);
             else
                 playermanager.CreatePlayer(msg.GetID(), msg.GetEntityID() ,msg.GetPosition(), msg.GetQuat(), false);
-        }        
+        }
+
+        if (msg.GetEntityID() == MsgSCLoadscene.MSG_KIND_TRAP)
+        {
+            trapmanager.CreateTrap(msg.GetID(), msg.GetEntityID(), msg.GetPosition(), msg.GetQuat());
+        }
+    }
+    
+    public void SetBackpack(MsgSCBackpack msg)
+    {
+        playermanager.SetBackpack(msg);
     }
 }

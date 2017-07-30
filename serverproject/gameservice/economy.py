@@ -4,11 +4,26 @@ sys.path.append('./common')
 
 from MsgCommon import MsgSCMoney
 from managerbase import ManagerBase
+import conf
 
 class EconomySys(ManagerBase):
     def __init__(self,sv):
         super(EconomySys, self).__init__()
         self.sv = sv
+
+    def _initMsgHandlers(self):
+        self._registerMsgHandler(conf.MSG_CS_BUY, self._buyTrap)
+
+    def _buyTrap(self, host, cid, msg):
+        acinfo = self.sv.gamescene.actor_attr.actorAttr[msg.userID]
+        if acinfo.money < 20:
+            return
+
+        acinfo.money -= 20
+        acinfo.backpack.traps[msg.trapID] += 1
+        self.SendMoneyChangeMessage(msg.userID, acinfo.money)
+        self.sv.trapManager.SendTrapAttr(cid, msg.userID)
+
 
     def AddMoney(self,UserID,Increment):
         acinfo = self.sv.gamescene.actor_attr.actorAttr[UserID]

@@ -1,4 +1,5 @@
 import sys
+import time
 
 sys.path.append('./common')
 sys.path.append('./common_server')
@@ -16,6 +17,7 @@ class CombatManager(ManagerBase):
         self.enemyWinNum = 1
         self.currentenemyArrivalNum = 0
         self.stageNum = 0
+        self.enemyAttackProcessTime = time.time()
 
     def _initMsgHandlers(self):
         self._registerMsgHandler(conf.MSG_CS_GAME_REPLAY, self.GameReplay)
@@ -33,7 +35,10 @@ class CombatManager(ManagerBase):
         return True
 
     def PlayerFireLight(self,msg):
-        val = MathAuxiliary.LineHitSphere(self.sv.gamescene.GetEntityData(msg.entityID1).position, [0,1,0], self.sv.gamescene.GetEntityData(msg.entityID1).position, 2)
+        try:
+            val = MathAuxiliary.LineHitSphere(self.sv.gamescene.GetEntityData(msg.entityID1).position, [0,0,1], self.sv.gamescene.GetEntityData(msg.entityID2).position, 3)
+        except:
+            return
 
         if val == False:
             return
@@ -64,41 +69,53 @@ class CombatManager(ManagerBase):
                 self.sv.host.sendClient(cid, msg.getPackedData())
 
     def PlayerFireArea(self,msg):
-        val = MathAuxiliary.LineHitSphere(self.sv.gamescene.GetEntityData(msg.entityID1).position, [0, 1, 0],self.sv.gamescene.GetEntityData(msg.entityID1).position, 2)
+        try:
+            val = MathAuxiliary.LineHitSphere(self.sv.gamescene.GetEntityData(msg.entityID1).position, [0, 0, 1],self.sv.gamescene.GetEntityData(msg.entityID2).position, 3)
+        except:
+            return
 
         if val == False:
             return
 
-        retData = self.sv.enemyManager.FindEnemiesInCircle(self.sv.gamescene.GetEntityData(msg.entityID1).position, 5)
+        retData = self.sv.enemyManager.FindEnemiesInCircle(self.sv.gamescene.GetEntityData(msg.entityID2).position, 10)
 
         for val in retData:
             blood = val.blood
-            blood = blood - 2
+            blood = blood - 100
 
             if blood <= 0:
                 blood = 0
-                data.blood = blood
+                val.blood = blood
                 self.sv.enemyManager.DestroyEnemy(msg.entityID2)
                 self.sv.economySys.AddMoney(self.sv.gamescene.GetEntityData(msg.entityID1).userID, 10)
             else:
-                data.blood = blood
+                val.blood = blood
 
+    def EnemyAttack(self, entityEnemy, entityPlayer):
+        enemydata = self.sv.gamescene.GetEnemyData(entityEnemy)
+        playerdata = self.sv.gamescene.GetEntityData(entityPlayer)
+        actorattr = self.sv.gamescene.actor_attr.GetActorAttributes(playerdata.userID)
 
-    def _EnemyFireAttack(self, EntityID):
-        pass
+        if enemydata == None or playerdata == None or actorattr == None:
+            return
 
-    def _EnemyFireDistance(self, EntityID, direct):
-        pass
+        posEnemy = enemydata.position
+        posPlayer =playerdata.position
 
-    def EnemyAttack(self):
-        pass
+        if enemydata.enemyID == 1:
+            if MathAuxiliary.Distance(posEnemy, posPlayer)<4:
+                newBlood = actorattr.blood - 10
+                self.sv.playerManager.BloodChange(playerdata.userID, newBlood)
+        else:
+            if MathAuxiliary.Distance(posEnemy, posPlayer) < 20:
+                newBlood = actorattr.blood - 5
+                self.sv.playerManager.BloodChange(playerdata.userID, newBlood)
 
     def TrapAttack(self):
         pass
 
     def Process(self, host):
-        self.EnemyAttack()
-        self.TrapAttack()
+        pass
 
     def RegisterLiveClient(self, cid, uid):
         self.liveclients[cid] = uid

@@ -3,7 +3,7 @@ import sys
 sys.path.append('./common')
 sys.path.append('./common_server')
 sys.path.append('./database')
-from MsgCommon import MsgSCMoveTo, MsgCSAttack, MsgSCPlayerAttack,MsgSCLoadscene, MsgSCPlayerLogout,MsgCSGameReplay
+from MsgCommon import MsgSCMoveTo, MsgCSAttack, MsgSCPlayerAttack,MsgSCLoadscene, MsgSCPlayerLogout,MsgCSGameReplay,MsgSCBlood,MsgSCPlayerDie
 import conf
 from math3d import MathAuxiliary
 from managerbase import ManagerBase
@@ -14,10 +14,6 @@ class PlayerManager(ManagerBase):
         self.sv = sv
 
     def _initMsgHandlers(self):
-        self.msgHandlers[conf.MSG_CS_ATTACK]=[]
-        self.msgHandlers[conf.MSG_CS_MOVETO]=[]
-        self.msgHandlers[conf.MSG_CS_GAME_REPLAY] = []
-
         self._registerMsgHandler(conf.MSG_CS_MOVETO, self.PlayerMove)
         self._registerMsgHandler(conf.MSG_CS_ATTACK, self.PlayerAttack)
         self._registerMsgHandler(conf.MSG_CS_GAME_REPLAY, self.ReplayGame)
@@ -96,10 +92,31 @@ class PlayerManager(ManagerBase):
             if k != cid:
                 liveUserData = self.sv.gamescene.GetPlayerData(v)
                 self._sendUsersData(cid, liveUserData)
+        self.SendUserAttr(cid, newUserData.userID)
+
+    def SendUserAttr(self, cid, uid):
+        self.sv.economySys.SendInitPlayerMoney(uid)
+        data = self.sv.gamescene.actor_attr.GetActorAttributes(uid)
+        msg = MsgSCBlood(uid, data.blood)
+        self.sv.host.sendClient(cid, msg.getPackedData())
 
     def ReplayGame(self, host, cid, msg):
+        data = self.sv.gamescene.actor_attr.GetActorAttributes(msg.userID)
+        data.blood = 100
         self._newUserLogin(msg.userID, cid)
-        self.sv.economySys.SendInitPlayerMoney(msg.userID)
 
 
+    def BloodChange(self,userID,newBlood):
+        data = self.sv.gamescene.actor_attr.GetActorAttributes(userID)
+        data.blood = newBlood
+        msg = MsgSCBlood(userID, newBlood)
+        for cid,uid in self.liveclients.items():
+            if uid == userID:
+                self.sv.host.sendClient(cid, msg.getPackedData())
 
+        if data.blood <= 0:
+            msg = MsgSCPlayerDie(data.userID)
+            cell = self.sv.gamescene.GetPlayerData(data.userID)
+            cell.dead = True
+            for cid, uid in self.liveclients.items():
+                self.sv.host.sendClient(cid, msg.getPackedData())

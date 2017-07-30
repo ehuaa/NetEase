@@ -1,4 +1,10 @@
 # -*- coding: GBK -*-
+class TrapData(object):
+    def __init__(self, data):
+        self.trapID = int(data['TrapID'])
+        self.attack = int(data['Attack'])
+        self.price = int(data['Price'])
+        self.speed = int(data['Speed'])
 
 class TrapAttributes(object):
     def __init__(self):
@@ -24,7 +30,8 @@ class TrapAttributes(object):
 
                 if key == 'TrapID':
                     if len(data) != 0:
-                        self.trapAtrr[data['TrapID']] = data
+                        cell = TrapData(data)
+                        self.trapAtrr[cell.trapID] = cell
                         data = {}
                         data[key] = value
                     else:
@@ -32,7 +39,8 @@ class TrapAttributes(object):
                 else:
                     data[key] = value
             if len(data) != 0:
-                self.trapAtrr[data['TrapID']] = data
+                cell = TrapData(data)
+                self.trapAtrr[cell.trapID] = cell
 
             f.close()
 

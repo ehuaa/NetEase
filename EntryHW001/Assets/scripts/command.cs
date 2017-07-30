@@ -6,7 +6,7 @@ public class command
     public const int MSG_SC_MOVETO = 0x1002;
     public const int MSG_SC_ENEMY_BORN = 0x1003;
     public const int MSG_SC_ENEMY_DIE = 0x1004;
-    public const int MSG_SC_ACTOR_BLOOD = 0x1005;
+    public const int MSG_SC_PLYAR_BLOOD = 0x1005;
     public const int MSG_SC_ENEMY_BLOOD = 0x1006;
     public const int MSG_SC_TIMER = 0x1007; // Reset timer for the next wave of enemies
     public const int MSF_SC_ENEMY_DONE = 0x1008; // Enemy arrive the destination
@@ -32,6 +32,8 @@ public class command
     public const int MSG_CS_MONEY = 0x2007; //Buy weapon
     public const int MSG_CS_WEAPON_ATTACK = 0x2008;
     public const int MSG_CS_GAME_REPLAY = 0x2009;
+    public const int MSG_CS_TRAP_IN = 0x200a;
+    public const int MSG_CS_BUY = 0x200b;
 
 
     public const int NET_STATE_STOP = 0;           // state: init value

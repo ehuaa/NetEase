@@ -21,7 +21,7 @@ class Vector3d(object):
         return sum
 
     def __sub__(self, other):
-        ret = saiVector3d()
+        ret = Vector3d()
         ret.x = self.x-other.x
         ret.y = self.y-other.y
         ret.z = self.z-other.z
@@ -32,7 +32,7 @@ class Vector3d(object):
 
     def Normalize(self):
         length = self.Length()
-        self.x = self.x/length
+        self.x = self.x / length
         self.y = self.y / length
         self.z = self.z / length
 
@@ -52,22 +52,21 @@ class MathAuxiliary(object):
     @staticmethod
     def LineHitSphere(rayOrigin, rayDirection, spherePosition, sphereRadius):
         tilt = MathAuxiliary.Distance(rayOrigin, spherePosition)
-        angle = math.abs(math.asin(sphereRadius/tilt))
+        angle = math.fabs(math.asin(sphereRadius/tilt))
 
         v1 = Vector3d(spherePosition)
         v2 = Vector3d(rayOrigin)
 
         v = v1-v2
+        v.y = 0
         v.Normalize()
         rv = Vector3d(rayDirection)
         rv.Normalize()
 
-        val = math.abs(math.acos(v*rv))
+        val = math.fabs(math.acos(v*rv))
 
         if angle > val:
             return True
         else:
             return False
-
-
 

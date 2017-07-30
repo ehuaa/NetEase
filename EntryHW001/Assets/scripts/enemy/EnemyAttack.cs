@@ -40,7 +40,7 @@ public class EnemyAttack : MonoBehaviour {
 
     
     void Update()
-    {
+    {      
         timer += Time.deltaTime;
 
         if (timer >=timeBwteenAttacks && playerInRange && enemyHealth.currentHealth > 0)
@@ -58,9 +58,15 @@ public class EnemyAttack : MonoBehaviour {
     void Attack()
     {
         timer = 0f;
+
         if (playerHealth.currentHealth > 0)
         {            
             playerHealth.TakeDamage(attackDamage);
+
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            MsgCSEnemyAttack msg = new MsgCSEnemyAttack(this.GetComponentInParent<EntityAttributes>().EntityID, player.GetComponent<EntityAttributes>().EntityID);
+            NetworkMsgSendCenter msgcenter = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkMsgSendCenter>();
+            msgcenter.SendMessage(msg);
         }
     }
 }

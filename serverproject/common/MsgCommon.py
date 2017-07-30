@@ -94,10 +94,31 @@ class MsgCSAttack(MsgBase):
         self.pos2,data = self.GetVector3Value(data)
         self.kind,data = self.GetIntValue(data)
 
+class MsgCSEnemyAttack(MsgBase):
+    def __init__(self, data):
+        super(MsgCSEnemyAttack, self).__init__()
+        self.command = conf.MSG_CS_ENEMY_ATTACK
+        self.userID, data = self.GetIntValue(data)
+        self.entityID1, data = self.GetIntValue(data)
+        self.entityID2, data = self.GetIntValue(data)
+
 class MsgCSGameReplay(MsgBase):
     def __init__(self, data):
         self.command = conf.MSG_CS_GAME_REPLAY
         self.userID,data = self.GetIntValue(data)
+
+class MsgCSTrapIn(MsgBase):
+    def __init__(self,data):
+        self.command = conf.MSG_CS_TRAP_IN
+        self.userID, data = self.GetIntValue(data)
+        self.trapID, data = self.GetIntValue(data)
+        self.position,data = self.GetVector3Value(data)
+
+class MsgCSBuy(MsgBase):
+    def __init__(self, data):
+        self.command = conf.MSG_CS_BUY
+        self.userID, data = self.GetIntValue(data)
+        self.trapID, data = self.GetIntValue(data)
 
 class MsgSCLoadscene(MsgBase):
     MSG_KIND_PLAYER = 0
@@ -227,4 +248,38 @@ class MsgSCGameWin(MsgBase):
 
     def getPackedData(self):
         data = struct.pack('<i', self.command)
+        return data
+
+class MsgSCBlood(MsgBase):
+    def __init__(self, UserID, Blood):
+        super(MsgBase, self).__init__()
+        self.command = conf.MSG_SC_PLAYER_BLOOD
+        self.userID = UserID
+        self.blood=Blood
+
+    def getPackedData(self):
+        data = struct.pack("<iii", self.command, self.userID, self.blood)
+        return data
+
+class MsgSCPlayerDie(MsgBase):
+    def __init__(self,UserID):
+        super(MsgBase, self).__init__()
+        self.command = conf.MSG_SC_PLAYER_DIE
+        self.userID = UserID
+
+    def getPackedData(self):
+        data = struct.pack("<ii", self.command, self.userID)
+        return data
+
+class MsgSCBackpack(MsgBase):
+    def __init__(self, TrapID1, Num1, TrapID2, Num2):
+        super(MsgBase, self).__init__()
+        self.command = conf.MSG_SC_BACKPACK
+        self.trapID1 = TrapID1
+        self.trapID2 = TrapID2
+        self.num1 = Num1
+        self.num2 = Num2
+
+    def getPackedData(self):
+        data = struct.pack("<iiiii", self.command, self.trapID1, self.num1, self.trapID2, self.num2)
         return data

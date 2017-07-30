@@ -273,18 +273,6 @@ class GameScene(object):
 
             host.sendClient(cid, data)
 
-    def sendAllTraps(self, host, cid):
-        for k, val in self.trapData.items():
-            trapID = val.trapID
-            entityID = val.entityID
-            pos = val.position
-            q = val.quat
-
-            msg = MsgSCLoadscene(MsgSCLoadscene.MSG_KIND_TRAP, trapID, pos, q, entityID)
-            data = msg.getPackedData()
-
-            host.sendClient(cid, data)
-
     def _getposition(self, d):
         retVal = []
         retVal.append(float(d['x']))
@@ -314,8 +302,8 @@ class GameScene(object):
         self.EntityIDS[data.entityID] = data
 
     def AddTrap(self, entityID, data):
-        self.trapData[repr(entityID)] = data
-        self.EntityIDS[repr(entityID)] = data
+        self.trapData[entityID] = data
+        self.EntityIDS[entityID] = data
 
     def CreateEnemy(self, enemyid, pos = [0, 0, 95], quat = [1, 0, 0, 0]):
         entityid = self.GenerateEntityID()
@@ -330,6 +318,27 @@ class GameScene(object):
         self.AddEnemy(entityid, data)
 
         return data
+
+    def CreateTrap(self, trapID, pos, quat=[1, 0,0,0]):
+        entityID = self.GenerateEntityID()
+        data={}
+        data["TrapID"] = repr(trapID)
+        data['EntityID'] = repr(entityID)
+        data['quat'] = {'w': quat[0], 'x': quat[1], 'y': quat[2], 'z': quat[3]}
+        data['position'] = {'x': pos[0], 'y': pos[1], 'z': pos[2]}
+
+        data = TrapData(data)
+        self.AddTrap(data.entityID, data);
+
+        return data
+
+    def DestroyAllTrap(self):
+        for id, data in self.trapData:
+            self.DestroyTrap(id)
+
+    def DestroyTrap(self, entityID):
+        self.trapData.pop(entityID)
+        self.EntityIDS.pop(entityID)
 
     def DestroyEnemy(self, entityID):
         self.enemyData.pop(entityID)

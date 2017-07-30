@@ -1,34 +1,82 @@
 Initialize engine version: 5.6.2f1 (a2913c821e27)
 GfxDevice: creating device client; threaded=1
 Direct3D:
-    Version:  Direct3D 11.0 [level 11.0]
-    Renderer: NVIDIA GeForce GTX 850M  (ID=0x1391)
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1050 (ID=0x1c81)
     Vendor:   NVIDIA
-    VRAM:     1995 MB
-    Driver:   10.18.13.5390
+    VRAM:     2006 MB
+    Driver:   22.21.13.8233
 Begin MonoManager ReloadAssembly
-Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading F:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading F:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.029 seconds
-Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: F:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.dll (this message is harmless)
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.031 seconds
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initialized touch support.
-UnloadTime: 4.594096 ms
+UnloadTime: 0.989446 ms
+Initialize engine version: 5.6.2f1 (a2913c821e27)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1050 (ID=0x1c81)
+    Vendor:   NVIDIA
+    VRAM:     2006 MB
+    Driver:   22.21.13.8233
+Begin MonoManager ReloadAssembly
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading D:\GitHub\NetEase\EntryHW001\run_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.015 seconds
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: D:\GitHub\NetEase\EntryHW001\run_Data\Managed\System.dll (this message is harmless)
+<RI> Initializing input.
+<RI> Input initialized.
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initialized touch support.
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 3e7c -> priority: 1 
-  Thread -> id: 3154 -> priority: 1 
+  Thread -> id: 14c5c -> priority: 1 
+  Thread -> id: 150e8 -> priority: 1 
+UnloadTime: 1.123155 ms
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 138a8 -> priority: 1 
+  Thread -> id: 15118 -> priority: 1 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 8.163424 ms
+UnloadTime: 4.522068 ms
 
-Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 1122.
-Total: 0.567650 ms (FindLiveObjects: 0.088423 ms CreateObjectMapping: 0.043817 ms MarkObjects: 0.414092 ms  DeleteObjects: 0.020526 ms)
+Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 1118.
+Total: 0.448300 ms (FindLiveObjects: 0.074216 ms CreateObjectMapping: 0.030347 ms MarkObjects: 0.328112 ms  DeleteObjects: 0.015023 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.690631 ms
+
+Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 1118.
+Total: 0.397521 ms (FindLiveObjects: 0.065201 ms CreateObjectMapping: 0.036957 ms MarkObjects: 0.282441 ms  DeleteObjects: 0.012018 ms)
+
+Die
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Die
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 10.814504 ms
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 1122.
+Total: 0.401427 ms (FindLiveObjects: 0.054685 ms CreateObjectMapping: 0.027342 ms MarkObjects: 0.304976 ms  DeleteObjects: 0.013821 ms)
 
