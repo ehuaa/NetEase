@@ -7,7 +7,7 @@ class Vector3d(object):
         self.z = vec[2]
 
     def __add__(self, other):
-        ret = saiVector3d()
+        ret = Vector3d()
         ret.x = other.x + self.x
         ret.y = other.y + self.y
         ret.z = other.z + self.z
@@ -36,6 +36,9 @@ class Vector3d(object):
         self.y = self.y / length
         self.z = self.z / length
 
+    def GetList(self):
+        return [self.x, self.y, self.z]
+
 class MathAuxiliary(object):
     @staticmethod
     def AddVector3(vec1, vec2):
@@ -48,6 +51,18 @@ class MathAuxiliary(object):
     @staticmethod
     def Distance(vec1, vec2):
         return math.sqrt((vec1[0]-vec2[0])**2+(vec1[1]-vec2[1])**2+(vec1[2]-vec2[2])**2)
+
+    @staticmethod
+    def Lerp(pos1, pos2, f):
+        v1 = Vector3d(pos1)
+        v2 = Vector3d(pos2)
+        v = v2-v1
+        v.Normalize()
+        v.x = v.x*f
+        v.y = v.y*f
+        v.z = v.z*f
+        return v1+v
+
 
     @staticmethod
     def LineHitSphere(rayOrigin, rayDirection, spherePosition, sphereRadius):

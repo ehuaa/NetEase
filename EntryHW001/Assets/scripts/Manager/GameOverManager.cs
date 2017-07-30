@@ -14,6 +14,7 @@ public class GameOverManager : MonoBehaviour {
     public Button replayButton;
     public Button traponeButton;
     public Button traptwoButton;
+    public Button storeButton;
 
     private void Awake()
     {
@@ -44,6 +45,7 @@ public class GameOverManager : MonoBehaviour {
 
         traponeButton.gameObject.SetActive(false);
         traptwoButton.gameObject.SetActive(false);
+        storeButton.gameObject.SetActive(false);
     }
 
     public void ReplayGame()

@@ -34,6 +34,7 @@ public class command
     public const int MSG_CS_GAME_REPLAY = 0x2009;
     public const int MSG_CS_TRAP_IN = 0x200a;
     public const int MSG_CS_BUY = 0x200b;
+    public const int MSG_CS_TRAP_ATTACK = 0x200c;
 
 
     public const int NET_STATE_STOP = 0;           // state: init value

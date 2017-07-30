@@ -25,6 +25,11 @@ public class GameSceneManager : MonoBehaviour {
         msgcenter = GetComponent<NetworkMsgSendCenter>();
     }
 
+    public void TrapDie(MsgSCTrapDie msg)
+    {
+        trapmanager.DestroyTrap(msg.entityID);
+    }
+
     public void PlayerDie(MsgSCPlayerDie msg)
     {
         if (msg.userID == this.userID)

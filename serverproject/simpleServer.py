@@ -11,7 +11,7 @@ sys.path.append('./gameservice')
 
 import conf
 from simpleHost import SimpleHost
-from MsgCommon import MsgCSLogin,MsgSCConfirm,MsgCSMoveTo,MsgCSAttack,MsgCSGameReplay,MsgCSEnemyAttack,MsgCSTrapIn,MsgCSBuy
+from MsgCommon import MsgCSLogin,MsgSCConfirm,MsgCSMoveTo,MsgCSAttack,MsgCSGameReplay,MsgCSEnemyAttack,MsgCSTrapIn,MsgCSBuy,MsgCSTrapAttack
 from login import LoginServer
 from gameScene import GameScene
 from dispatcher import Dispatcher
@@ -45,7 +45,6 @@ class SimpleServer(object):
 
         self.RegisterMessageHandler(conf.MSG_CS_GAME_REPLAY, self.playerManager.MsgHandler)
         self.RegisterMessageHandler(conf.MSG_CS_GAME_REPLAY, self.enemyManager.MsgHandler)
-        #self.RegisterMessageHandler(conf.MSG_CS_GAME_REPLAY, self.trapManager.MsgHandler)
         self.RegisterMessageHandler(conf.MSG_CS_GAME_REPLAY, self.combatManager.MsgHandler)
         self.RegisterMessageHandler(conf.MSG_CS_GAME_REPLAY, self.trapManager.MsgHandler)
 
@@ -54,6 +53,7 @@ class SimpleServer(object):
 
         self.RegisterMessageHandler(conf.MSG_CS_ENEMY_ATTACK, self.enemyManager.MsgHandler)
         self.RegisterMessageHandler(conf.MSG_CS_TRAP_IN, self.trapManager.MsgHandler)
+        self.RegisterMessageHandler(conf.MSG_CS_TRAP_ATTACK, self.trapManager.MsgHandler)
         self.RegisterMessageHandler(conf.MSG_CS_BUY, self.economySys.MsgHandler)
 
         return
@@ -109,6 +109,9 @@ class SimpleServer(object):
                 return msg
             elif cmdcode == conf.MSG_CS_BUY:
                 msg = MsgCSBuy(data[4:])
+                return msg
+            elif cmdcode == conf.MSG_CS_TRAP_ATTACK:
+                msg = MsgCSTrapAttack(data[4:])
                 return msg
         except:
             return None

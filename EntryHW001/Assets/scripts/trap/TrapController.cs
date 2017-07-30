@@ -17,7 +17,17 @@ public class TrapController : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("One Hit");
+        EnemyManager em = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<EnemyManager>();
+        if (em.IsEnemyGameObject(other.gameObject) == true)
+        {
+            other.gameObject.GetComponent<EnemyHealth>().Hurt();
+            int id1 = gameObject.GetComponent<EntityAttributes>().EntityID;
+            int id2 = other.gameObject.GetComponent<EntityAttributes>().EntityID;
+
+            MsgCSTrapAttack msg = new MsgCSTrapAttack(id1, id2);
+            NetworkMsgSendCenter center = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetworkMsgSendCenter>();
+            center.SendMessage(msg);
+        }
     }
 
     void Update()

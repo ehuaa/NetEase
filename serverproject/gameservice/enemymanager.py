@@ -11,6 +11,7 @@ from timer import TimerManager
 from datetime import datetime
 import conf
 from math3d import MathAuxiliary
+import time
 
 class EnemyManager(ManagerBase):
     def __init__(self, sv):
@@ -22,8 +23,8 @@ class EnemyManager(ManagerBase):
         self.spawn = False
         self.gameover = False
         self.destination = [0,0,-70]
-        self.enemyMoveInterval = datetime.now()
-
+        self.timeStamp = time.time()
+        self.enemyMoveInterval = time.time()
 
     def _initMsgHandlers(self):
         self._registerMsgHandler(conf.MSG_SS_GAME_OVER, self.GameOver)
@@ -46,7 +47,7 @@ class EnemyManager(ManagerBase):
         self.count = 0
         self.spawn = False
         self.destination = [0, 0, -70]
-        self.enemyMoveInterval = datetime.now()
+        self.enemyMoveInterval = time.time()
         self.gameover = False
 
     def GameOver(self, host, cid, msg):
@@ -109,37 +110,59 @@ class EnemyManager(ManagerBase):
             self.EnemysMove()
 
     def EnemysMove(self):
-        if (datetime.now()-self.enemyMoveInterval).microseconds/1000 > 900:
+        if (time.time()-self.enemyMoveInterval) > 0.2:
             for id, data in self.sv.gamescene.enemyData.items():
                 self.EnemyPathRedirection(data)
                 if data.pathData == None:
                     return
-
-                try:
-                    cell = data.pathData.pop()
-                except:
-                    cell = None
-
-                if cell != None:
-                    pos = self.sv.gamescene.mapData.GetRealWorldPosition(cell[0], cell[1])
-                    data.position = pos
-                    for cid,uid in self.liveclients.items():
-                        msg = MsgSCMoveTo(data.entityID, -1, pos, 900)
-                        self.sv.host.sendClient(cid, msg.getPackedData())
-
-                    self.IsEnemyArrivalDesination(data)
-
-            self.enemyMoveInterval = datetime.now()
+                self.PathProcess(data, time.time()-self.enemyMoveInterval)
+            self.enemyMoveInterval = time.time()
         else:
             return
 
+    def PathProcess(self, data, interval):
+        if len(data.pathData) <= 0:
+            return
+        cell = data.pathData[-1]
+        pos = self.sv.gamescene.mapData.GetRealWorldPosition(cell[0], cell[1])
+
+        if time.time()-data.timeStamp > 5:
+            data.speed = 4
+
+        position = data.position
+        dis = MathAuxiliary.Distance(pos, position)
+        if dis > data.speed * interval:
+            data.position = MathAuxiliary.Lerp(position, pos,  data.speed * interval).GetList()
+        else:
+            data.pathData.pop()
+            data.position = pos
+
+        for cid, uid in self.liveclients.items():
+            msg = MsgSCMoveTo(data.entityID, -1, pos, 900)
+            self.sv.host.sendClient(cid, msg.getPackedData())
+
+        self.IsEnemyArrivalDesination(data)
+
     def IsEnemyArrivalDesination(self, enemyData):
-        if enemyData.position[2]<self.destination[2]:
+        if enemyData.position[2] < self.destination[2]:
             self.DestroyEnemy(enemyData.entityID)
             self.sv.combatManager.EnemyArrival()
 
     def EnemyPathRedirection(self, enemyData):
-        pass
+        for uid,data in self.sv.gamescene.playerData.items():
+            if MathAuxiliary.Distance(data.position, enemyData.position)<20:
+                if data.userID != enemyData.targetID:
+                    pathData = self.EnemyPathSolve(enemyData.entityID, data.position)
+                    if pathData != None:
+                        enemyData.pathData = pathData
+                        enemyData.targetID = data.userID
+            else:
+                if enemyData.targetID == data.userID:
+                    pathData = self.EnemyPathSolve(enemyData.entityID, self.destination)
+                    enemyData.pathData = pathData
+                    enemyData.targetID = -1
+
+
 
     def EnemyPathSolve(self, entityID, target):
         return self.sv.routerManager.NavigateTO(entityID, target)

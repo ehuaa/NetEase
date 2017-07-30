@@ -96,9 +96,13 @@ public class PlayerManager : MonoBehaviour {
     }
     
     public void MovePlayer(MsgSCMoveTo msg)
-    {
+    {        
         GameObject obj = GameObject.FindGameObjectWithTag("Player");
+        if (obj == null)
+            return;
         PlayerController pc = obj.GetComponent<PlayerController>();
+        if (pc == null)
+            return;
         pc.MoveTo(msg.GetMovement());
     }
     

@@ -9,6 +9,18 @@ public class EnemyManager : MonoBehaviour {
 
     public Dictionary<int, GameObject> enemyArray = new Dictionary<int, GameObject>();
 
+    public bool IsEnemyGameObject(GameObject obj)
+    {
+        EntityAttributes ea = obj.GetComponent<EntityAttributes>();
+        if (ea == null)
+            return false;
+
+        if (enemyArray.ContainsKey(ea.EntityID) == false)
+            return false;
+
+        return true;
+    }
+
     public void MoveEnemyToPosition(MsgSCMoveTo msg)
     {
         if (enemyArray.ContainsKey(msg.EntityID()) == false)

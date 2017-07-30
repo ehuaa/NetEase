@@ -111,8 +111,25 @@ class CombatManager(ManagerBase):
                 newBlood = actorattr.blood - 5
                 self.sv.playerManager.BloodChange(playerdata.userID, newBlood)
 
-    def TrapAttack(self):
-        pass
+    def TrapAttack(self, cid, msg):
+        try:
+            tpos = self.sv.gamescene.GetTrapData(msg.entityID1).position
+            tid = self.sv.gamescene.GetTrapData(msg.entityID1).trapID
+            edata = self.sv.gamescene.GetEnemyData(msg.entityID2)
+        except:
+            return
+
+        if tid == 1:
+            edata.blood -= 100
+            if edata.blood <= 0:
+                blood = 0
+                edata.blood = blood
+                self.sv.enemyManager.DestroyEnemy(msg.entityID2)
+        else:
+            edata.speed = 1
+            edata.timeStamp = time.time()
+
+        return True
 
     def Process(self, host):
         pass

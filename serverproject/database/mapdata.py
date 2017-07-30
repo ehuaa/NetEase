@@ -40,8 +40,8 @@ class MapData(object):
             return 1
 
     def _getMaskPosition(self, pos):
-        x = int((pos[0] + 100)/2)
-        z = int(-(pos[2] - 100)/2)
+        x = int((pos[0] + 100)/1)
+        z = int(-(pos[2] - 100)/1)
 
         x = x
         z = z
@@ -49,8 +49,8 @@ class MapData(object):
         return z,x
 
     def GetRealWorldPosition(self, x, z):
-        rx = float(z + 3)*2-100
-        rz = -float(x + 3)*2+100
+        rx = float(z + 3)*1-100
+        rz = -float(x + 3)*1+100
 
         return [rx, 0, rz]
 

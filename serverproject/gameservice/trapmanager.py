@@ -4,7 +4,7 @@ sys.path.append('./common')
 sys.path.append('./common_server')
 sys.path.append('./database')
 from managerbase import ManagerBase
-from MsgCommon import MsgSCLoadscene,MsgSCBackpack
+from MsgCommon import MsgSCLoadscene,MsgSCBackpack,MsgSCTrapDie
 import conf
 
 class TrapManager(ManagerBase):
@@ -16,6 +16,15 @@ class TrapManager(ManagerBase):
     def _initMsgHandlers(self):
         self._registerMsgHandler(conf.MSG_CS_GAME_REPLAY, self.ReplayGame)
         self._registerMsgHandler(conf.MSG_CS_TRAP_IN, self.TrapIn)
+        self._registerMsgHandler(conf.MSG_CS_TRAP_ATTACK, self._trapAttack)
+
+    def _trapAttack(self, host, cid, msg):
+        if self.sv.combatManager.TrapAttack(cid, msg) == True:
+            self.sv.gamescene.DestroyTrap(msg.entityID1)
+            msg = MsgSCTrapDie(msg.entityID1)
+            for cid,uid in self.liveclients.items():
+                self.sv.host.sendClient(cid, msg.getPackedData())
+
 
     def TrapIn(self, host, cid, msg):
         backpack = self.sv.gamescene.actor_attr.GetActorAttributes(msg.userID).backpack
@@ -45,8 +54,7 @@ class TrapManager(ManagerBase):
 
 
     def Process(self, host):
-        if len(self.liveclients) == 0:
-            return
+        pass
 
     def RegisterLiveClient(self, host, cid, uid):
         self.liveclients[cid] = uid

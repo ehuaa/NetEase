@@ -21,7 +21,13 @@ public class EnemyMovement : MonoBehaviour {
             float delta = Time.deltaTime / (speed / 1000);
             speed = speed - Time.deltaTime*1000;
 
-            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, localmove, delta);            
+            Vector3 direct = localmove - gameObject.transform.position;
+            direct.Normalize();
+
+            Quaternion quat = Quaternion.LookRotation(direct);
+            gameObject.transform.rotation = quat;
+
+            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, localmove, delta);                           
         }
     }
 

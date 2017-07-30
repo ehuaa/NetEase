@@ -9,6 +9,7 @@ from enemyAttr import EnemyAttributes
 from trapAttr import TrapAttributes
 from MsgCommon import MsgSCLoadscene
 from mapdata import MapData
+import time
 
 class DataBase(object):
     def __init__(self):
@@ -47,9 +48,11 @@ class EnemyData(DataBase):
         self.position = self.GetVector3(data['position'])
         self.quat = self.GetQuat(data['quat'])
         self.blood = int(data['blood'])
-        self.speed = 300
+        self.speed = 4
+        self.timeStamp = time.time()
         self.pathData = None
         self.targetEntityID = None
+        self.targetID = -1
 
 class TrapData(DataBase):
     def __init__(self,data):

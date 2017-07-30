@@ -102,6 +102,14 @@ class MsgCSEnemyAttack(MsgBase):
         self.entityID1, data = self.GetIntValue(data)
         self.entityID2, data = self.GetIntValue(data)
 
+class MsgCSTrapAttack(MsgBase):
+    def __init__(self,data):
+        super(MsgCSTrapAttack, self).__init__()
+        self.command = conf.MSG_CS_TRAP_ATTACK
+        self.userID, data = self.GetIntValue(data)
+        self.entityID1, data = self.GetIntValue(data)
+        self.entityID2, data = self.GetIntValue(data)
+
 class MsgCSGameReplay(MsgBase):
     def __init__(self, data):
         self.command = conf.MSG_CS_GAME_REPLAY
@@ -282,4 +290,13 @@ class MsgSCBackpack(MsgBase):
 
     def getPackedData(self):
         data = struct.pack("<iiiii", self.command, self.trapID1, self.num1, self.trapID2, self.num2)
+        return data
+
+class MsgSCTrapDie(MsgBase):
+    def __init__(self, entityid):
+        self.command=conf.MSG_SC_TRAP_DIE
+        self.entiyID = entityid
+
+    def getPackedData(self):
+        data = struct.pack("<ii", self.command, self.entiyID)
         return data

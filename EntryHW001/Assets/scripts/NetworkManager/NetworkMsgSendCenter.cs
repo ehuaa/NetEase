@@ -71,10 +71,19 @@ public class NetworkMsgSendCenter : MonoBehaviour {
             case command.MSG_SC_BACKPACK:
                 this.MsgSCBackpackProcedure(br);
                 break;
+            case command.MSG_SC_TRAP_DIE:
+                this.MsgSCTrapDieProcedure(br);
+                break;
             default:
                 Debug.Log("defualt sc message !!");
                 break;
         }
+    }
+
+    void MsgSCTrapDieProcedure(BinaryReader br)
+    {
+        MsgSCTrapDie msg = new MsgSCTrapDie(br);
+        gamescenemanager.TrapDie(msg);
     }
 
 

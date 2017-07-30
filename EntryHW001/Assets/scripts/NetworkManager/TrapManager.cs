@@ -8,6 +8,18 @@ public class TrapManager : MonoBehaviour {
     public GameObject trapSpeed;
 
     Dictionary<int, GameObject> trapArray = new Dictionary<int, GameObject>();
+
+    public void DestroyTrap(int entityID)
+    {
+        if (trapArray.ContainsKey(entityID) == false)
+            return;
+
+        GameObject obj = trapArray[entityID];
+        trapArray.Remove(entityID);
+
+        obj.SetActive(false);
+        Destroy(obj);
+    }
     
     public GameObject CreateTrap(int ID, int EntityID, Vector3 pos, Quaternion quat)
     {

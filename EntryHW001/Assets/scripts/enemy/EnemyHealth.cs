@@ -58,6 +58,11 @@ public class EnemyHealth : MonoBehaviour {
             Death();
         }
     }
+    
+    public void Hurt()
+    {
+        enemyAudio.Play();
+    }
 
     public void TakeDamage(int amount, Vector3 hitPoint)
     {
