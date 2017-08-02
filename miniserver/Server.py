@@ -1,6 +1,5 @@
 # -*- coding: GBK -*-
 
-import sys
 import time
 
 from Services.UserServices import UserServices
@@ -86,7 +85,7 @@ class Server(object):
             print "Handle received message error !!!!!!!!"
 
 
-def main(sys_args):
+def main():
     host = ""
     port = 34567
 
@@ -97,4 +96,4 @@ def main(sys_args):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    main()
