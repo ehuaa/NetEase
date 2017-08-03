@@ -9,18 +9,18 @@ sys.path.append('./network')
 sys.path.append('./database')
 sys.path.append('./gameservice')
 
-import conf
-from simpleHost import SimpleHost
-from MsgCommon import MsgCSLogin,MsgSCConfirm,MsgCSMoveTo,MsgCSAttack,MsgCSGameReplay,MsgCSEnemyAttack,MsgCSTrapIn,MsgCSBuy,MsgCSTrapAttack
-from login import LoginServer
-from gameScene import GameScene
+from common import conf
+from network.simpleHost import SimpleHost
+from common.MsgCommon import MsgCSLogin,MsgSCConfirm,MsgCSMoveTo,MsgCSAttack,MsgCSGameReplay,MsgCSEnemyAttack,MsgCSTrapIn,MsgCSBuy,MsgCSTrapAttack
+from database.login import LoginServer
+from database.gameScene import GameScene
 from dispatcher import Dispatcher
-from enemymanager import EnemyManager
-from playermanager import PlayerManager
-from trapmanager import TrapManager
-from router import RouteManager
-from combat import CombatManager
-from economy import EconomySys
+from gameservice.enemymanager import EnemyManager
+from gameservice.playermanager import PlayerManager
+from gameservice.trapmanager import TrapManager
+from gameservice.router import RouteManager
+from gameservice.combat import CombatManager
+from gameservice.economy import EconomySys
 
 class SimpleServer(object):
     def __init__(self):

@@ -1,11 +1,8 @@
 import sys
 
-sys.path.append('./common')
-sys.path.append('./common_server')
-sys.path.append('./database')
-from MsgCommon import MsgSCMoveTo, MsgCSAttack, MsgSCPlayerAttack,MsgSCLoadscene, MsgSCPlayerLogout,MsgCSGameReplay,MsgSCBlood,MsgSCPlayerDie
-import conf
-from math3d import MathAuxiliary
+from common.MsgCommon import MsgSCMoveTo, MsgCSAttack, MsgSCPlayerAttack,MsgSCLoadscene, MsgSCPlayerLogout,MsgCSGameReplay,MsgSCBlood,MsgSCPlayerDie
+from common import conf
+from common.math3d import MathAuxiliary
 from managerbase import ManagerBase
 
 class PlayerManager(ManagerBase):

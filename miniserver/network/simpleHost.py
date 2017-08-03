@@ -10,6 +10,9 @@ class SimpleHost(object):
     def __init__(self, timeout=conf.NET_HOST_DEFAULT_TIMEOUT):
         super(SimpleHost, self).__init__()
 
+        self.db_manager = None
+        self.room_manager = None
+
         self.host = 0
         self.state = conf.NET_STATE_STOP
         self.clients = []

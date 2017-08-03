@@ -1,8 +1,5 @@
 # -*- coding: GBK -*-
 
-import sys
-sys.path.append('./database')
-
 class LoginServer(object):
     def __init__(self):
         super(LoginServer, self).__init__()

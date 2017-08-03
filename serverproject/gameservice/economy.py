@@ -1,10 +1,6 @@
-import sys
-
-sys.path.append('./common')
-
-from MsgCommon import MsgSCMoney
+from common.MsgCommon import MsgSCMoney
 from managerbase import ManagerBase
-import conf
+from common import conf
 
 class EconomySys(ManagerBase):
     def __init__(self,sv):

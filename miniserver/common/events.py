@@ -25,7 +25,6 @@ class MsgCSLogin(SimpleHeader):
 		self.sid = conf.USER_SERVICES
 		self.cmdid = 1
 
-
 class MsgCSLogout(SimpleHeader):
 	def __init__(self, client_id=-1):
 		super(MsgCSLogout, self).__init__(conf.MSG_CS_LOGOUT)

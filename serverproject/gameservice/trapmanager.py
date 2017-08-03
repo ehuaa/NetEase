@@ -4,8 +4,8 @@ sys.path.append('./common')
 sys.path.append('./common_server')
 sys.path.append('./database')
 from managerbase import ManagerBase
-from MsgCommon import MsgSCLoadscene,MsgSCBackpack,MsgSCTrapDie
-import conf
+from common.MsgCommon import MsgSCLoadscene,MsgSCBackpack,MsgSCTrapDie
+from common import conf
 
 class TrapManager(ManagerBase):
     def __init__(self, sv):

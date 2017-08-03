@@ -8,19 +8,21 @@ from common import events
 from common.dispatcher import Dispatcher
 from common.header import Header
 from network.simpleHost import SimpleHost
-
+from Database.DBManager import DBManager
+from Managers.RoomManager import RoomManager
 
 class Server(object):
     def __init__(self, host, port):
         super(Server, self).__init__()
+
         # Start host
         self.host = SimpleHost()
         self.host.startup(host, port)
 
-        # login user dict
-        self.login_user_map = {}
-        # user room map
-        self.user_room_map = {}
+        self.host.db_manager = DBManager(conf.DB_NAME)
+        self.host.room_manager = RoomManager(self.host)
+
+        self.user_services = UserServices(self.host)
 
         # rooms
         self.rooms = []
@@ -34,8 +36,7 @@ class Server(object):
         self.generate_msg_dict()
 
     def register_dispatcher_services(self):
-        self.dispatcher.register(conf.USER_SERVICES, UserServices(self.host, self.login_user_map,
-                                                                  self.rooms, self.user_room_map))
+        self.dispatcher.register(conf.USER_SERVICES, self.user_services)
         # register MatchServices
 
     def generate_msg_dict(self):
@@ -53,10 +54,10 @@ class Server(object):
         self.handle_received_msg()
 
         # update room status
-        for room in self.rooms:
-            if not room:
-                continue
-            room.tick()
+        # ***************************************************
+        # Not implemented let the RoomManager tick()
+        # ****************************************************
+
 
     def handle_received_msg(self):
         try:
@@ -66,6 +67,7 @@ class Server(object):
             if event == conf.NET_CONNECTION_DATA:
                 # read client data
                 msg_type = Header.get_htype_from_raw(data)[0]
+
                 if msg_type in self.msg_dict:
                     msg = self.msg_dict[msg_type]
                     msg.unmarshal(data)
@@ -73,8 +75,11 @@ class Server(object):
                     self.dispatcher.dispatch(msg, client_hid)
                 else:
                     # message not register, let room handle it
-                    if client_hid in self.user_room_map:
-                        self.user_room_map[client_hid].handle_received_msg(msg_type, data, client_hid)
+                    if client_hid in self.user_services.client_hid_to_user_map:
+                        # ***************************************************
+                        # Not implemented let the RoomManager handle it
+                        # ****************************************************
+                        pass
                     else:
                         print "handle received message error: client not in any room"
             elif event == conf.NET_CONNECTION_LEAVE:
@@ -92,7 +97,7 @@ def main():
     server = Server(host, port)
     while True:
         server.tick()
-        time.sleep(0.001)
+        #time.sleep(0.001)
 
 
 if __name__ == '__main__':

@@ -1,13 +1,10 @@
 # -*- coding: GBK -*-
 import sys
 
-sys.path.append('../common')
-sys.path.append('../gameservice')
-
 from actorAttributes import ActorAttributes
 from enemyAttr import EnemyAttributes
 from trapAttr import TrapAttributes
-from MsgCommon import MsgSCLoadscene
+from common.MsgCommon import MsgSCLoadscene
 from mapdata import MapData
 import time
 

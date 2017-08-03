@@ -1,14 +1,9 @@
 import sys
 import time
-
-sys.path.append('./common')
-sys.path.append('./common_server')
-sys.path.append('./database')
-
 from managerbase import ManagerBase
-from MsgCommon import MsgSCGameOver,MsgSSGameOver,MsgSCGameWin
-import conf
-from math3d import MathAuxiliary
+from common.MsgCommon import MsgSCGameOver,MsgSSGameOver,MsgSCGameWin
+from common import conf
+from common.math3d import MathAuxiliary
 
 class CombatManager(ManagerBase):
     def __init__(self, sv):

@@ -1,16 +1,10 @@
-import sys
-import random
-
-sys.path.append('./common')
-sys.path.append('./common_server')
-sys.path.append('./database')
-
 from managerbase import ManagerBase
-from MsgCommon import MsgSCEnemyDie,MsgSCMoveTo,MsgSSGameOver
-from timer import TimerManager
-from datetime import datetime
-import conf
-from math3d import MathAuxiliary
+from common.MsgCommon import MsgSCEnemyDie,MsgSCMoveTo,MsgSSGameOver
+from common_server.timer import TimerManager
+
+from common import conf
+from common.math3d import MathAuxiliary
+import random
 import time
 
 class EnemyManager(ManagerBase):
