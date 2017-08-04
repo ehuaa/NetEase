@@ -4,14 +4,22 @@ import struct
 
 
 class Header(object):
+
+    #<:little-endian
+	#>:big-endian
+	#=:native
+	#B:single byte
+	#H:double byte
+	#I:four bytes
+	#i:int
+
     BYTES_ORDER = '='
-    HTYPE_FMT = 'H'
 
     def __init__(self, htype):
         super(Header, self).__init__()
 
         self.htype = htype
-        self.hfmt = self.BYTES_ORDER + self.HTYPE_FMT
+        self.hfmt = self.BYTES_ORDER + 'H'
 
         # bfmt to be defined in subclass and be updated when recieve new data
         self.bfmt = None
@@ -19,12 +27,6 @@ class Header(object):
 
         self.char_for_len = 'I'
         self.offset = struct.calcsize(self.BYTES_ORDER + self.char_for_len)
-
-    @classmethod
-    def get_htype_from_raw(cls, data):
-        fmt = cls.BYTES_ORDER + cls.HTYPE_FMT
-        size = struct.calcsize(fmt)
-        return struct.unpack(fmt, data[:size])
 
     def getFormat(self, raw):
         x = self.bfmt.count('%')
@@ -60,20 +62,18 @@ class Header(object):
     def unmarshal(self, raw=None):
         if raw is not None:
             self.raw = raw
-        try:
-            i = struct.calcsize(self.hfmt)
-            # need not to unpack self.htype, which is determined by class
-            record = struct.unpack(self.hfmt, self.raw[0:i])
-            if self.htype != record[0]:
-                raise TypeError('type dismatch when unmarshal.expect:%d,actual:%d' % (self.htype, record[0]))
 
-            bfmt = self.BYTES_ORDER + self.getFormat(self.raw[i:])
-            if len(self.raw[i:]) != 0:
-                record = struct.unpack(bfmt, self.raw[i:])
-                self.iunmarshal(record)
-            return self
-        except:
-            print "Unmarshal error!"
+        i = struct.calcsize(self.hfmt)
+        # need not to unpack self.ytype, whitch is determined by class
+        record = struct.unpack(self.hfmt, self.raw[0:i])
+        if self.htype != record[0]:
+            raise TypeError('type dismatch when unmarshal.expect:%d,actual:%d' \
+                            % (self.htype, record[0]))
+
+        bfmt = self.BYTES_ORDER + self.getFormat(self.raw[i:])
+        record = struct.unpack(bfmt, self.raw[i:])
+        self.iunmarshal(record)
+        return self
 
     def iunmarshal(self, data):
         # unpack attrs
@@ -81,12 +81,13 @@ class Header(object):
 
 
 class SimpleHeader(Header):
-    def __init__(self, msg_type):
-        super(SimpleHeader, self).__init__(msg_type)
+    def __init__(self, msgtype):
+        super(SimpleHeader, self).__init__(msgtype)
+
         self.bfmt = ''
         self.params_name = []
 
-    def append_param(self, pname, pvalue, ptype):
+    def appendParam(self, pname, pvalue, ptype):
         # string param should be stored in length+data
         # so we append None pname
         if ptype.strip() == 's':

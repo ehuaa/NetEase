@@ -1,7 +1,11 @@
 # -*- coding: GBK -*-
 
+import sys
+
+sys.path.append('../common')
+
 import time
-from common import conf
+import conf
 import socket
 from netStream import NetStream
 
@@ -9,9 +13,6 @@ from netStream import NetStream
 class SimpleHost(object):
     def __init__(self, timeout=conf.NET_HOST_DEFAULT_TIMEOUT):
         super(SimpleHost, self).__init__()
-
-        self.db_manager = None
-        self.room_manager = None
 
         self.host = 0
         self.state = conf.NET_STATE_STOP
@@ -78,26 +79,25 @@ class SimpleHost(object):
         return
 
     # start listenning
-    def startup(self, host, port):
+    def startup(self, port=0):
         self.shutdown()
 
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         try:
-            self.sock.bind((host, port))
+            self.sock.bind(('0.0.0.0', port))
         except:
             try:
                 self.sock.close()
             except:
-                print "Startup: sock close error"
                 pass  # should logging here
-            print "Startup: bind error"
             return -1
 
         self.sock.listen(conf.MAX_HOST_CLIENTS_INDEX + 1)
         self.sock.setblocking(0)
         self.port = self.sock.getsockname()[1]
         self.state = conf.NET_STATE_ESTABLISHED
+
         return 0
 
     def getClient(self, hid):
@@ -167,6 +167,8 @@ class SimpleHost(object):
         self.count += 1
         self.queue.append((conf.NET_CONNECTION_NEW, hid, repr(client.peername)))
 
+        return
+
     def updateClients(self, current):
         for pos in xrange(len(self.clients)):
             client = self.clients[pos]
@@ -196,6 +198,7 @@ class SimpleHost(object):
         current = time.time()
         if self.state != conf.NET_STATE_ESTABLISHED:
             return 0
+
         self.handleNewClient(current)
         self.updateClients(current)
 

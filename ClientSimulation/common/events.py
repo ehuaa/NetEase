@@ -57,9 +57,9 @@ class MsgCSPlayerMove(SimpleHeader):
 	def __init__(self, pid=-1, px=0, py=0, pz=0, rx=0.0, ry=0.0, rz=0.0):
 		super(MsgCSPlayerMove, self).__init__(conf.MSG_CS_PLAYER_MOVE)
 		self.append_param('id', pid, 'i')
-		self.append_param('px', px, 'i')
-		self.append_param('py', py, 'i')
-		self.append_param('pz', pz, 'i')
+		self.append_param('px', px, 'f')
+		self.append_param('py', py, 'f')
+		self.append_param('pz', pz, 'f')
 		self.append_param('rx', rx, 'f')
 		self.append_param('ry', ry, 'f')
 		self.append_param('rz', rz, 'f')

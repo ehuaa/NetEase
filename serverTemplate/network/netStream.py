@@ -7,7 +7,11 @@
 #
 # =========================================================================
 
-from common import conf
+import sys
+
+sys.path.append('../common')
+
+import conf
 import errno
 import socket
 import struct
@@ -96,9 +100,9 @@ class NetStream(object):
         return 0
 
     def __tryConnect(self):
-        if self.state == conf.NET_STATE_ESTABLISHED:
+        if (self.state == conf.NET_STATE_ESTABLISHED):
             return 1
-        if self.state != conf.NET_STATE_CONNECTING:
+        if (self.state != conf.NET_STATE_CONNECTING):
             return -1
         try:
             self.sock.recv(0)
@@ -153,12 +157,11 @@ class NetStream(object):
     # recv an entire message from recv_buf
     def recv(self):
         rsize = self.__peekRaw(conf.NET_HEAD_LENGTH_SIZE)
-        if len(rsize) < conf.NET_HEAD_LENGTH_SIZE:
+        if (len(rsize) < conf.NET_HEAD_LENGTH_SIZE):
             return ''
 
         size = struct.unpack(conf.NET_HEAD_LENGTH_FORMAT, rsize)[0]
-
-        if len(self.recv_buf) < size:
+        if (len(self.recv_buf) < size):
             return ''
 
         self.__recvRaw(conf.NET_HEAD_LENGTH_SIZE)
