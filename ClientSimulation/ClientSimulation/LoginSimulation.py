@@ -1,5 +1,5 @@
 from common import conf
-from common.events import MsgCSLogin,MsgCSPlayerMove
+from common.events import MsgCSLogin,MsgCSPlayerMove,MsgSCRoommateAdd,MsgSCRoommateDel
 from network.netStream import NetStream
 from common.header import Header
 import time
@@ -16,7 +16,7 @@ if __name__=="__main__":
     playerborn = False
 
     while(1):
-        time.sleep(0.2)
+        time.sleep(0.3)
         sock.process()
         if sock.status() == conf.NET_STATE_ESTABLISHED:
             if confirm == False:
@@ -31,6 +31,14 @@ if __name__=="__main__":
                 elif msg_type == conf.MSG_SC_START_GAME:
                     gamestarted = True
                     print "Game Started"
+                elif msg_type == conf.MSG_SC_ROOMMATE_ADD:
+                    msg = MsgSCRoommateAdd("")
+                    msg.unmarshal(data)
+                    print msg.username
+                elif msg_type == conf.MSG_SC_ROOMMATE_DEL:
+                    msg = MsgSCRoommateAdd("")
+                    msg.unmarshal(data)
+                    print msg.username
                 elif msg_type == conf.MSG_SC_PLAYER_BORN:
                     playerborn = True
                     print "Player Born"

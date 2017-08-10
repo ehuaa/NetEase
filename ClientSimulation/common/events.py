@@ -2,6 +2,19 @@
 import conf
 from header import SimpleHeader
 
+class MsgCSMatchRequest(SimpleHeader):
+	def __init__(self):
+		super(MsgCSMatchRequest, self).__init__(conf.MSG_CS_MATCH_REQUEST)
+
+class MsgSCRoommateAdd(SimpleHeader):
+	def __init__(self,username):
+		super(MsgSCRoommateAdd, self).__init__(conf.MSG_SC_ROOMMATE_ADD)
+		self.append_param("username", username, 's')
+
+class MsgSCRoommateDel(SimpleHeader):
+	def __init__(self,username):
+		super(MsgSCRoommateDel, self).__init__(conf.MSG_SC_ROOMMATE_DEL)
+		self.append_param("username", username, 's')
 
 class MsgSCLoginResult(SimpleHeader):
 	def __init__(self, ok=0, message=''):
@@ -37,14 +50,12 @@ class MsgSCStartGame(SimpleHeader):
 		super(MsgSCStartGame, self).__init__(conf.MSG_SC_START_GAME)
 
 class MsgSCPlayerBorn(SimpleHeader):
-	def __init__(self, pid, ptype, name, health, skill_level, trap_level, px, py, pz, rx, ry, rz):
+	def __init__(self, pid, ptype, name, health, px, py, pz, rx, ry, rz):
 		super(MsgSCPlayerBorn, self).__init__(conf.MSG_SC_PLAYER_BORN)
 		self.append_param('id', pid, 'i')
 		self.append_param('ptype', ptype, 'i')  # ptype: 0->myself, 1->others
 		self.append_param('name', name, 's')
 		self.append_param('health', health, 'i')
-		self.append_param('skill_level', skill_level, 'i')
-		self.append_param('trap_level', trap_level, 'i')
 		self.append_param('px', px, 'f')
 		self.append_param('py', py, 'f')
 		self.append_param('pz', pz, 'f')

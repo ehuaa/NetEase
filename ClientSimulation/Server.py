@@ -1,7 +1,4 @@
 # -*- coding: GBK -*-
-
-import time
-
 from Services.UserServices import UserServices
 from common import conf
 from common import events
@@ -19,10 +16,10 @@ class Server(object):
         self.host = SimpleHost()
         self.host.startup(host, port)
 
-        self.host.db_manager = DBManager(conf.DB_NAME)
-        self.host.room_manager = RoomManager(self.host)
+        self.db_manager = DBManager(conf.DB_NAME)
+        self.room_manager = RoomManager(self.host)
 
-        self.user_services = UserServices(self.host)
+        self.user_services = UserServices(self.host, self.db_manager, self.room_manager)
 
         # rooms
         self.rooms = []
@@ -53,10 +50,8 @@ class Server(object):
         # handle received message
         self.handle_received_msg()
 
-        # update room status
-        # ***************************************************
-        # Not implemented let the RoomManager tick()
-        # ****************************************************
+        self.room_manager.tick()
+
 
 
     def handle_received_msg(self):
@@ -76,10 +71,7 @@ class Server(object):
                 else:
                     # message not register, let room handle it
                     if client_hid in self.user_services.client_hid_to_user_map:
-                        # ***************************************************
-                        # Not implemented let the RoomManager handle it
-                        # ****************************************************
-                        pass
+                        self.host.room_manager.handle_received_msg(msg_type, data, client_hid)
                     else:
                         print "handle received message error: client not in any room"
             elif event == conf.NET_CONNECTION_LEAVE:

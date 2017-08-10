@@ -7,7 +7,7 @@ class Player(object):
         self.name = name
         self.is_leave_scene = False
 
-        self.speed = player_conf.speed
+        self.speed = player_conf['move_speed']
 
         # basic properties
         self.health = 100
@@ -17,8 +17,7 @@ class Player(object):
         self.rotation = rotation
 
     def generate_born_msg(self, send_to_others):
-        return MsgSCPlayerBorn(self.client_hid, send_to_others, self.name, self.position[0], self.position[1], self.position[2],
-                             self.rotation[0], self.rotation[1], self.rotation[2])
+        return MsgSCPlayerBorn(self.client_hid, send_to_others, self.name,self.health, self.position[0], self.position[1], self.position[2],self.rotation[0],self.rotation[1], self.rotation[2])
 
     def set_leave_scene(self):
         self.is_leave_scene = True

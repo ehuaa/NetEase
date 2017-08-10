@@ -5,12 +5,15 @@ from common.events import MsgSCLoginResult
 
 
 class UserServices(Service):
-    def __init__(self, host, sid=conf.USER_SERVICES):
+    def __init__(self, host, db_manager, room_manager,sid=conf.USER_SERVICES):
         super(UserServices, self).__init__(sid)
         self.host = host
 
         self.client_hid_to_user_map = {}
         self.username_to_user_map = {}
+
+        self.db_manager = db_manager
+        self.room_manager = room_manager
 
         commands = {
             0: self.register,
@@ -54,7 +57,7 @@ class UserServices(Service):
         self.username_to_user_map[username] = user
         self.client_hid_to_user_map[client_hid] = user
 
-        self.host.room_manager.add_user(user)
+        self.room_manager.add_user(user)
 
     def logout(self, client_hid):
         if client_hid not in self.client_hid_to_user_map:
@@ -68,9 +71,8 @@ class UserServices(Service):
         del self.username_to_user_map[self.client_hid_to_user_map[client_hid].username]
         del self.client_hid_to_user_map[client_hid]
 
-
     def add_user_to_database(self, username, password):
-        return self.host.db_manager.add_user_info(username, password)
+        return self.db_manager.user_db.add_user_info(username, password)
 
     def user_authentication(self, username, password):
-        return self.host.db_manager.user_authentication(username, password)
+        return self.db_manager.user_db.user_authentication(username, password)
